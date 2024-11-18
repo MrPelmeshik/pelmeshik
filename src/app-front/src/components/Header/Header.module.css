@@ -1,0 +1,8 @@
+.body {
+    display: flex;
+    flex: 1;
+
+    border-bottom: var(--control-border-width) solid var(--color-control-bg-border-default);
+
+    background-color: var(--color-bg-default);
+}

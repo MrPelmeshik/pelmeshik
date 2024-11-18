@@ -1,0 +1,63 @@
+services:
+
+  app-front:
+    container_name: app-front
+    build:
+      context: ./src/app-front/
+      dockerfile: ./dockerfile
+    depends_on:
+      - app-api
+    ports:
+      - "1337:80"
+
+  app-api:
+    container_name: app-api
+    hostname: app-api
+    build:
+      context: ./src/app-api
+      dockerfile: ./dockerfile
+    depends_on:
+      - postgres
+      - clickhouse
+    ports:
+      - "5000:8080"
+    env_file:
+      - .env
+
+  postgres:
+    build:
+      context: ./docker/postgres
+      dockerfile: ./dockerfile
+    restart: always
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-pg-data:/var/lib/postgresql/data
+    env_file:
+      - ./docker/postgres/env
+    command: ['postgres', '-c', 'wal_level=logical']
+    healthcheck:
+      test: psql -U postgres -c 'SELECT 1'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  clickhouse:
+    build:
+      context: ./docker/clickhouse
+      dockerfile: ./dockerfile
+    container_name: clickhouse
+    hostname: clickhouse
+    ports:
+      - "8123:8123"
+    env_file:
+      - ./docker/clickhouse/env
+    volumes:
+      - db-ch-data:/var/lib/clickhouse
+      - ./docker/clickhouse/users.xml:/etc/clickhouse-server/users.d/users.xml
+
+volumes:
+    db-pg-data:
+    db-ch-data:

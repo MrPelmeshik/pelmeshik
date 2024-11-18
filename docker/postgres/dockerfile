@@ -1,0 +1,4 @@
+FROM postgres:latest
+
+# Копируем SQL файлы внутрь образа
+COPY ./scripts/init/* /docker-entrypoint-initdb.d

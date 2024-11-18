@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppApi", "AppApi\AppApi.csproj", "{43AB8977-A202-4399-BFC7-1DD84ECA8D46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finance", "Finance\Finance.csproj", "{ECC1E76D-C2DF-4595-9D36-10A09EC0835D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{632F6E11-2C0F-4BA4-AA59-5B9D276BB8EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43AB8977-A202-4399-BFC7-1DD84ECA8D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43AB8977-A202-4399-BFC7-1DD84ECA8D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43AB8977-A202-4399-BFC7-1DD84ECA8D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43AB8977-A202-4399-BFC7-1DD84ECA8D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECC1E76D-C2DF-4595-9D36-10A09EC0835D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECC1E76D-C2DF-4595-9D36-10A09EC0835D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECC1E76D-C2DF-4595-9D36-10A09EC0835D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECC1E76D-C2DF-4595-9D36-10A09EC0835D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{632F6E11-2C0F-4BA4-AA59-5B9D276BB8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{632F6E11-2C0F-4BA4-AA59-5B9D276BB8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{632F6E11-2C0F-4BA4-AA59-5B9D276BB8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{632F6E11-2C0F-4BA4-AA59-5B9D276BB8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
