@@ -1,0 +1,25 @@
+.body {
+    position: relative;
+
+    overflow: hidden;
+    width: 100%;
+}
+
+.tableSettings {
+    width: 100%;
+
+    border-bottom: var(--control-border-width) solid var(--color-control-bg-border-default);
+}
+
+.overflowWidow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+    z-index: 12; /* Границы таблтцы вычисляются как z-index заголовка + 10. На момент реализации z-index заголовка = 1 */
+
+    background-color: var(--color-bg-ghost);
+}

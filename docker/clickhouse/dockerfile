@@ -1,0 +1,5 @@
+# FROM yandex/clickhouse-server
+FROM clickhouse/clickhouse-server:head
+
+# Копируем SQL файлы внутрь образа
+COPY ./scripts/init/* /docker-entrypoint-initdb.d

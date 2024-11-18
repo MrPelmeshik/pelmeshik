@@ -1,0 +1,13 @@
+<yandex>
+    <users>
+        <ch-god-pelmesh>
+            <password from_env="CH_PWD_PG_GOD_PELMESH"></password>
+            <networks incl="networks" replace="replace">
+                <ip>::/0</ip>
+            </networks>
+            <profile>default</profile>
+            <quota>default</quota>
+            <access_management>1</access_management>
+        </ch-god-pelmesh>
+    </users>
+</yandex>
