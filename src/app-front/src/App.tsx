@@ -27,9 +27,7 @@ export const App = () => {
             <GridItem className={css.main}
                       col={8}
             >
-                <div className={css.mainBlock}>
-                    {mainBlock}
-                </div>
+                {mainBlock}
             </GridItem>
             <GridItem className={css.footer}
                       col={10}
