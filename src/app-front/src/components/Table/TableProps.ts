@@ -2,7 +2,7 @@ import {TableColumn} from "@consta/table/Table";
 import {TableType} from "../../types/TableType";
 import {CatalogTypeEnum} from "../_catalogs/CatalogTypeEnum";
 
-export interface BaseTableProps<T> {
+export interface TableProps<T> {
     catalogType: CatalogTypeEnum;
-    colDef: TableColumn<TableType<T>>[];
+    colDefs: TableColumn<TableType<T>>[];
 }

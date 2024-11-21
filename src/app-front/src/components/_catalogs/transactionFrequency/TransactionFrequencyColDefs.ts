@@ -1,12 +1,11 @@
+import {TableColumn} from "@consta/table/Table";
 import {TableType} from "../../../types/TableType";
-import {ITag} from "./ITag";
-import {TableColumn} from '@consta/table/Table';
-import {RenderColorCell} from "../../_utility/_table/_cellRenderer/RenderColorCell";
+import {ITransactionFrequency} from "./ITransactionFrequency";
 import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
 
-export const TagColDef: TableColumn<TableType<ITag>>[] = [
+export const TransactionFrequencyColDefs: TableColumn<TableType<ITransactionFrequency>>[] = [
     {
         title: 'ID',
         accessor: 'id',
@@ -16,15 +15,15 @@ export const TagColDef: TableColumn<TableType<ITag>>[] = [
     {
         title: 'Название',
         accessor: 'name',
-        width: '2fr',
+        width: '1fr',
         renderHeaderCell: RenderDefaultHeader,
         renderCell: (props) => RenderDefaultCell(props.row.name),
     },
     {
-        title: 'Цвет',
-        accessor: 'color',
+        title: 'Полное название',
+        accessor: 'fullName',
         width: '1fr',
         renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderColorCell(props.row.color),
+        renderCell: (props) => RenderDefaultCell(props.row.fullName),
     },
 ];

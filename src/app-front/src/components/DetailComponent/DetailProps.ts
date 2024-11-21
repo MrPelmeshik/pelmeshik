@@ -1,8 +1,8 @@
 import {TableType} from "../../types/TableType";
 import {TableColumn} from "@consta/table/Table";
 
-export interface BaseDetailProps<T> {
+export interface DetailProps<T> {
     close: () => void;
     item: TableType<T>;
-    colDef: TableColumn<TableType<T>>[];
+    colDefs: TableColumn<TableType<T>>[];
 }

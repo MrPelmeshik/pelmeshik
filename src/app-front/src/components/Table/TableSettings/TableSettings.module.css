@@ -4,11 +4,11 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: .6rem;
+    padding: .8rem;
 
     flex-direction: row;
     flex-wrap: nowrap;
-    column-gap: .6rem;
+    column-gap: .4rem;
 }
 
 .leftSide {
@@ -18,7 +18,7 @@
 
     flex-direction: row;
     flex-wrap: nowrap;
-    column-gap: .6rem;
+    column-gap: .4rem;
 }
 
 .rightSide {
@@ -29,5 +29,5 @@
 
     flex-direction: row;
     flex-wrap: nowrap;
-    column-gap: .6rem;
+    column-gap: .4rem;
 }

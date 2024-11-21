@@ -1,12 +1,12 @@
-import {TableColumn} from "@consta/table/Table";
 import {TableType} from "../../../types/TableType";
-import {ICategory} from "./ICategory";
+import {ITag} from "./ITag";
+import {TableColumn} from '@consta/table/Table';
 import {RenderColorCell} from "../../_utility/_table/_cellRenderer/RenderColorCell";
 import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
 
-export const CategoryColDef: TableColumn<TableType<ICategory>>[] = [
+export const TagColDefs: TableColumn<TableType<ITag>>[] = [
     {
         title: 'ID',
         accessor: 'id',

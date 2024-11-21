@@ -1,31 +1,37 @@
 import {TableColumn} from "@consta/table/Table";
 import {TableType} from "../../../types/TableType";
-import {IAgent} from "./IAgent";
-import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
-import {RenderBooleanCell} from "../../_utility/_table/_cellRenderer/RenderBooleanCell";
-import { HeaderDataCell } from '@consta/table/HeaderDataCell';
+import {ICard} from "./ICard";
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
 
-export const AgentColDef: TableColumn<TableType<IAgent>>[] = [
+
+export const CardColDefs: TableColumn<TableType<ICard>>[] = [
     {
         title: 'ID',
         accessor: 'id',
+        width: 'auto',
         renderHeaderCell: RenderDefaultHeader,
         renderCell: (props) => RenderDefaultCell(props.row.id),
     },
     {
         title: 'Название',
         accessor: 'name',
-        width: '2fr',
+        width: 'auto',
         renderHeaderCell: RenderDefaultHeader,
         renderCell: (props) => RenderDefaultCell(props.row.name),
     },
     {
-        title: 'Физ. лицо',
-        accessor: 'isPerson',
-        width: '1fr',
+        title: 'Короткое название',
+        accessor: 'shortName',
+        width: 'auto',
         renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderBooleanCell(props.row.isPerson)
+        renderCell: (props) => RenderDefaultCell(props.row.shortName),
+    },
+    {
+        title: 'Полное название',
+        accessor: 'fullName',
+        width: 'auto',
+        renderHeaderCell: RenderDefaultHeader,
+        renderCell: (props) => RenderDefaultCell(props.row.fullName),
     },
 ];
