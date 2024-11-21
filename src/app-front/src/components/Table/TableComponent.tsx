@@ -73,12 +73,12 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
 
     return <div className={css.body}>
         {detail}
+        {tableOverflowWidow}
         <div className={css.main}>
             <div className={css.tableSettings}>
                 <TableSettingsComponent />
             </div>
             <div className={css.tableMain}>
-                {tableOverflowWidow}
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
                        columns={props.colDefs}
                        stickyHeader

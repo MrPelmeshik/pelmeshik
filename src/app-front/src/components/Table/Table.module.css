@@ -6,6 +6,12 @@
 
     position: relative;
     overflow: hidden;
+
+    margin: 1rem;
+    border-radius: .4rem;
+
+    border: var(--control-border-width) solid var(--color-control-bg-border-default);
+    background-color: var(--color-bg-default);
 }
 
 .main {
