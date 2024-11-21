@@ -1,11 +1,13 @@
 import {TableColumn} from "@consta/table/Table";
 import {TableType} from "../../../types/TableType";
-import {ITransactionFrequency} from "./ITransactionFrequency";
+import {IAgent} from "./IAgent";
 import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
+import {RenderBooleanCell} from "../../_utility/_table/_cellRenderer/RenderBooleanCell";
+import { HeaderDataCell } from '@consta/table/HeaderDataCell';
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
 
-export const TransactionFrequencyColDef: TableColumn<TableType<ITransactionFrequency>>[] = [
+export const AgentColDefs: TableColumn<TableType<IAgent>>[] = [
     {
         title: 'ID',
         accessor: 'id',
@@ -15,15 +17,15 @@ export const TransactionFrequencyColDef: TableColumn<TableType<ITransactionFrequ
     {
         title: 'Название',
         accessor: 'name',
-        width: '1fr',
+        width: '2fr',
         renderHeaderCell: RenderDefaultHeader,
         renderCell: (props) => RenderDefaultCell(props.row.name),
     },
     {
-        title: 'Полное название',
-        accessor: 'fullName',
+        title: 'Физ. лицо',
+        accessor: 'isPerson',
         width: '1fr',
         renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.fullName),
+        renderCell: (props) => RenderBooleanCell(props.row.isPerson)
     },
 ];

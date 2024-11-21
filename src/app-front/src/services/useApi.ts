@@ -13,8 +13,6 @@ export const useApi = <T>(endpoint: string, area: AreaEnum, requestType: Request
         controllerRef.current.abort();
     };
 
-
-
     useEffect(() => {
         (async () => {
             try {

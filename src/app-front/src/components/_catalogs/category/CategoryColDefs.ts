@@ -1,37 +1,30 @@
 import {TableColumn} from "@consta/table/Table";
 import {TableType} from "../../../types/TableType";
-import {ICard} from "./ICard";
+import {ICategory} from "./ICategory";
+import {RenderColorCell} from "../../_utility/_table/_cellRenderer/RenderColorCell";
+import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
 
-
-export const CardColDef: TableColumn<TableType<ICard>>[] = [
+export const CategoryColDefs: TableColumn<TableType<ICategory>>[] = [
     {
         title: 'ID',
         accessor: 'id',
-        width: 'auto',
         renderHeaderCell: RenderDefaultHeader,
         renderCell: (props) => RenderDefaultCell(props.row.id),
     },
     {
         title: 'Название',
         accessor: 'name',
-        width: 'auto',
+        width: '2fr',
         renderHeaderCell: RenderDefaultHeader,
         renderCell: (props) => RenderDefaultCell(props.row.name),
     },
     {
-        title: 'Короткое название',
-        accessor: 'shortName',
-        width: 'auto',
+        title: 'Цвет',
+        accessor: 'color',
+        width: '1fr',
         renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.shortName),
-    },
-    {
-        title: 'Полное название',
-        accessor: 'fullName',
-        width: 'auto',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.fullName),
+        renderCell: (props) => RenderColorCell(props.row.color),
     },
 ];

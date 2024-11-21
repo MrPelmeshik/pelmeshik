@@ -1,20 +1,18 @@
-import {BaseTableProps} from "./BaseTableProps";
+import {TableProps} from "./TableProps";
 import React, {useEffect, useState} from "react";
-import css from './BaseTable.module.css';
+import css from './Table.module.css';
 import {TableType} from "../../types/TableType";
 import {Loader} from '@consta/uikit/Loader';
 import {Text} from "@consta/uikit/Text";
 import {Table} from "@consta/table/Table";
 import {useApi} from "../../services/useApi";
 import {RequestTypeEnum} from "../../types/RequestTypeEnum";
-import {BaseTableSettingsComponent} from "../BaseTableSettings/BaseTableSettingsComponent";
 import {AreaEnum} from "../../types/AreaEnum";
-import {Modal} from "@consta/uikit/Modal";
-import {TestBlockComponent} from "../TestBlock/TestBlockComponent";
-import {BaseDetailComponent} from "../BaseDetailComponent/BaseDetailComponent";
+import {DetailComponent} from "../DetailComponent/DetailComponent";
+import {TableSettingsComponent} from "./TableSettings/TableSettingsComponent";
 
 
-export const BaseTableComponent = <T, >(props: BaseTableProps<T>): JSX.Element => {
+export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
     const apiResponse = useApi<T[]>(
         `${props.catalogType}/getItems`,
         AreaEnum.FINANCE, // todo: Надо будет добавить опредеение в зависимости от типа каталога
@@ -32,7 +30,10 @@ export const BaseTableComponent = <T, >(props: BaseTableProps<T>): JSX.Element =
 
     useEffect(() => {
         setDetail(activeItem !== null
-            ? <BaseDetailComponent close={closeDetail} item={activeItem} colDef={props.colDef} />
+            ? <DetailComponent close={closeDetail}
+                               item={activeItem}
+                               colDefs={props.colDefs}
+            />
             : null);
     }, [activeItem]);
 
@@ -59,7 +60,7 @@ export const BaseTableComponent = <T, >(props: BaseTableProps<T>): JSX.Element =
             setTableTableOverflowWidow(
                 <div className={css.overflowWidow}
                      style={{
-                         visibility: !!detail ? 'hidden' : 'visible',
+                         // visibility: !!detail ? 'hidden' : 'visible',
                      }}
                 >
                     {body}
@@ -72,17 +73,21 @@ export const BaseTableComponent = <T, >(props: BaseTableProps<T>): JSX.Element =
 
     return <div className={css.body}>
         {detail}
-        {tableOverflowWidow}
-        <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
-               columns={props.colDef}
-               stickyHeader
-               zebraStriped
-               resizable={'outside'}
-               virtualScroll={!!apiResponse.data && apiResponse.data.length > 0}
-               onRowClick={(item) => setActiveItem(item)}
-               style={{
-                   visibility: !!detail ? 'hidden' : 'visible',
-               }}
-        />
+        <div className={css.main}>
+            <div className={css.tableSettings}>
+                <TableSettingsComponent />
+            </div>
+            <div className={css.tableMain}>
+                {tableOverflowWidow}
+                <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
+                       columns={props.colDefs}
+                       stickyHeader
+                       zebraStriped
+                       resizable={'outside'}
+                       virtualScroll={!!apiResponse.data && apiResponse.data.length > 0}
+                       onRowClick={(item) => setActiveItem(item)}
+                />
+            </div>
+        </div>
     </div>
 }

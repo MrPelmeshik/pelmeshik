@@ -4,18 +4,18 @@ import {List, ListBox} from "@consta/uikit/ListCanary";
 import {useVirtualScroll} from '@consta/uikit/useVirtualScroll';
 import {TestBlockComponent} from "../TestBlock/TestBlockComponent";
 import {CatalogTypeEnum} from "../_catalogs/CatalogTypeEnum";
-import {BaseTableComponent} from "../BaseTable/BaseTableComponent";
-import {CardColDef} from "../_catalogs/card/CardColDef";
-import {AgentColDef} from "../_catalogs/agent/AgentColDef";
-import {TransactionFrequencyColDef} from "../_catalogs/transactionFrequency/TransactionFrequencyColDef";
-import {TagColDef} from "../_catalogs/tag/TagColDef";
-import {CategoryColDef} from "../_catalogs/category/CategoryColDef";
+import {TableComponent} from "../Table/TableComponent";
+import {CardColDefs} from "../_catalogs/card/CardColDefs";
+import {AgentColDefs} from "../_catalogs/agent/AgentColDefs";
+import {TransactionFrequencyColDefs} from "../_catalogs/transactionFrequency/TransactionFrequencyColDefs";
+import {TagColDefs} from "../_catalogs/tag/TagColDefs";
+import {CategoryColDefs} from "../_catalogs/category/CategoryColDefs";
 
 export const MenuComponent = (props: MenuProps): JSX.Element => {
     type Item = {
-        label: string;
         id: number;
         groupId: number;
+        label: string;
         element: JSX.Element;
         disabled?: boolean;
     };
@@ -46,45 +46,45 @@ export const MenuComponent = (props: MenuProps): JSX.Element => {
             label: 'Карты',
             id: 1,
             groupId: 1,
-            element: <BaseTableComponent key={CatalogTypeEnum.CARD}
-                                         catalogType={CatalogTypeEnum.CARD}
-                                         colDef={CardColDef}
+            element: <TableComponent key={CatalogTypeEnum.CARD}
+                                     catalogType={CatalogTypeEnum.CARD}
+                                     colDefs={CardColDefs}
             />,
         },
         {
             label: 'Агенты',
             id: 2,
             groupId: 1,
-            element: <BaseTableComponent key={CatalogTypeEnum.AGENT}
-                                         catalogType={CatalogTypeEnum.AGENT}
-                                         colDef={AgentColDef}
+            element: <TableComponent key={CatalogTypeEnum.AGENT}
+                                     catalogType={CatalogTypeEnum.AGENT}
+                                     colDefs={AgentColDefs}
             />,
         },
         {
             label: 'Категории',
             id: 3,
             groupId: 1,
-            element: <BaseTableComponent key={CatalogTypeEnum.CATEGORY}
-                                         catalogType={CatalogTypeEnum.CATEGORY}
-                                         colDef={CategoryColDef}
+            element: <TableComponent key={CatalogTypeEnum.CATEGORY}
+                                     catalogType={CatalogTypeEnum.CATEGORY}
+                                     colDefs={CategoryColDefs}
             />,
         },
         {
             label: 'Теги',
             id: 4,
             groupId: 1,
-            element: <BaseTableComponent key={CatalogTypeEnum.TAG}
-                                         catalogType={CatalogTypeEnum.TAG}
-                                         colDef={TagColDef}
+            element: <TableComponent key={CatalogTypeEnum.TAG}
+                                     catalogType={CatalogTypeEnum.TAG}
+                                     colDefs={TagColDefs}
             />,
         },
         {
             label: 'Периодичность транзакций',
             id: 5,
             groupId: 1,
-            element: <BaseTableComponent key={CatalogTypeEnum.TRANSACTION_FREQUENCY}
-                                         catalogType={CatalogTypeEnum.TRANSACTION_FREQUENCY}
-                                         colDef={TransactionFrequencyColDef}
+            element: <TableComponent key={CatalogTypeEnum.TRANSACTION_FREQUENCY}
+                                     catalogType={CatalogTypeEnum.TRANSACTION_FREQUENCY}
+                                     colDefs={TransactionFrequencyColDefs}
             />,
         },
         {
@@ -111,9 +111,9 @@ export const MenuComponent = (props: MenuProps): JSX.Element => {
             label: 'Тест 2',
             id: 8,
             groupId: 1,
-            element: <BaseTableComponent key={CatalogTypeEnum.ERROR_ENDPOINT}
-                                         catalogType={CatalogTypeEnum.ERROR_ENDPOINT}
-                                         colDef={TagColDef}
+            element: <TableComponent key={CatalogTypeEnum.ERROR_ENDPOINT}
+                                     catalogType={CatalogTypeEnum.ERROR_ENDPOINT}
+                                     colDefs={TagColDefs}
             />,
         },
     ];

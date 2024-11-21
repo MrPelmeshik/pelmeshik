@@ -37,23 +37,5 @@ export const App = () => {
                 <Footer />
             </GridItem>
         </Grid>
-        {/*<Layout direction={'column'}
-                className={css.mainBlock}
-        >
-            <Layout direction={'row'}
-                    flex={1}>
-                header
-            </Layout>
-            <Layout direction={'row'}
-                    flex={10}
-            >
-                <Layout flex={1}>
-                    <MenuComponent />
-                </Layout>
-                <Layout flex={4}>
-                    <CardCatalog />
-                </Layout>
-            </Layout>
-        </Layout>*/}
     </Theme>
 }
