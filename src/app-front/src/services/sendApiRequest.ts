@@ -23,7 +23,7 @@ export const sendApiRequest = async (endpoint: string,
             'Referrer-Policy': 'origin-when-cross-origin',
         },
         signal: controllerRef?.current.signal,
-        data: params,
+        params: params,
         method: requestType,
         url: `${serverUrl}${areaStr}/${endpoint}`,
     });
