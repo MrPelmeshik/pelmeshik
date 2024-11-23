@@ -13,7 +13,7 @@ export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.El
                   weight={'bold'}
                   view={'secondary'}
             >
-                Test
+                {props.title}
             </Text>
         </div>
         <div className={css.rightSide}>
