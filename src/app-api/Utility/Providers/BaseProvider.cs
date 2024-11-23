@@ -16,11 +16,11 @@ public abstract class BaseProvider<T>(
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    public async Task<T> GetItem(int id)
+    public async Task<T?> GetItem(int id)
     {
         var query = sqlProvider.GetSelectByKeyQuery();
         using var conn = connectionProvider.GetDefaultConnection();
-        return await conn.QueryFirstAsync<T>(query, new { id });
+        return await conn.QueryFirstOrDefaultAsync<T>(query, new { id });
     }
 
     /// <summary>
