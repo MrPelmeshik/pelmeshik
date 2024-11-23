@@ -86,7 +86,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
                        columns={props.colDefs}
                        stickyHeader
                        zebraStriped
-                       resizable={'outside'}
+                       resizable={'inside'}
                        virtualScroll={!!apiResponse.data && apiResponse.data.length > 0}
                        onRowClick={(item) => setActiveItem(item)}
                 />
