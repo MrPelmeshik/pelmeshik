@@ -4,6 +4,7 @@ import {Text} from "@consta/uikit/Text";
 import {Tag} from "@consta/uikit/Tag";
 import {Button} from "@consta/uikit/Button";
 import {IconAdd} from "@consta/icons/IconAdd";
+import {Badge} from "@consta/uikit/Badge";
 
 export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.Element => {
     return <div className={css.body}>
@@ -16,13 +17,16 @@ export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.El
             </Text>
         </div>
         <div className={css.rightSide}>
-            {/*<Text size={'m'}>
-                test:
+            {/*<Badge size={'xs'}
+                   view={'stroked'}
+                   status={'system'}
+                   label={'Кол-во записей с ошибками:'}
+            />
                 <Tag label={'0'}
                      size={'s'}
                      mode={'info'}
-                />
-            </Text>*/}
+                     style={{marginLeft: '.2rem'}}
+                />*/}
             <Button size={'s'}
                     view={'ghost'}
                     iconLeft={IconAdd}
