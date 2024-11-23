@@ -15,7 +15,7 @@ public abstract class BaseController<T>(
     /// Получить элемент по идентификатору
     /// </summary>
     [HttpGet, AppApiEvent($"Получение элемента по идентификатору")]
-    public async Task<T> GetItem(int id) => await provider.GetItem(id);
+    public async Task<T?> GetItem(int id) => await provider.GetItem(id);
 
     /// <summary>
     /// Получить элементы
