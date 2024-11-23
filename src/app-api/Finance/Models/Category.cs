@@ -1,17 +1,11 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Utility.Interfaces;
 using Utility.Models;
 
 namespace Finance.Models;
 
 [Table("category", Schema = "finance")]
-public class Category : IItemId
+public class Category : BaseItemId
 {
-    [Key]
-    [Column("id")]
-    public int Id { get; set; }
-
     [Column("name")]
     public string Name { get; set; }
     

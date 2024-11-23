@@ -1,6 +1,5 @@
 using Finance.Models;
 using Microsoft.AspNetCore.Mvc;
-using Utility;
 using Utility.Providers;
 
 namespace AppApi.Controllers.Finance;
