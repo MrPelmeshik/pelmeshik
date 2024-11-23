@@ -1,7 +1,4 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Utility.Interfaces;
-using Utility.Models;
 
 namespace Finance.Models;
 

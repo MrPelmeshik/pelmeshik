@@ -1,19 +1,11 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using Utility;
-using Utility.Interfaces;
 using Utility.Models;
 
 namespace Finance.Models;
 
 [Table("transaction", Schema = "finance")]
-public class Transaction : IItemId
+public class Transaction : BaseItemId
 {
-    [Key]
-    [Column("id")]
-    public int Id { get; set; }
-    
     [Column("short_description")]
     public string ShortDescription { get; set; }
     
