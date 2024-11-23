@@ -8,8 +8,9 @@ import {Table} from "@consta/table/Table";
 import {useApi} from "../../services/useApi";
 import {RequestTypeEnum} from "../../types/RequestTypeEnum";
 import {AreaEnum} from "../../types/AreaEnum";
-import {DetailComponent} from "../DetailComponent/DetailComponent";
+import {DetailComponent} from "./Details/DetailComponent";
 import {TableSettingsComponent} from "./TableSettings/TableSettingsComponent";
+import {isNumber} from "node:util";
 
 
 export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
@@ -31,7 +32,9 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
     useEffect(() => {
         setDetail(activeItem !== null
             ? <DetailComponent close={closeDetail}
-                               item={activeItem}
+                               id={activeItem.id}
+                               area={AreaEnum.FINANCE} // todo: Надо будет добавить опредеение в зависимости от типа каталога
+                               catalogType={props.catalogType}
                                colDefs={props.colDefs}
             />
             : null);
