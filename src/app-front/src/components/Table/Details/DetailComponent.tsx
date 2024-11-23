@@ -10,6 +10,7 @@ import {useApi} from "../../../services/useApi";
 import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
 import React, {useEffect, useState} from "react";
 import {Loader} from "@consta/uikit/Loader";
+import {Tag} from "@consta/uikit/Tag";
 
 export const DetailComponent = <T,>(props: DetailProps<T>): JSX.Element => {
     const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, { id: props.id });
@@ -33,11 +34,23 @@ export const DetailComponent = <T,>(props: DetailProps<T>): JSX.Element => {
         } else if (apiResponse.data) {
             const lItem = apiResponse.data;
             setBody(props.colDefs
-                .map(col => lItem[col.accessor as keyof T] as string)
-                .map(col => <div>{col}</div>));
+                .map(col => {
+                    const value = lItem[col.accessor as keyof T] as string;
+                    return <div className={css.item}>
+                        <Text size={'s'}
+                              view={'secondary'}
+                              className={css.itemTitle}
+                        >
+                            {col.title}
+                        </Text>
+                        <Text size={'s'}>
+                            {value}
+                        </Text>
+                    </div>
+                }));
             setItem(lItem);
         } else if (!apiResponse.loaded) {
-            setBody(<Loader />)
+            setBody(<Loader/>)
         } else {
             setBody(null);
         }
