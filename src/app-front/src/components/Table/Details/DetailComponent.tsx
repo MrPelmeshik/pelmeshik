@@ -1,17 +1,47 @@
 import {DetailProps} from "./DetailProps";
 import {Button} from "@consta/uikit/Button";
 import {IconClose} from "@consta/icons/IconClose";
-import {TableType} from "../../types/TableType";
 import css from "./Detail.module.css";
 import {Text} from "@consta/uikit/Text";
 import {IconSave} from "@consta/icons/IconSave";
 import {IconTrash} from "@consta/icons/IconTrash";
 import {IconCopy} from "@consta/icons/IconCopy";
+import {useApi} from "../../../services/useApi";
+import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
+import React, {useEffect, useState} from "react";
+import {Loader} from "@consta/uikit/Loader";
 
 export const DetailComponent = <T,>(props: DetailProps<T>): JSX.Element => {
-    const body = props.colDefs
-        .map(col => props.item[col.accessor as keyof TableType<T>] as string)
-        .map(col => <div>{col}</div>);
+    const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, { id: props.id });
+    const [item, setItem] = useState<T | null>(null);
+    const [body, setBody] = useState<JSX.Element | JSX.Element[] | null>(null);
+
+    useEffect(() => {
+        if (apiResponse.error) {
+            setBody(<Text view={'alert'}
+                          size={'s'}
+            >
+                <Text weight={'bold'}
+                      transform={'uppercase'}
+                >
+                    Ошибка
+                </Text>
+                <Text>
+                    {apiResponse.error}
+                </Text>
+            </Text>)
+        } else if (apiResponse.data) {
+            const lItem = apiResponse.data;
+            setBody(props.colDefs
+                .map(col => lItem[col.accessor as keyof T] as string)
+                .map(col => <div>{col}</div>));
+            setItem(lItem);
+        } else if (!apiResponse.loaded) {
+            setBody(<Loader />)
+        } else {
+            setBody(null);
+        }
+    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.catalogType]);
 
     return <div className={css.body}>
         <div className={css.whiteBlock}>
