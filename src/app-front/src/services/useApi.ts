@@ -16,11 +16,9 @@ export const useApi = <T>(endpoint: string, area: AreaEnum, requestType: Request
     useEffect(() => {
         (async () => {
             try {
-                const response = await sendApiRequest(endpoint, area, requestType, params, controllerRef);
-                setLoaded(true);
+                const response = await sendApiRequest(endpoint, requestType, params, area, controllerRef);
                 setData(response.data);
             } catch (error) {
-                setLoaded(true);
                 setError((error as Error).message);
             } finally {
                 setLoaded(true);
