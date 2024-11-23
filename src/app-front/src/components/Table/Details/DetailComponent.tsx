@@ -48,11 +48,11 @@ export const DetailComponent = <T,>(props: DetailProps<T>): JSX.Element => {
             <div className={css.main}>
                 <div className={css.header}>
                     <div className={css.leftSide}>
-                        <Text size={'l'}
+                        <Text view={'secondary'}
+                              size={'l'}
                               weight={'bold'}
-                              view={'secondary'}
                         >
-                            Test
+                            {props.title}
                         </Text>
                     </div>
                     <div className={css.rightSide}>

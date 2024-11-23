@@ -14,6 +14,7 @@ export const MenuItems: IMenuItem[] = [
         id: 1,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.CARD}
+                                 title={'Карты'}
                                  catalogType={CatalogTypeEnum.CARD}
                                  colDefs={CardColDefs}
         />,
@@ -23,6 +24,7 @@ export const MenuItems: IMenuItem[] = [
         id: 2,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.AGENT}
+                                 title={'Агенты'}
                                  catalogType={CatalogTypeEnum.AGENT}
                                  colDefs={AgentColDefs}
         />,
@@ -32,6 +34,7 @@ export const MenuItems: IMenuItem[] = [
         id: 3,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.CATEGORY}
+                                 title={'Категории'}
                                  catalogType={CatalogTypeEnum.CATEGORY}
                                  colDefs={CategoryColDefs}
         />,
@@ -41,6 +44,7 @@ export const MenuItems: IMenuItem[] = [
         id: 4,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.TAG}
+                                 title={'Теги'}
                                  catalogType={CatalogTypeEnum.TAG}
                                  colDefs={TagColDefs}
         />,
@@ -50,6 +54,7 @@ export const MenuItems: IMenuItem[] = [
         id: 5,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.TRANSACTION_FREQUENCY}
+                                 title={'Периодичность транзакций'}
                                  catalogType={CatalogTypeEnum.TRANSACTION_FREQUENCY}
                                  colDefs={TransactionFrequencyColDefs}
         />,
@@ -79,6 +84,7 @@ export const MenuItems: IMenuItem[] = [
         id: 8,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.ERROR_ENDPOINT}
+                                 title={'Тест 2'}
                                  catalogType={CatalogTypeEnum.ERROR_ENDPOINT}
                                  colDefs={TagColDefs}
         />,

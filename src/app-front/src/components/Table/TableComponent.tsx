@@ -31,7 +31,8 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
 
     useEffect(() => {
         setDetail(activeItem !== null
-            ? <DetailComponent close={closeDetail}
+            ? <DetailComponent title={props.title}
+                               close={closeDetail}
                                id={activeItem.id}
                                area={AreaEnum.FINANCE} // todo: Надо будет добавить опредеение в зависимости от типа каталога
                                catalogType={props.catalogType}
@@ -79,7 +80,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
         {tableOverflowWidow}
         <div className={css.main}>
             <div className={css.tableSettings}>
-                <TableSettingsComponent />
+                <TableSettingsComponent title={props.title} />
             </div>
             <div className={css.tableMain}>
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}

@@ -3,6 +3,7 @@ import {TableType} from "../../types/TableType";
 import {CatalogTypeEnum} from "../_catalogs/CatalogTypeEnum";
 
 export interface TableProps<T> {
+    title: string;
     catalogType: CatalogTypeEnum;
     colDefs: TableColumn<TableType<T>>[];
 }
