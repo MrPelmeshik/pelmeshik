@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { TextField } from '@consta/uikit/TextField';
 import {DataCell} from "@consta/table/DataCell";
 
-export const RenderTextCell = (value: string) => {
+export const RenderTextCell = (value: string): JSX.Element => {
     const [newValue, setNewValue] = useState<string | null>(value);
 
     return <DataCell size={'s'}

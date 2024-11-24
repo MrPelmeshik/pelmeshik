@@ -1,30 +1,38 @@
-import {TableColumn} from "@consta/table/Table";
-import {TableType} from "../../../types/TableType";
 import {ICategory} from "./ICategory";
 import {RenderColorCell} from "../../_utility/_table/_cellRenderer/RenderColorCell";
-import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
+import {TableColDef} from "../../../types/TableColDef";
+import {RenderDefaultDetails} from "../../_utility/_table/_detailsRenderer/RenderDefaultDetails";
 
-export const CategoryColDefs: TableColumn<TableType<ICategory>>[] = [
+export const CategoryColDefs: TableColDef<ICategory>[] = [
     {
-        title: 'ID',
-        accessor: 'id',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.id),
+        tableColumn: {
+            title: 'ID',
+            accessor: 'id',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderDefaultCell(props.row.id),
+        },
+        detailsRenderer: RenderDefaultDetails,
     },
     {
-        title: 'Название',
-        accessor: 'name',
-        width: '2fr',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.name),
+        tableColumn: {
+            title: 'Название',
+            accessor: 'name',
+            width: '2fr',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderDefaultCell(props.row.name),
+        },
+        detailsRenderer: RenderDefaultDetails,
     },
     {
-        title: 'Цвет',
-        accessor: 'color',
-        width: '1fr',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderColorCell(props.row.color),
+        tableColumn: {
+            title: 'Цвет',
+            accessor: 'color',
+            width: '1fr',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderColorCell(props.row.color),
+        },
+        detailsRenderer: RenderDefaultDetails,
     },
 ];

@@ -1,29 +1,36 @@
-import {TableColumn} from "@consta/table/Table";
-import {TableType} from "../../../types/TableType";
 import {ITransactionFrequency} from "./ITransactionFrequency";
 import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
+import {TableColDef} from "../../../types/TableColDef";
+import {RenderDefaultDetails} from "../../_utility/_table/_detailsRenderer/RenderDefaultDetails";
 
-export const TransactionFrequencyColDefs: TableColumn<TableType<ITransactionFrequency>>[] = [
+export const TransactionFrequencyColDefs: TableColDef<ITransactionFrequency>[] = [
     {
-        title: 'ID',
-        accessor: 'id',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.id),
+        tableColumn: {
+            title: 'ID',
+            accessor: 'id',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderDefaultCell(props.row.id),
+        },
+        detailsRenderer: RenderDefaultDetails,
     },
     {
-        title: 'Название',
-        accessor: 'name',
-        width: '1fr',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.name),
+        tableColumn: {
+            title: 'Название',
+            accessor: 'name',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderDefaultCell(props.row.name),
+        },
+        detailsRenderer: RenderDefaultDetails,
     },
     {
-        title: 'Полное название',
-        accessor: 'fullName',
-        width: '1fr',
-        renderHeaderCell: RenderDefaultHeader,
-        renderCell: (props) => RenderDefaultCell(props.row.fullName),
+        tableColumn: {
+            title: 'Полное название',
+            accessor: 'fullName',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderDefaultCell(props.row.fullName),
+        },
+        detailsRenderer: RenderDefaultDetails,
     },
 ];

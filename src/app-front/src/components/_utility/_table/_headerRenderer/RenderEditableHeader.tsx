@@ -8,7 +8,7 @@ import {IconKebab} from "@consta/icons/IconKebab";
 export const RenderEditableHeader = (
     item?: TableColumn<any>,
     props?: HeaderDataCellProps
-) => {
+): JSX.Element => {
     const newProps: HeaderDataCellProps = {
         ...(props || {}),
         size: 's',

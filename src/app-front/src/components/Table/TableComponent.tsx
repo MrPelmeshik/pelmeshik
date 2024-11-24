@@ -1,7 +1,7 @@
 import {TableProps} from "./TableProps";
 import React, {useEffect, useState} from "react";
 import css from './Table.module.css';
-import {TableType} from "../../types/TableType";
+import {TableType} from "./TableType";
 import {Loader} from '@consta/uikit/Loader';
 import {Text} from "@consta/uikit/Text";
 import {Table} from "@consta/table/Table";
@@ -10,7 +10,6 @@ import {RequestTypeEnum} from "../../types/RequestTypeEnum";
 import {AreaEnum} from "../../types/AreaEnum";
 import {DetailComponent} from "./Details/DetailComponent";
 import {TableSettingsComponent} from "./TableSettings/TableSettingsComponent";
-import {isNumber} from "node:util";
 
 
 export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
@@ -84,7 +83,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             </div>
             <div className={css.tableMain}>
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
-                       columns={props.colDefs}
+                       columns={props.colDefs.map(colDef => colDef.tableColumn)}
                        stickyHeader
                        zebraStriped
                        resizable={'inside'}
