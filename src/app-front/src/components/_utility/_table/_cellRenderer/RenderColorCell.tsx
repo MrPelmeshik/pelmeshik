@@ -2,7 +2,7 @@ import {getInvertColorHex} from "../getInvertColorHex";
 import {DataCell} from "@consta/table/DataCell";
 import {Tag} from "@consta/uikit/Tag";
 
-export const RenderColorCell = (value: string) => {
+export const RenderColorCell = (value: string): JSX.Element => {
     const invertColor = getInvertColorHex(value);
 
     return <DataCell size={'s'}>

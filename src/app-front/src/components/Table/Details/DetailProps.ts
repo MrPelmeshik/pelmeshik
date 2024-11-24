@@ -1,7 +1,6 @@
-import {TableType} from "../../../types/TableType";
-import {TableColumn} from "@consta/table/Table";
 import {CatalogTypeEnum} from "../../_catalogs/CatalogTypeEnum";
 import {AreaEnum} from "../../../types/AreaEnum";
+import {TableColDef} from "../../../types/TableColDef";
 
 export interface DetailProps<T> {
     title: string;
@@ -9,5 +8,5 @@ export interface DetailProps<T> {
     id: string | number;
     catalogType: CatalogTypeEnum;
     area: AreaEnum;
-    colDefs: TableColumn<TableType<T>>[];
+    colDefs: TableColDef<T>[];
 }

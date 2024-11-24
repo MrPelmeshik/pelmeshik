@@ -1,10 +1,8 @@
 import {TableSettingsProps} from "./TableSettingsProps";
 import css from './TableSettings.module.css';
 import {Text} from "@consta/uikit/Text";
-import {Tag} from "@consta/uikit/Tag";
 import {Button} from "@consta/uikit/Button";
 import {IconAdd} from "@consta/icons/IconAdd";
-import {Badge} from "@consta/uikit/Badge";
 
 export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.Element => {
     return <div className={css.body}>

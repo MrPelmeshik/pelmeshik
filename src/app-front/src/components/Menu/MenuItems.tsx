@@ -6,7 +6,6 @@ import {AgentColDefs} from "../_catalogs/agent/AgentColDefs";
 import {CategoryColDefs} from "../_catalogs/category/CategoryColDefs";
 import {TagColDefs} from "../_catalogs/tag/TagColDefs";
 import {TransactionFrequencyColDefs} from "../_catalogs/transactionFrequency/TransactionFrequencyColDefs";
-import {TestBlockComponent} from "../TestBlock/TestBlockComponent";
 
 export const MenuItems: IMenuItem[] = [
     {
@@ -79,14 +78,14 @@ export const MenuItems: IMenuItem[] = [
         groupId: 1,
         element: <></>,
     },
-    {
+    /*{
         label: 'Тест 2',
         id: 8,
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.ERROR_ENDPOINT}
                                  title={'Тест 2'}
                                  catalogType={CatalogTypeEnum.ERROR_ENDPOINT}
-                                 colDefs={TagColDefs}
+                                 colDefs={[]}
         />,
-    },
+    },*/
 ];

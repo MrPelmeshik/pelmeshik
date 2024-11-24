@@ -10,10 +10,10 @@ import {useApi} from "../../../services/useApi";
 import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
 import React, {useEffect, useState} from "react";
 import {Loader} from "@consta/uikit/Loader";
-import {Tag} from "@consta/uikit/Tag";
+import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
 
-export const DetailComponent = <T,>(props: DetailProps<T>): JSX.Element => {
-    const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, { id: props.id });
+export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
+    const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, {id: props.id});
     const [item, setItem] = useState<T | null>(null);
     const [body, setBody] = useState<JSX.Element | JSX.Element[] | null>(null);
 
@@ -35,17 +35,22 @@ export const DetailComponent = <T,>(props: DetailProps<T>): JSX.Element => {
             const lItem = apiResponse.data;
             setBody(props.colDefs
                 .map(col => {
-                    const value = lItem[col.accessor as keyof T] as string;
-                    return <div className={css.item}>
+                    const props: DetailsRenderProps<T> = {
+                        accessor: col.tableColumn.accessor as keyof T,
+                        currentRow: lItem,
+                        rows: [],
+                        validators: col.validators
+                    };
+                    return <div key={col.tableColumn.accessor}
+                                className={css.item}
+                    >
                         <Text size={'s'}
                               view={'secondary'}
                               className={css.itemTitle}
                         >
-                            {col.title}
+                            {col.tableColumn.title}
                         </Text>
-                        <Text size={'s'}>
-                            {value}
-                        </Text>
+                        {col.detailsRenderer(props)}
                     </div>
                 }));
             setItem(lItem);

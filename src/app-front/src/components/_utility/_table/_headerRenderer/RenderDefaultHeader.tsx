@@ -5,7 +5,7 @@ import {TableColumn} from '@consta/table/Table';
 export const RenderDefaultHeader = (
     item?: TableColumn<any>,
     props?: HeaderDataCellProps
-) => {
+): JSX.Element => {
     const newProps: HeaderDataCellProps = {
         ...(props || {}),
         size: 's'
