@@ -10,7 +10,7 @@ import {useApi} from "../../../services/useApi";
 import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
 import React, {useEffect, useState} from "react";
 import {Loader} from "@consta/uikit/Loader";
-import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
+import {ErrorComponent} from "../../Error/ErrorComponent";
 
 export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, {id: props.id});
@@ -19,40 +19,26 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
 
     useEffect(() => {
         if (apiResponse.error) {
-            setBody(<Text view={'alert'}
-                          size={'s'}
-            >
-                <Text weight={'bold'}
-                      transform={'uppercase'}
-                >
-                    Ошибка
-                </Text>
-                <Text>
-                    {apiResponse.error}
-                </Text>
-            </Text>)
+            setBody(<ErrorComponent message={apiResponse.error}/>);
         } else if (apiResponse.data) {
             const lItem = apiResponse.data;
             setBody(props.colDefs
-                .map(col => {
-                    const props: DetailsRenderProps<T> = {
-                        accessor: col.tableColumn.accessor as keyof T,
+                .map(col => <div key={col.tableColumn.accessor}
+                                 className={css.item}
+                >
+                    <Text size={'s'}
+                          view={'secondary'}
+                          className={css.itemTitle}
+                    >
+                        {col.tableColumn.title}
+                    </Text>
+                    {col.detailsRenderer({
+                        accessor: col.tableColumn.accessor as keyof T, // todo: Надо будет исправить
                         currentRow: lItem,
                         rows: [],
                         validators: col.validators
-                    };
-                    return <div key={col.tableColumn.accessor}
-                                className={css.item}
-                    >
-                        <Text size={'s'}
-                              view={'secondary'}
-                              className={css.itemTitle}
-                        >
-                            {col.tableColumn.title}
-                        </Text>
-                        {col.detailsRenderer(props)}
-                    </div>
-                }));
+                    })}
+                </div>));
             setItem(lItem);
         } else if (!apiResponse.loaded) {
             setBody(<Loader/>)

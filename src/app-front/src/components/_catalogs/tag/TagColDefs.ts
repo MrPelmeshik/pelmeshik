@@ -1,10 +1,10 @@
 import {ITag} from "./ITag";
-import {RenderColorCell} from "../../_utility/_table/_cellRenderer/RenderColorCell";
-import {RenderTextCell} from "../../_utility/_table/_cellRenderer/RenderTextCell";
-import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
-import {TableColDef} from "../../../types/TableColDef";
-import {RenderDefaultDetails} from "../../_utility/_table/_detailsRenderer/RenderDefaultDetails";
-import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
+import {RenderColorCell} from "../../_table/_cellRenderer/RenderColorCell";
+import {RenderTextCell} from "../../_table/_cellRenderer/RenderTextCell";
+import {RenderDefaultHeader} from "../../_table/_headerRenderer/RenderDefaultHeader";
+import {TableColDef} from "../../_table/TableColDef";
+import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
+import {RenderDefaultCell} from "../../_table/_cellRenderer/RenderDefaultCell";
 
 export const TagColDefs: TableColDef<ITag>[] = [
     {

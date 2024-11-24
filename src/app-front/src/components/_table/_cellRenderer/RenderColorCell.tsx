@@ -1,4 +1,4 @@
-import {getInvertColorHex} from "../getInvertColorHex";
+import {getInvertColorHex} from "../../../utility/getInvertColorHex";
 import {DataCell} from "@consta/table/DataCell";
 import {Tag} from "@consta/uikit/Tag";
 
