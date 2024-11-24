@@ -1,15 +1,15 @@
 import {TableProps} from "./TableProps";
 import React, {useEffect, useState} from "react";
 import css from './Table.module.css';
-import {TableType} from "./TableType";
+import {TableType} from "../TableType";
 import {Loader} from '@consta/uikit/Loader';
-import {Text} from "@consta/uikit/Text";
 import {Table} from "@consta/table/Table";
-import {useApi} from "../../services/useApi";
-import {RequestTypeEnum} from "../../types/RequestTypeEnum";
-import {AreaEnum} from "../../types/AreaEnum";
-import {DetailComponent} from "./Details/DetailComponent";
-import {TableSettingsComponent} from "./TableSettings/TableSettingsComponent";
+import {useApi} from "../../../services/useApi";
+import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
+import {AreaEnum} from "../../../types/AreaEnum";
+import {DetailComponent} from "../Details/DetailComponent";
+import {TableSettingsComponent} from "../TableSettings/TableSettingsComponent";
+import {ErrorComponent} from "../../Error/ErrorComponent";
 
 
 export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
@@ -43,29 +43,14 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
     useEffect(() => {
         let body: JSX.Element | null = null;
         if (apiResponse.error) {
-            body = <Text view={'alert'}
-                         size={'s'}
-            >
-                <Text weight={'bold'}
-                      transform={'uppercase'}
-                >
-                    Ошибка
-                </Text>
-                <Text>
-                    {apiResponse.error}
-                </Text>
-            </Text>;
+            body = <ErrorComponent message={apiResponse.error} />;
         } else if (!apiResponse.loaded) {
             body = <Loader/>;
         }
 
         if (body) {
             setTableTableOverflowWidow(
-                <div className={css.overflowWidow}
-                     style={{
-                         // visibility: !!detail ? 'hidden' : 'visible',
-                     }}
-                >
+                <div className={css.overflowWidow}>
                     {body}
                 </div>);
         } else {

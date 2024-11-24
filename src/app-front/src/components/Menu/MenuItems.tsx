@@ -1,5 +1,5 @@
 import {IMenuItem} from "./IMenuItem";
-import {TableComponent} from "../Table/TableComponent";
+import {TableComponent} from "../_table/Table/TableComponent";
 import {CatalogTypeEnum} from "../_catalogs/CatalogTypeEnum";
 import {CardColDefs} from "../_catalogs/card/CardColDefs";
 import {AgentColDefs} from "../_catalogs/agent/AgentColDefs";

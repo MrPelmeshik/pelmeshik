@@ -1,7 +1,7 @@
 import {TableColumn} from "@consta/table/Table";
-import {TableType} from "../components/Table/TableType";
-import {DetailsRender} from "./DetailsRender";
-import {ValueValidator} from "./ValueValidator";
+import {TableType} from "./TableType";
+import {DetailsRender} from "../../types/DetailsRender";
+import {ValueValidator} from "../../types/ValueValidator";
 
 export interface TableColDef<T> {
     tableColumn: TableColumn<TableType<T>>;

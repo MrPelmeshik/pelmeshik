@@ -1,8 +1,8 @@
 import {ICard} from "./ICard";
-import {RenderDefaultHeader} from "../../_utility/_table/_headerRenderer/RenderDefaultHeader";
-import {RenderDefaultCell} from "../../_utility/_table/_cellRenderer/RenderDefaultCell";
-import {TableColDef} from "../../../types/TableColDef";
-import {RenderDefaultDetails} from "../../_utility/_table/_detailsRenderer/RenderDefaultDetails";
+import {RenderDefaultHeader} from "../../_table/_headerRenderer/RenderDefaultHeader";
+import {RenderDefaultCell} from "../../_table/_cellRenderer/RenderDefaultCell";
+import {TableColDef} from "../../_table/TableColDef";
+import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
 
 export const CardColDefs: TableColDef<ICard>[] = [
     {

@@ -1,6 +1,6 @@
 import {CatalogTypeEnum} from "../../_catalogs/CatalogTypeEnum";
 import {AreaEnum} from "../../../types/AreaEnum";
-import {TableColDef} from "../../../types/TableColDef";
+import {TableColDef} from "../TableColDef";
 
 export interface DetailProps<T> {
     title: string;
