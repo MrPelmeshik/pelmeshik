@@ -32,12 +32,11 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                     >
                         {col.tableColumn.title}
                     </Text>
-                    {col.detailsRenderer({
-                        accessor: col.tableColumn.accessor as keyof T, // todo: Надо будет исправить
-                        currentRow: lItem,
-                        rows: [],
-                        validators: col.validators
-                    })}
+                    <col.detailsRenderer accessor={col.tableColumn.accessor as keyof T}
+                                         currentRow={lItem}
+                                         rows={[]}
+                                         validators={col.validators}
+                    />
                 </div>));
             setItem(lItem);
         } else if (!apiResponse.loaded) {
