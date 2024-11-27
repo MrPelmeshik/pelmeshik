@@ -2,6 +2,7 @@ using Finance.Models;
 using Microsoft.AspNetCore.Mvc;
 using Utility;
 using Utility.Providers;
+using Utility.Services;
 
 namespace AppApi.Controllers.Finance;
 
@@ -9,5 +10,5 @@ namespace AppApi.Controllers.Finance;
 [Area("Finance")]
 [Route("[area]/[controller]/[action]")]
 public class TransactionController(
-    BaseProvider<Transaction> provider
-    ) : BaseController<Transaction>(provider);
+    BaseService<Transaction> service
+    ) : BaseController<Transaction>(service);

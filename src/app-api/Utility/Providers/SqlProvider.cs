@@ -9,33 +9,19 @@ public class SqlProvider<T>
     /// <summary>
     /// название таблицы БД
     /// </summary>
-    public static readonly string TableName = typeof(T).GetCustomAttribute<TableAttribute>()?.Name  
+    public readonly string TableName = typeof(T).GetCustomAttribute<TableAttribute>()?.Name  
                                                ?? throw new Exception("Не указано имя таблицы");
     
     /// <summary>
     /// Название схемы БД
     /// </summary>
-    public static readonly string SchemaName = typeof(T).GetCustomAttribute<TableAttribute>()?.Schema 
+    public readonly string SchemaName = typeof(T).GetCustomAttribute<TableAttribute>()?.Schema 
                                                ?? throw new Exception("Не указана имя схемы");
     
     /// <summary>
     /// Свойства
     /// </summary>
-    public static readonly PropertyInfo[] Properties = typeof(T).GetProperties();
-    
-    /// <summary>
-    /// Ключевые свойства
-    /// </summary>
-    public static readonly PropertyInfo[] KeyProperties = typeof(T).GetProperties()
-        .Where(property => property.GetCustomAttribute<KeyAttribute>() != null)
-        .ToArray();
-    
-    /// <summary>
-    /// Неключевые свойства
-    /// </summary>
-    public static readonly PropertyInfo[] NotKeyProperties = typeof(T).GetProperties()
-        .Where(property => property.GetCustomAttribute<KeyAttribute>() == null)
-        .ToArray();
+    public readonly PropertyInfo[] Properties = typeof(T).GetProperties();
 
     /// <summary>
     /// Построить запрос на чтение
@@ -43,7 +29,7 @@ public class SqlProvider<T>
     public string GetSelectQuery()
     {
         return $"""
-                select {string.Join(", ", Properties.Select(p => $"{GetColumnName(p)} as {p.Name}"))}
+                select {string.Join(", ", Properties.Select(p => $"{p.GetColumnName()} as {p.Name}"))}
                 from {SchemaName}.{TableName}
                 """;
     }
@@ -55,7 +41,7 @@ public class SqlProvider<T>
     {
         return $"""
                 {GetSelectQuery()}
-                where {string.Join(" and ", KeyProperties.Select(p => $"{GetColumnName(p)} = :{p.Name}"))}
+                where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
     }
     
@@ -65,7 +51,7 @@ public class SqlProvider<T>
     public string GetInsertQuery()
     {
         return $"""
-                insert into {SchemaName}.{TableName} ({string.Join(", ", Properties.Select(GetColumnName))})
+                insert into {SchemaName}.{TableName} ({string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().GetColumnNames())})
                 values ({string.Join(", ", Properties.Select(p => $":{p.Name}"))})
                 """;
     }
@@ -77,8 +63,8 @@ public class SqlProvider<T>
     {
         return $"""
                 {GetInsertQuery()}
-                on conflict ({string.Join(", ", KeyProperties.Select(GetColumnName))})
-                do update set {string.Join(", ", NotKeyProperties.Select(p => $"{GetColumnName(p)} = :{p.Name}"))}
+                on conflict ({string.Join(", ", Properties.GetKeyProperties().GetColumnNames())})
+                do update set {string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
     }
     
@@ -89,7 +75,7 @@ public class SqlProvider<T>
     {
         return $"""
                 delete from {SchemaName}.{TableName}
-                where {string.Join(" and ", KeyProperties.Select(p => $"{GetColumnName(p)} = :{p.Name}"))}
+                where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
     }
     
@@ -100,21 +86,8 @@ public class SqlProvider<T>
     {
         return $"""
                 update {SchemaName}.{TableName}
-                set {string.Join(", ", NotKeyProperties.Select(p => $"{GetColumnName(p)} = :{p.Name}"))}
-                where {string.Join(" and ", KeyProperties.Select(p => $"{GetColumnName(p)} = :{p.Name}"))}
+                set {string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
-    }
-
-    /// <summary>
-    /// Получить название столбца
-    /// </summary>
-    /// <param name="property">Свойство</param>
-    /// <returns>Название столбца</returns>
-    private static string GetColumnName(PropertyInfo property)
-    {
-        var columnAttribute = property.GetCustomAttribute<ColumnAttribute>();
-        return columnAttribute != null && !string.IsNullOrEmpty(columnAttribute.Name)
-            ? columnAttribute.Name
-            : property.Name;
     }
 }
