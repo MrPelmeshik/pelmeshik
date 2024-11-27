@@ -1,27 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using Utility.Extensions;
 
 namespace Utility.Providers;
 
 public class SqlProvider<T>
 {
     /// <summary>
-    /// название таблицы БД
-    /// </summary>
-    public readonly string TableName = typeof(T).GetCustomAttribute<TableAttribute>()?.Name  
-                                               ?? throw new Exception("Не указано имя таблицы");
-    
-    /// <summary>
-    /// Название схемы БД
-    /// </summary>
-    public readonly string SchemaName = typeof(T).GetCustomAttribute<TableAttribute>()?.Schema 
-                                               ?? throw new Exception("Не указана имя схемы");
-    
-    /// <summary>
     /// Свойства
     /// </summary>
     public readonly PropertyInfo[] Properties = typeof(T).GetProperties();
+    
+    /// <summary>
+    /// Полное название таблицы
+    /// </summary>
+    public readonly string FullTableName = typeof(T).GetFullTableName();
+    
 
     /// <summary>
     /// Построить запрос на чтение
@@ -30,7 +25,7 @@ public class SqlProvider<T>
     {
         return $"""
                 select {string.Join(", ", Properties.Select(p => $"{p.GetColumnName()} as {p.Name}"))}
-                from {SchemaName}.{TableName}
+                from {FullTableName}
                 """;
     }
 
@@ -51,7 +46,7 @@ public class SqlProvider<T>
     public string GetInsertQuery()
     {
         return $"""
-                insert into {SchemaName}.{TableName} ({string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().GetColumnNames())})
+                insert into {FullTableName} ({string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().GetColumnNames())})
                 values ({string.Join(", ", Properties.Select(p => $":{p.Name}"))})
                 """;
     }
@@ -74,7 +69,7 @@ public class SqlProvider<T>
     public string GetDeleteByKeyQuery()
     {
         return $"""
-                delete from {SchemaName}.{TableName}
+                delete from {FullTableName}
                 where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
     }
@@ -85,7 +80,7 @@ public class SqlProvider<T>
     public string GetUpdateByKeyQuery()
     {
         return $"""
-                update {SchemaName}.{TableName}
+                update {FullTableName}
                 set {string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;

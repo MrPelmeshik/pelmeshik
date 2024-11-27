@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
-namespace Utility.Providers;
+namespace Utility.Extensions;
 
 public static class PropertyExtensions
 {
