@@ -7,6 +7,6 @@ namespace Utility.Models;
 
 public class BaseItemId: IItemId
 {
-    [Key, ReadOnly(true), Column("id")]
+    [Key, Column("id")]
     public int Id { get; set; }
 }

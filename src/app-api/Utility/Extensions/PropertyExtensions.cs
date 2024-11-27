@@ -14,14 +14,6 @@ public static class PropertyExtensions
     public static IList<PropertyInfo> GetNonKeyProperties(this IList<PropertyInfo> properties) => properties
         .Where(property => property.GetCustomAttribute<KeyAttribute>() == null)
         .ToArray();
-
-    public static IList<PropertyInfo> GetReadonlyProperties(this IList<PropertyInfo> properties) => properties
-        .Where(property => property.GetCustomAttribute<ReadOnlyAttribute>() != null)
-        .ToArray();
-
-    public static IList<PropertyInfo> GetNonReadonlyProperties(this IList<PropertyInfo> properties) => properties
-        .Where(property => property.GetCustomAttribute<ReadOnlyAttribute>() == null)
-        .ToArray();
     
     public static IList<string> GetColumnNames(this IList<PropertyInfo> properties) => properties
         .Select(GetColumnName)

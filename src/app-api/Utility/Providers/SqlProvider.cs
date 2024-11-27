@@ -60,8 +60,8 @@ public class SqlProvider<T>
     public string GetInsertQuery()
     {
         return $"""
-                insert into {FullTableName} ({string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().GetColumnNames())})
-                values ({string.Join(", ", Properties.Select(p => $":{p.Name}"))})
+                insert into {FullTableName} ({string.Join(", ", Properties.GetNonKeyProperties().GetColumnNames())})
+                values ({string.Join(", ", Properties.GetNonKeyProperties().Select(p => $":{p.Name}"))})
                 """;
     }
     
@@ -73,7 +73,7 @@ public class SqlProvider<T>
         return $"""
                 {GetInsertQuery()}
                 on conflict ({string.Join(", ", Properties.GetKeyProperties().GetColumnNames())})
-                do update set {string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                do update set {string.Join(", ", Properties.GetNonKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
     }
     
@@ -95,7 +95,7 @@ public class SqlProvider<T>
     {
         return $"""
                 update {FullTableName}
-                set {string.Join(", ", Properties.GetNonKeyProperties().GetNonReadonlyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                set {string.Join(", ", Properties.GetNonKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                 """;
     }
