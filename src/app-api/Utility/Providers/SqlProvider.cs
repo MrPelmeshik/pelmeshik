@@ -16,7 +16,21 @@ public class SqlProvider<T>
     /// Полное название таблицы
     /// </summary>
     public readonly string FullTableName = typeof(T).GetFullTableName();
-    
+
+    public SqlProvider()
+    {
+        if (Properties.Length == 0) 
+            throw new ArgumentException($"Модель {typeof(T)} не содержит свойств");
+
+        var duplicates = Properties
+            .GetColumnNames()
+            .GroupBy(c => c)
+            .Where(g => g.Count() > 1)
+            .ToArray();
+        if (duplicates.Length > 0) 
+            throw new ArgumentException($"Модель {typeof(T)} содержит дублирующиеся свойства: {string.Join(", ", duplicates.Select(d => d.Key))}");
+    }
+
 
     /// <summary>
     /// Построить запрос на чтение
