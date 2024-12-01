@@ -1,12 +1,11 @@
 import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
-import {Text} from "@consta/uikit/Text";
 import {Checkbox} from "@consta/uikit/Checkbox";
 
 export const RenderBooleanDetails = <T,>(props: DetailsRenderProps<T>): JSX.Element => {
-    return <Text size={'s'}>
+    return <div style={{width: '100%'}}>
         <Checkbox checked={props.currentRow[props.accessor] as boolean}
                   size={'s'}
                   disabled={!!props.isReadOnly}
         />
-    </Text>;
+    </div>;
 }

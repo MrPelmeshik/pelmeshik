@@ -17,7 +17,7 @@ export const RenderColorDetails = <T, >(props: DetailsRenderProps<T>): JSX.Eleme
     }, [newValue]);
 
 
-    return <Text size={'s'}>
+    return <div style={{width: '100%'}}>
         <div onClick={() => setIsTooltipVisible(!isTooltipVisible)}>
             <Tag size={'s'}
                  style={{
@@ -30,12 +30,14 @@ export const RenderColorDetails = <T, >(props: DetailsRenderProps<T>): JSX.Eleme
             />
         </div>
         <Tooltip isOpen={isTooltipVisible}
-                style={{
-                    zIndex: 100,
-                }}
+                 style={{
+                     zIndex: 100,
+                 }}
                  placeholder={<>oops...</>}
-                 onPointerLeaveCapture={()=>{}}
-                 onPointerEnterCapture={()=>{}}
+                 onPointerLeaveCapture={() => {
+                 }}
+                 onPointerEnterCapture={() => {
+                 }}
                  anchorRef={anchorRef}
         >
             <Text size={'xs'}
@@ -51,5 +53,5 @@ export const RenderColorDetails = <T, >(props: DetailsRenderProps<T>): JSX.Eleme
                             onMouseLeave={() => setIsTooltipVisible(false)}
             />
         </Tooltip>
-    </Text>;
+    </div>;
 }
