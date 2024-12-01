@@ -3,4 +3,5 @@ export enum RequestTypeEnum {
     POST = 'POST',
     PUT = 'PUT',
     DELETE = 'DELETE',
+    OPTIONS = 'OPTIONS',
 }

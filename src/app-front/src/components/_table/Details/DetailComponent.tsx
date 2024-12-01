@@ -12,6 +12,7 @@ import React, {useEffect, useState} from "react";
 import {Loader} from "@consta/uikit/Loader";
 import {ErrorComponent} from "../../Error/ErrorComponent";
 import {IconRestart} from "@consta/icons/IconRestart";
+import {sendApiRequest} from "../../../services/sendApiRequest";
 
 export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, {id: props.id});
@@ -33,6 +34,10 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
         lItem[accessor] = baseItem?.[accessor as keyof T] as any;
         setItem(lItem);
         setUpdate(!update);
+    }
+
+    const deleteItem = () => {
+        sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.DELETE, {id: props.id}, props.area);
     }
 
     useEffect(() => {
@@ -111,19 +116,19 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                     </div>
                     <div className={css.rightSide}>
                         <Button size={'s'}
-                                onClick={props.close}
+                                onClick={deleteItem}
                                 view={'ghost'}
                                 iconLeft={IconTrash}
                                 onlyIcon
                         />
                         <Button size={'s'}
-                                onClick={props.close}
+                                onClick={() => {}}
                                 view={'ghost'}
                                 iconLeft={IconCopy}
                                 onlyIcon
                         />
                         <Button size={'s'}
-                                onClick={props.close}
+                                onClick={() => {}}
                                 view={'ghost'}
                                 iconLeft={IconSave}
                                 onlyIcon
