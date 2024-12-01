@@ -1,9 +1,6 @@
-import {ValueValidator} from "./ValueValidator";
-
 export interface DetailsRenderProps<T> {
     accessor: keyof T,
     currentRow: T,
-    rows: T[],
-    validators?: ValueValidator<T>[],
-    isReadOnly?: boolean
+    isReadOnly?: boolean,
+    updateValue?: (accessor: keyof T, value: any) => void
 }

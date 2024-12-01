@@ -87,7 +87,15 @@
 }
 
 .itemTitle {
-    width: 20%;
+    display: flex;
+    flex: 3;
+
+    align-items: center;
 
     border-right: var(--control-border-width) solid var(--color-control-bg-border-default);
+}
+
+.itemBody {
+    display: flex;
+    flex: 8;
 }

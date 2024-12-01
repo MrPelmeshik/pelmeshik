@@ -1,31 +1,24 @@
 import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
 import {Text} from "@consta/uikit/Text";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {HexColorPicker} from "react-colorful";
 import {Tag} from "@consta/uikit/Tag";
 import {getInvertColorHex} from "../../../utility/getInvertColorHex";
 import {Tooltip} from "@consta/uikit/Tooltip";
 
 export const RenderColorDetails = <T, >(props: DetailsRenderProps<T>): JSX.Element => {
-    const [newValue, setNewValue] = useState<string>(props.currentRow[props.accessor] as string ?? '#000000');
-    const [invertColor, setInvertColor] = useState<string>('#ffffff');
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
-    useEffect(() => {
-        setInvertColor(getInvertColorHex(newValue))
-    }, [newValue]);
-
 
     return <div style={{width: '100%'}}>
         <div onClick={() => setIsTooltipVisible(!isTooltipVisible)}>
             <Tag size={'s'}
                  style={{
-                     backgroundColor: newValue,
-                     color: invertColor,
+                     backgroundColor: props.currentRow[props.accessor] as string ?? '#000000',
+                     color: getInvertColorHex(props.currentRow[props.accessor] as string ?? '#000000'),
                  }}
                  mode={'info'}
-                 label={newValue}
+                 label={props.currentRow[props.accessor] as string ?? '#000000'}
                  ref={anchorRef}
             />
         </div>
@@ -48,8 +41,8 @@ export const RenderColorDetails = <T, >(props: DetailsRenderProps<T>): JSX.Eleme
             >
                 Настройка цвета
             </Text>
-            <HexColorPicker color={newValue}
-                            onChange={setNewValue}
+            <HexColorPicker color={props.currentRow[props.accessor] as string ?? '#000000'}
+                            onChange={(value) => props.updateValue?.(props.accessor, value)}
                             onMouseLeave={() => setIsTooltipVisible(false)}
             />
         </Tooltip>
