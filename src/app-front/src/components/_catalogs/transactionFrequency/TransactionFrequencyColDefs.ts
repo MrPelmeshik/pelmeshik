@@ -1,9 +1,9 @@
 import {ITransactionFrequency} from "./ITransactionFrequency";
-import {RenderTextCell} from "../../_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_table/_headerRenderer/RenderDefaultHeader";
 import {RenderDefaultCell} from "../../_table/_cellRenderer/RenderDefaultCell";
 import {TableColDef} from "../../_table/TableColDef";
 import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
+import {RenderNumberDetails} from "../../_table/_detailsRenderer/RenderNumberDetails";
 
 export const TransactionFrequencyColDefs: TableColDef<ITransactionFrequency>[] = [
     {
@@ -13,7 +13,8 @@ export const TransactionFrequencyColDefs: TableColDef<ITransactionFrequency>[] =
             renderHeaderCell: RenderDefaultHeader,
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
-        detailsRenderer: RenderDefaultDetails,
+        detailsRenderer: RenderNumberDetails,
+        isReadOnly: true
     },
     {
         tableColumn: {

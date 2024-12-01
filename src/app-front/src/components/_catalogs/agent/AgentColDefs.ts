@@ -4,6 +4,8 @@ import {RenderDefaultHeader} from "../../_table/_headerRenderer/RenderDefaultHea
 import {RenderDefaultCell} from "../../_table/_cellRenderer/RenderDefaultCell";
 import {TableColDef} from "../../_table/TableColDef";
 import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
+import {RenderBooleanDetails} from "../../_table/_detailsRenderer/RenderBooleanDetails";
+import {RenderNumberDetails} from "../../_table/_detailsRenderer/RenderNumberDetails";
 
 export const AgentColDefs: TableColDef<IAgent>[] = [
     {
@@ -13,13 +15,14 @@ export const AgentColDefs: TableColDef<IAgent>[] = [
             renderHeaderCell: RenderDefaultHeader,
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
-        detailsRenderer: RenderDefaultDetails,
+        detailsRenderer: RenderNumberDetails,
         validators: [
             (props) => ({
                 isValid: props.currentRow.id !== null,
                 message: 'Поле ID не должно быть пустым',
             })
-        ]
+        ],
+        isReadOnly: true
     },
     {
         tableColumn: {
@@ -45,7 +48,7 @@ export const AgentColDefs: TableColDef<IAgent>[] = [
             renderHeaderCell: RenderDefaultHeader,
             renderCell: (props) => RenderBooleanCell(props.row.isPerson)
         },
-        detailsRenderer: RenderDefaultDetails,
+        detailsRenderer: RenderBooleanDetails,
         validators: [
             (props) => ({
                 isValid: props.currentRow.isPerson !== null,

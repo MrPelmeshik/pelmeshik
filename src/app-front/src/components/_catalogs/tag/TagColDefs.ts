@@ -1,10 +1,11 @@
 import {ITag} from "./ITag";
 import {RenderColorCell} from "../../_table/_cellRenderer/RenderColorCell";
-import {RenderTextCell} from "../../_table/_cellRenderer/RenderTextCell";
 import {RenderDefaultHeader} from "../../_table/_headerRenderer/RenderDefaultHeader";
 import {TableColDef} from "../../_table/TableColDef";
 import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
 import {RenderDefaultCell} from "../../_table/_cellRenderer/RenderDefaultCell";
+import {RenderNumberDetails} from "../../_table/_detailsRenderer/RenderNumberDetails";
+import {RenderColorDetails} from "../../_table/_detailsRenderer/RenderColorDetails";
 
 export const TagColDefs: TableColDef<ITag>[] = [
     {
@@ -14,7 +15,8 @@ export const TagColDefs: TableColDef<ITag>[] = [
             renderHeaderCell: RenderDefaultHeader,
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
-        detailsRenderer: RenderDefaultDetails,
+        detailsRenderer: RenderNumberDetails,
+        isReadOnly: true
     },
     {
         tableColumn: {
@@ -34,6 +36,6 @@ export const TagColDefs: TableColDef<ITag>[] = [
             renderHeaderCell: RenderDefaultHeader,
             renderCell: (props) => RenderColorCell(props.row.color),
         },
-        detailsRenderer: RenderDefaultDetails,
+        detailsRenderer: RenderColorDetails,
     },
 ];

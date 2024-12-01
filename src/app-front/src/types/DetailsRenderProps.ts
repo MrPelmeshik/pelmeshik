@@ -4,5 +4,6 @@ export interface DetailsRenderProps<T> {
     accessor: keyof T,
     currentRow: T,
     rows: T[],
-    validators?: ValueValidator<T>[]
+    validators?: ValueValidator<T>[],
+    isReadOnly?: boolean
 }

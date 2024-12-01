@@ -36,6 +36,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                                          currentRow={lItem}
                                          rows={[]}
                                          validators={col.validators}
+                                         isReadOnly={col.isReadOnly}
                     />
                 </div>));
             setItem(lItem);

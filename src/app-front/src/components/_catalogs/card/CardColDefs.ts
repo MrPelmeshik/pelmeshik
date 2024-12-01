@@ -3,6 +3,7 @@ import {RenderDefaultHeader} from "../../_table/_headerRenderer/RenderDefaultHea
 import {RenderDefaultCell} from "../../_table/_cellRenderer/RenderDefaultCell";
 import {TableColDef} from "../../_table/TableColDef";
 import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
+import {RenderNumberDetails} from "../../_table/_detailsRenderer/RenderNumberDetails";
 
 export const CardColDefs: TableColDef<ICard>[] = [
     {
@@ -13,7 +14,8 @@ export const CardColDefs: TableColDef<ICard>[] = [
             renderHeaderCell: RenderDefaultHeader,
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
-        detailsRenderer: RenderDefaultDetails,
+        detailsRenderer: RenderNumberDetails,
+        isReadOnly: true
     },
     {
         tableColumn: {

@@ -7,4 +7,5 @@ export interface TableColDef<T> {
     tableColumn: TableColumn<TableType<T>>;
     detailsRenderer: DetailsRender<T>;
     validators?: ValueValidator<T>[];
+    isReadOnly?: boolean;
 }
