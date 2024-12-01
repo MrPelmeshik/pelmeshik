@@ -19,10 +19,9 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const [baseItem, setBaseItem] = useState<T | null>(null);
     const [body, setBody] = useState<JSX.Element | JSX.Element[] | null>(null);
     const [update, setUpdate] = useState<boolean>(false);
+    const [hasChanged, setHasChanged] = useState<boolean>(false);
 
     const updateValue = (accessor: keyof T, value: any) => {
-        console.log(accessor, value)
-
         const lItem = {...item} as T;
         lItem[accessor] = value;
         setItem(lItem);
@@ -37,39 +36,50 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     }
 
     useEffect(() => {
-        console.log(item);
-        setBody(props.colDefs
-            .map(col => <div key={col.tableColumn.accessor}
-                             className={css.item}
-            >
-                <div className={css.itemTitle} >
-                    <Text size={'s'}
-                          view={'secondary'}
-                          weight={'bold'}
-                    >
-                        {col.tableColumn.title}
-                    </Text>
-                    {
-                        !col.isReadOnly
-                            ? <Button size={'xs'}
-                                      view={'clear'}
-                                      iconLeft={IconRestart}
-                                      onlyIcon
-                                      disabled={item?.[col.tableColumn.accessor as keyof T] === baseItem?.[col.tableColumn.accessor as keyof T]}
-                                      onClick={() => reset(col.tableColumn.accessor as keyof T)}
-                                      style={{marginLeft: '.4rem'}}
-                            />
-                            : null
-                    }
+        let lHasChanged = false;
+        const lBody = props.colDefs
+            .map(col => {
+                const valueChanged = item?.[col.tableColumn.accessor as keyof T] !== baseItem?.[col.tableColumn.accessor as keyof T];
+
+                if (valueChanged) {
+                    lHasChanged = true;
+                }
+
+                return <div key={col.tableColumn.accessor}
+                            className={css.item}
+                >
+                    <div className={css.itemTitle}>
+                        <Text size={'s'}
+                              view={'secondary'}
+                              weight={'bold'}
+                        >
+                            {col.tableColumn.title}
+                        </Text>
+                        {
+                            !col.isReadOnly
+                                ? <Button size={'xs'}
+                                          view={'clear'}
+                                          iconLeft={IconRestart}
+                                          onlyIcon
+                                          disabled={!valueChanged}
+                                          onClick={() => reset(col.tableColumn.accessor as keyof T)}
+                                          style={{marginLeft: '.4rem'}}
+                                />
+                                : null
+                        }
+                    </div>
+                    <div className={css.itemBody}>
+                        <col.detailsRenderer accessor={col.tableColumn.accessor as keyof T}
+                                             currentRow={item ?? {} as T}
+                                             isReadOnly={col.isReadOnly}
+                                             updateValue={updateValue}
+                        />
+                    </div>
                 </div>
-                <div className={css.itemBody}>
-                    <col.detailsRenderer accessor={col.tableColumn.accessor as keyof T}
-                                         currentRow={item ?? {} as T}
-                                         isReadOnly={col.isReadOnly}
-                                         updateValue={updateValue}
-                    />
-                </div>
-            </div>));
+            });
+
+        setHasChanged(lHasChanged);
+        setBody(lBody);
     }, [update]);
 
     useEffect(() => {
@@ -117,6 +127,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                                 view={'ghost'}
                                 iconLeft={IconSave}
                                 onlyIcon
+                                disabled={!hasChanged}
                         />
                         <Button size={'s'}
                                 onClick={props.close}
