@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Utility.Models;
 
-namespace Finance.Models;
+namespace Finance.Models.Tag;
 
 [Table("tag", Schema = "finance")]
-public class Tag : BaseItemId
+public class TagModel : TagKey
 {
     [Column("name")]
     public string Name { get; set; }

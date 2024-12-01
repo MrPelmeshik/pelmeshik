@@ -15,6 +15,22 @@ public static class PropertyExtensions
         .Where(property => property.GetCustomAttribute<KeyAttribute>() == null)
         .ToArray();
     
+    public static IList<PropertyInfo> GetReadOnlyProperties(this IList<PropertyInfo> properties) => properties
+        .Where(property =>
+        {
+            var readOnlyAttribute = property.GetCustomAttribute<ReadOnlyAttribute>();
+            return readOnlyAttribute is { IsReadOnly: true };
+        })
+        .ToArray();
+
+    public static IList<PropertyInfo> GetNonReadOnlyProperties(this IList<PropertyInfo> properties) => properties
+        .Where(property =>
+        {
+            var readOnlyAttribute = property.GetCustomAttribute<ReadOnlyAttribute>();
+            return readOnlyAttribute is not { IsReadOnly: true };
+        })
+        .ToArray();
+    
     public static IList<string> GetColumnNames(this IList<PropertyInfo> properties) => properties
         .Select(GetColumnName)
         .ToList();

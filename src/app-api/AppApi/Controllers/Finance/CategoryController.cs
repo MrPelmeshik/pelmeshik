@@ -1,4 +1,5 @@
 using Finance.Models;
+using Finance.Models.Category;
 using Microsoft.AspNetCore.Mvc;
 using Utility.Providers;
 using Utility.Services;
@@ -9,5 +10,5 @@ namespace AppApi.Controllers.Finance;
 [Area("Finance")]
 [Route("[area]/[controller]/[action]")]
 public class CategoryController(
-    BaseService<Category> service
-    ) : BaseController<Category>(service);
+    BaseService<CategoryModel,CategoryKey> service
+    ) : BaseController<CategoryModel, CategoryKey>(service);

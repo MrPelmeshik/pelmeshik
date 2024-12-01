@@ -1,12 +1,7 @@
+using System.Net;
 using AppApi;
 using AppApi.Middlewares;
-using NLog; 
-using NLog.Web; 
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 

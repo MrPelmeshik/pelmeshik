@@ -1,26 +1,29 @@
 using Microsoft.Extensions.Logging;
+using Utility.Interfaces;
+using Utility.Models;
 using Utility.Providers;
 
 namespace Utility.Services;
 
-public class BaseService<T> (
-    ILogger<BaseService<T>> logger,
-    BaseProvider<T> provider,
-    ConnectionProvider connectionProvider)
+public class BaseService<TSource, TKey> (
+    ILogger<BaseService<TSource, TKey>> logger,
+    BaseProvider<TSource, TKey> provider,
+    ConnectionProvider connectionProvider
+    ) where TKey : IItemKey where TSource : TKey
 {
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    public async Task<T?> GetItem(int id)
+    public async Task<TSource?> GetItem(TKey key)
     {
         using var conn = connectionProvider.GetDefaultConnection();
-        return await provider.GetItem(conn, id);
+        return await provider.GetItem(conn, key);
     }
 
     /// <summary>
     /// Получить элементы
     /// </summary>
-    public async Task<IEnumerable<T>> GetItems()
+    public async Task<IEnumerable<TSource>> GetItems()
     {
         using var conn = connectionProvider.GetDefaultConnection();
         return await provider.GetItems(conn);
@@ -29,7 +32,7 @@ public class BaseService<T> (
     /// <summary>
     /// Добавить элемент
     /// </summary>
-    public async Task<int> AddItem(T item)
+    public async Task<int> AddItem(TSource item)
     {
         using var conn = connectionProvider.GetDefaultConnection();
         return await provider.AddItem(conn, item);
@@ -38,7 +41,7 @@ public class BaseService<T> (
     /// <summary>
     /// Добавить элементы
     /// </summary>
-    public async Task<IEnumerable<int>> AddItems(IEnumerable<T> items)
+    public async Task<IEnumerable<int>> AddItems(IEnumerable<TSource> items)
     {
         throw new NotImplementedException();
     }
@@ -46,7 +49,7 @@ public class BaseService<T> (
     /// <summary>
     /// Обновить элемент
     /// </summary>
-    public async Task UpdateItem(T item)
+    public async Task UpdateItem(TSource item)
     {
         using var conn = connectionProvider.GetDefaultConnection();
         await provider.UpdateItem(conn, item);
@@ -55,7 +58,7 @@ public class BaseService<T> (
     /// <summary>
     /// Обновить элементы
     /// </summary>
-    public async Task UpdateItems(IEnumerable<T> items)
+    public async Task UpdateItems(IEnumerable<TSource> items)
     {
         throw new NotImplementedException();
     }
@@ -63,16 +66,16 @@ public class BaseService<T> (
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    public async Task DeleteItem(int id)
+    public async Task DeleteItem(TKey key)
     {
         using var conn = connectionProvider.GetDefaultConnection();
-        await provider.DeleteItem(conn, id);
+        await provider.DeleteItem(conn, key);
     }
 
     /// <summary>
     /// Удалить элементы
     /// </summary>
-    public async Task DeleteItems(IEnumerable<int> ids)
+    public async Task DeleteItems(IEnumerable<TKey> keys)
     {
         throw new NotImplementedException();
     }

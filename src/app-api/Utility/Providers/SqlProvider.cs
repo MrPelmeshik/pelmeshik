@@ -1,102 +1,140 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
 using Utility.Extensions;
+using Utility.Models;
 
 namespace Utility.Providers;
 
-public class SqlProvider<T>
+public static class SqlProvider
 {
-    /// <summary>
-    /// Свойства
-    /// </summary>
-    public readonly PropertyInfo[] Properties = typeof(T).GetProperties();
-    
-    /// <summary>
-    /// Полное название таблицы
-    /// </summary>
-    public readonly string FullTableName = typeof(T).GetFullTableName();
-
-    public SqlProvider()
+    /*public SqlProvider()
     {
-        if (Properties.Length == 0) 
-            throw new ArgumentException($"Модель {typeof(T)} не содержит свойств");
+        if (_properties.Length == 0) 
+            throw new ArgumentException($"Модель {typeof(TSource)} не содержит свойств");
 
-        var duplicates = Properties
+        var duplicates = _properties
             .GetColumnNames()
             .GroupBy(c => c)
             .Where(g => g.Count() > 1)
             .ToArray();
         if (duplicates.Length > 0) 
-            throw new ArgumentException($"Модель {typeof(T)} содержит дублирующиеся свойства: {string.Join(", ", duplicates.Select(d => d.Key))}");
-    }
-
-
+            throw new ArgumentException($"Модель {typeof(TSource)} содержит дублирующиеся свойства: {string.Join(", ", duplicates.Select(d => d.Key))}");
+    }*/
+    
     /// <summary>
     /// Построить запрос на чтение
     /// </summary>
-    public string GetSelectQuery()
+    public static Query GetSelectQuery<TSource>()
     {
-        return $"""
-                select {string.Join(", ", Properties.Select(p => $"{p.GetColumnName()} as {p.Name}"))}
-                from {FullTableName}
-                """;
+        return new Query($"""
+                          select {string.Join(", ", typeof(TSource).GetProperties().Select(p => $"{p.GetColumnName()} as {p.Name}"))}
+                          from {typeof(TSource).GetFullTableName()}
+                          """);
     }
-
+    
     /// <summary>
     /// Построить запрос на чтение
     /// </summary>
-    public string GetSelectByKeyQuery()
+    public static Query GetSelectByKeyQuery<TSource, TKey>(TKey key)
     {
-        return $"""
-                {GetSelectQuery()}
-                where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
-                """;
+        var keyProperties = typeof(TKey).GetProperties();
+        var filterCondition = string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"));
+        var sql = $"{GetSelectQuery<TSource>().Sql} where {filterCondition}";
+        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        
+        return new Query(sql, parameters);
+    }
+    
+    /// <summary>
+    /// Построить запрос на чтение
+    /// </summary>
+    public static Query GetSelectByKeyQuery<TSource>(TSource key)
+    {
+        var keyProperties = typeof(TSource).GetProperties().GetKeyProperties();
+        var filterCondition = string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"));
+        var sql = $"{GetSelectQuery<TSource>().Sql} where {filterCondition}";
+        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        
+        return new Query(sql, parameters);
     }
     
     /// <summary>
     /// Построить запрос на вставку
     /// </summary>
-    public string GetInsertQuery()
+    public static Query GetInsertQuery<TSource>(TSource item)
     {
-        return $"""
-                insert into {FullTableName} ({string.Join(", ", Properties.GetNonKeyProperties().GetColumnNames())})
-                values ({string.Join(", ", Properties.GetNonKeyProperties().Select(p => $":{p.Name}"))})
-                """;
+        var nonReadOnlyProperties = typeof(TSource).GetProperties().GetNonReadOnlyProperties();
+        var sql = $"""
+                   insert into {typeof(TSource).GetFullTableName()} ({string.Join(", ", nonReadOnlyProperties.GetColumnNames())})
+                   values ({string.Join(", ", nonReadOnlyProperties.Select(p => $":{p.Name}"))})
+                   """;
+        var parameters = nonReadOnlyProperties.ToDictionary(p => p.Name, p => p.GetValue(item));
+        
+        return new Query(sql, parameters);
+    }
+
+    /// <summary>
+    /// Построить запрос на обновление
+    /// </summary>
+    public static Query GetUpdateQuery<TSource>(TSource item)
+    {
+        var properties = typeof(TSource).GetProperties();
+        var nonReadOnlyProperties = properties.GetNonReadOnlyProperties();
+        var keyProperties = properties.GetKeyProperties();
+        var sql = $"""
+                   update {typeof(TSource).GetFullTableName()}
+                   set {string.Join(", ", nonReadOnlyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                   where {string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                   """;
+        var parameters = nonReadOnlyProperties.ToDictionary(p => p.Name, p => p.GetValue(item));
+        
+        return new Query(sql, parameters);
     }
     
     /// <summary>
     /// Построить запрос на вставку
     /// </summary>
-    public string GetInsertOrUpdateQuery()
+    public static Query GetInsertOrUpdateQuery<TSource>(TSource item)
     {
-        return $"""
-                {GetInsertQuery()}
-                on conflict ({string.Join(", ", Properties.GetKeyProperties().GetColumnNames())})
-                do update set {string.Join(", ", Properties.GetNonKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
-                """;
+        var properties = typeof(TSource).GetProperties();
+        var keyProperties = properties.GetKeyProperties();
+        var nonReadOnlyProperties = properties.GetNonReadOnlyProperties();
+        var insertQuery = GetInsertQuery(item);
+        var sql = $"""
+                   {insertQuery.Sql}
+                   on conflict ({string.Join(", ", keyProperties.GetColumnNames())})
+                   do update set {string.Join(", ", nonReadOnlyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                   """;
+        var parameters = insertQuery.Parameters;
+        
+        return new Query(sql, parameters);
     }
     
     /// <summary>
     /// Построить запрос на удаление
     /// </summary>
-    public string GetDeleteByKeyQuery()
+    public static Query GetDeleteQuery<TSource, TKey>(TKey key)
     {
-        return $"""
-                delete from {FullTableName}
-                where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
-                """;
+        var keyProperties = typeof(TKey).GetProperties();
+        var sql = $"""
+                   delete from {typeof(TSource).GetFullTableName()}
+                   where {string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                   """;
+        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        
+        return new Query(sql, parameters);
     }
     
     /// <summary>
-    /// Построить запрос на обновление
+    /// Построить запрос на удаление
     /// </summary>
-    public string GetUpdateByKeyQuery()
+    public static Query GetDeleteQuery<TSource>(TSource key)
     {
-        return $"""
-                update {FullTableName}
-                set {string.Join(", ", Properties.GetNonKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
-                where {string.Join(" and ", Properties.GetKeyProperties().Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
-                """;
+        var keyProperties = typeof(TSource).GetProperties().GetKeyProperties();
+        var sql = $"""
+                   delete from {typeof(TSource).GetFullTableName()}
+                   where {string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                   """;
+        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        
+        return new Query(sql, parameters);
     }
 }

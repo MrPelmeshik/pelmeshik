@@ -1,12 +1,12 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Utility.Interfaces;
+using Utility.Models;
 
-namespace Utility.Models;
+namespace Finance.Models.Tag;
 
-public class BaseItemId: IItemId
+public class TagKey : BaseKey
 {
-    [Key, Column("id")]
+    [Key, ReadOnly(true), Column("id")]
     public int Id { get; set; }
 }

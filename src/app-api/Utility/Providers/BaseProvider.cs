@@ -1,45 +1,47 @@
 using System.Data;
 using Dapper;
 using Microsoft.Extensions.Logging;
+using Utility.Interfaces;
+using Utility.Models;
 
 namespace Utility.Providers;
 
 /// <summary>
 /// Базовый провайдер
 /// </summary>
-public class BaseProvider<T>(SqlProvider<T> sqlProvider)
+public class BaseProvider<TSource, TKey> where TKey : IItemKey where TSource : TKey
 {
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    public async Task<T?> GetItem(IDbConnection conn, int id)
+    public async Task<TSource?> GetItem(IDbConnection conn, TKey key)
     {
-        var query = sqlProvider.GetSelectByKeyQuery();
-        return await conn.QueryFirstOrDefaultAsync<T>(query, new { id });
+        var query = SqlProvider.GetSelectByKeyQuery<TSource, TKey>(key);
+        return await conn.QueryFirstOrDefaultAsync<TSource>(query.Sql, query.Parameters);
     }
 
     /// <summary>
     /// Получить элементы
     /// </summary>
-    public async Task<IEnumerable<T>> GetItems(IDbConnection conn)
+    public async Task<IEnumerable<TSource>> GetItems(IDbConnection conn)
     {
-        var query = sqlProvider.GetSelectQuery();
-        return await conn.QueryAsync<T>(query);
+        var query = SqlProvider.GetSelectQuery<TSource>();
+        return await conn.QueryAsync<TSource>(query.Sql, query.Parameters);
     }
 
     /// <summary>
     /// Добавить элемент
     /// </summary>
-    public async Task<int> AddItem(IDbConnection conn, T item)
+    public async Task<int> AddItem(IDbConnection conn, TSource item)
     {
-        var query = sqlProvider.GetInsertOrUpdateQuery();
-        return await conn.ExecuteAsync(query, item);
+        var query = SqlProvider.GetInsertQuery<TSource>(item);
+        return await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 
     /// <summary>
     /// Добавить элементы
     /// </summary>
-    public async Task<IEnumerable<int>> AddItems(IDbConnection conn, IEnumerable<T> items)
+    public async Task<IEnumerable<int>> AddItems(IDbConnection conn, IEnumerable<TSource> items)
     {
         throw new NotImplementedException();
     }
@@ -47,16 +49,16 @@ public class BaseProvider<T>(SqlProvider<T> sqlProvider)
     /// <summary>
     /// Обновить элемент
     /// </summary>
-    public async Task UpdateItem(IDbConnection conn, T item)
+    public async Task UpdateItem(IDbConnection conn, TSource item)
     {
-        var query = sqlProvider.GetUpdateByKeyQuery();
-        await conn.ExecuteAsync(query, item);
+        var query = SqlProvider.GetUpdateQuery<TSource>(item);
+        await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 
     /// <summary>
     /// Обновить элементы
     /// </summary>
-    public async Task UpdateItems(IDbConnection conn, IEnumerable<T> items)
+    public async Task UpdateItems(IDbConnection conn, IEnumerable<TSource> items)
     {
         throw new NotImplementedException();
     }
@@ -64,16 +66,16 @@ public class BaseProvider<T>(SqlProvider<T> sqlProvider)
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    public async Task DeleteItem(IDbConnection conn, int id)
+    public async Task DeleteItem(IDbConnection conn, TKey key)
     {
-        var query = sqlProvider.GetDeleteByKeyQuery();
-        await conn.ExecuteAsync(query, new { id });
+        var query = SqlProvider.GetDeleteQuery<TSource, TKey>(key);
+        await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 
     /// <summary>
     /// Удалить элементы
     /// </summary>
-    public async Task DeleteItems(IDbConnection conn, IEnumerable<int> ids)
+    public async Task DeleteItems(IDbConnection conn, IEnumerable<TKey> keys)
     {
         throw new NotImplementedException();
     }

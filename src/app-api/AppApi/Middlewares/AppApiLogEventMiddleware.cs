@@ -23,6 +23,7 @@ public class AppApiLogEventMiddleware(ILogger<AppApiLogEventMiddleware> logger, 
         {
             logItem.SetResult(e.Message, e.StackTrace);
             logger.LogError(logItem.ToString());
+            throw;
         }
     }
 }

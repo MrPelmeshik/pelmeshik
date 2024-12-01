@@ -1,10 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Diagnostics;
-using System.Text;
 using Npgsql;
-using Utility.Interfaces;
 
 namespace Utility.Models;
 
@@ -12,7 +9,7 @@ namespace Utility.Models;
 /// Конфигурация подключения
 /// </summary>
 [Table("connection", Schema = "app")]
-public class ConnectionConfiguration : IItemId
+public class ConnectionConfiguration
 {
     /// <summary>
     /// Идентификатор

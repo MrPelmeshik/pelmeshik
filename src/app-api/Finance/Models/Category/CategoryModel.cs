@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Utility.Models;
 
-namespace Finance.Models;
+namespace Finance.Models.Category;
 
 [Table("category", Schema = "finance")]
-public class Category : BaseItemId
+public class CategoryModel : CategoryKey
 {
     [Column("name")]
     public string Name { get; set; }

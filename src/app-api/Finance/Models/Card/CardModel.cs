@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Utility.Models;
 
-namespace Finance.Models;
+namespace Finance.Models.Card;
 
-[Table("transaction_frequency", Schema = "finance")]
-public class TransactionFrequency: BaseItemId
+[Table("card", Schema = "finance")]
+public class CardModel : CardKey
 {
+    [Column("short_name")]
+    public string ShortName { get; set; }
+
     [Column("name")]
     public string Name { get; set; }
     
