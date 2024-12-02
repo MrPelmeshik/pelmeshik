@@ -54,11 +54,11 @@ public abstract class BaseController<TSource, TKey>(
     /// Удалить элемент
     /// </summary>
     [HttpDelete, AppApiEvent("Удаление элемента")]
-    public async Task DeleteItem([FromQuery] TKey key) => await service.DeleteItem(key);
+    public async Task DeleteItem([FromBody] TKey key) => await service.DeleteItem(key);
 
     /// <summary>
     /// Удалить элементы
     /// </summary>
     [HttpDelete, AppApiEvent("Удаление элементов")]
-    public async Task DeleteItems([FromQuery] IEnumerable<TKey> keys) => await service.DeleteItems(keys);
+    public async Task DeleteItems([FromBody] IEnumerable<TKey> keys) => await service.DeleteItems(keys);
 }

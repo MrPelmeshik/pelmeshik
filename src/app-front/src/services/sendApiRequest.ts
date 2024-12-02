@@ -15,15 +15,19 @@ export const sendApiRequest = async (endpoint: string,
         ? ''
         : `/${area}`;
 
+    const props = requestType === RequestTypeEnum.GET
+        ? {params}
+        : {data: params};
+
     return await axios.request({
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Methods': '*',
             'Content-Type': 'application/json; charset=utf-8',
             'Referrer-Policy': 'origin-when-cross-origin',
         },
         signal: controllerRef?.current.signal,
-        params: params,
+        ...props,
         method: requestType,
         url: `${serverUrl}${areaStr}/${endpoint}`,
     });
