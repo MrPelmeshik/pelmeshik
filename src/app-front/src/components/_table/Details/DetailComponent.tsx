@@ -6,7 +6,6 @@ import {Text} from "@consta/uikit/Text";
 import {IconSave} from "@consta/icons/IconSave";
 import {IconTrash} from "@consta/icons/IconTrash";
 import {IconCopy} from "@consta/icons/IconCopy";
-import {useApi} from "../../../services/useApi";
 import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
 import React, {useEffect, useState} from "react";
 import {Loader} from "@consta/uikit/Loader";
@@ -15,7 +14,9 @@ import {IconRestart} from "@consta/icons/IconRestart";
 import {sendApiRequest} from "../../../services/sendApiRequest";
 
 export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
-    const apiResponse = useApi<T>(`${props.catalogType}/getItem`, props.area, RequestTypeEnum.GET, {id: props.id});
+    const [data, setData] = useState<T | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [loaded, setLoaded] = useState<boolean>(false);
     const [item, setItem] = useState<T | null>(null);
     const [baseItem, setBaseItem] = useState<T | null>(null);
     const [body, setBody] = useState<JSX.Element | JSX.Element[] | null>(null);
@@ -31,14 +32,52 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
 
     const reset = (accessor: keyof T) => {
         const lItem = {...item} as T;
-        lItem[accessor] = baseItem?.[accessor as keyof T] as any;
+        lItem[accessor] = (baseItem?.[accessor as keyof T] as any) ?? null;
         setItem(lItem);
         setUpdate(!update);
     }
 
-    const deleteItem = () => {
-        sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.DELETE, {id: props.id}, props.area);
+    const saveItem = () => {
+        try {
+            sendApiRequest(`${props.catalogType}/updateItem`, RequestTypeEnum.PATCH, item, props.area);
+            props.close();
+        } catch (error) {
+            console.log(error)
+        } finally {
+            console.log('close')
+        }
     }
+
+    const deleteItem = () => {
+        try {
+            sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.DELETE, {id: props.id}, props.area);
+            props.close();
+        } catch (error) {
+            console.log(error)
+        } finally {
+            console.log('close')
+        }
+    }
+
+    useEffect(() => {
+        if (props.id === 'new') {
+            const lItem = {} as T;
+            setData(lItem);
+            setBaseItem(lItem)
+            setUpdate(!update);
+        } else {
+            (async () => {
+                try {
+                    const response = await sendApiRequest(`${props.catalogType}/getItem`, RequestTypeEnum.GET, {id: props.id}, props.area);
+                    setData(response.data);
+                } catch (error) {
+                    setError((error as Error).message);
+                } finally {
+                    setLoaded(true);
+                }
+            })();
+        }
+    }, []);
 
     useEffect(() => {
         let lHasChanged = false;
@@ -61,7 +100,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                             {col.tableColumn.title}
                         </Text>
                         {
-                            !col.isReadOnly
+                            !col.isReadOnly && props.id !== 'new'
                                 ? <Button size={'xs'}
                                           view={'clear'}
                                           iconLeft={IconRestart}
@@ -88,19 +127,19 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     }, [update]);
 
     useEffect(() => {
-        if (apiResponse.error) {
-            setBody(<ErrorComponent message={apiResponse.error}/>);
-        } else if (apiResponse.data) {
-            const lItem = apiResponse.data;
+        if (error) {
+            setBody(<ErrorComponent message={error}/>);
+        } else if (data) {
+            const lItem = data;
             setItem(lItem);
             setBaseItem(lItem);
             setUpdate(!update);
-        } else if (!apiResponse.loaded) {
+        } else if (!loaded) {
             setBody(<Loader/>)
         } else {
             setBody(null);
         }
-    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.catalogType]);
+    }, [loaded, error, data, props.catalogType]);
 
     return <div className={css.body}>
         <div className={css.whiteBlock}>
@@ -128,7 +167,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                                 onlyIcon
                         />
                         <Button size={'s'}
-                                onClick={() => {}}
+                                onClick={saveItem}
                                 view={'ghost'}
                                 iconLeft={IconSave}
                                 onlyIcon

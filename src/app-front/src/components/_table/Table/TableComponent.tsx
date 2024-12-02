@@ -28,6 +28,10 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
         setActiveItem(null);
     };
 
+    const addItem = () => {
+        setActiveItem({id: 'new'} as TableType<T>);
+    };
+
     useEffect(() => {
         setDetail(activeItem !== null
             ? <DetailComponent title={props.title}
@@ -64,7 +68,9 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
         {tableOverflowWidow}
         <div className={css.main}>
             <div className={css.tableSettings}>
-                <TableSettingsComponent title={props.title} />
+                <TableSettingsComponent title={props.title}
+                                        addItem={addItem}
+                />
             </div>
             <div className={css.tableMain}>
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}

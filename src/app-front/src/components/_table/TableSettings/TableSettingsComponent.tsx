@@ -29,6 +29,7 @@ export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.El
                     view={'ghost'}
                     iconLeft={IconAdd}
                     onlyIcon
+                    onClick={props.addItem}
             />
         </div>
     </div>
