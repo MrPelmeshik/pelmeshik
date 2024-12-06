@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Finance.Models.Agent;
+namespace Finance.Models;
 
 [Table("agent", Schema = "finance")]
-public class AgentModel : AgentKey
+public class Agent : SimpleKeyIntId
 {
     [Column("name")] 
     public string? Name { get; set; }

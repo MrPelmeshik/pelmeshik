@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Utility.Models;
 
-namespace Finance.Models.Tag;
+namespace Finance.Models;
 
-public class TagKey : BaseKey
+public class SimpleKeyIntId: BaseKey
 {
     [Key, ReadOnly(true), Column("id")]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 }

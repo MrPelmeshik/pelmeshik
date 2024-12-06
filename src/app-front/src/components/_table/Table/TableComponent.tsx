@@ -26,6 +26,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
     const closeDetail = () => {
         setDetail(null);
         setActiveItem(null);
+        apiResponse.doUpdate();
     };
 
     const addItem = () => {

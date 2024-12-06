@@ -15,7 +15,7 @@ export const CardColDefs: TableColDef<ICard>[] = [
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
         detailsRenderer: RenderNumberDetails,
-        isReadOnly: true
+        isReadOnly: true,
     },
     {
         tableColumn: {

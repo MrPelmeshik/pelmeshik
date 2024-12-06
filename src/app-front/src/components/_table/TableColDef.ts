@@ -8,4 +8,5 @@ export interface TableColDef<T> {
     detailsRenderer: DetailsRender<T>;
     validators?: ValueValidator<T>[];
     isReadOnly?: boolean;
+    defaultValue?: any;
 }

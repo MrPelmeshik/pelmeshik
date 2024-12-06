@@ -14,7 +14,7 @@ export const TransactionFrequencyColDefs: TableColDef<ITransactionFrequency>[] =
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
         detailsRenderer: RenderNumberDetails,
-        isReadOnly: true
+        isReadOnly: true,
     },
     {
         tableColumn: {

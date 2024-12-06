@@ -79,4 +79,13 @@ public class BaseService<TSource, TKey> (
     {
         throw new NotImplementedException();
     }
+    
+    /// <summary>
+    /// Добавить или обновить элемент
+    /// </summary>
+    public async Task<int> AddOrUpdateItem(TSource item)
+    {
+        using var conn = connectionProvider.GetDefaultConnection();
+        return await provider.AddOrUpdateItem(conn, item);
+    }
 }

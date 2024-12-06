@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Finance.Models.Transaction;
+namespace Finance.Models;
 
 [Table("transaction", Schema = "finance")]
-public class TransactionModel : TransactionKey
+public class Transaction : SimpleKeyIntId
 {
     [Column("short_description")]
     public string ShortDescription { get; set; }

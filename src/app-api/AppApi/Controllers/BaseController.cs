@@ -1,5 +1,4 @@
 using AppApi.Attributes;
-using Finance.Models.Agent;
 using Microsoft.AspNetCore.Mvc;
 using Utility.Extensions;
 using Utility.Interfaces;
@@ -29,36 +28,42 @@ public abstract class BaseController<TSource, TKey>(
     /// <summary>
     /// Добавить элемент
     /// </summary>
-    [HttpPut, AppApiEvent("Добавление элемента")]
+    [HttpPost, AppApiEvent("Добавление элемента")]
     public async Task<int> AddItem([FromBody] TSource item) => await service.AddItem(item);
 
     /// <summary>
     /// Добавить элементы
     /// </summary>
-    [HttpPut, AppApiEvent("Добавление элементов")]
+    [HttpPost, AppApiEvent("Добавление элементов")]
     public async Task<IEnumerable<int>> AddItems([FromBody] IEnumerable<TSource> items) => await service.AddItems(items);
 
     /// <summary>
     /// Обновить элемент
     /// </summary>
-    [HttpPatch, AppApiEvent("Обновление элемента")]
+    [HttpPost, AppApiEvent("Обновление элемента")]
     public async Task UpdateItem([FromBody] TSource item) => await service.UpdateItem(item);
 
     /// <summary>
     /// Обновить элементы
     /// </summary>
-    [HttpPatch, AppApiEvent("Обновление элементов")]
+    [HttpPost, AppApiEvent("Обновление элементов")]
     public async Task UpdateItems([FromBody] IEnumerable<TSource> items) => await service.UpdateItems(items);
 
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    [HttpDelete, AppApiEvent("Удаление элемента")]
+    [HttpPost, AppApiEvent("Удаление элемента")]
     public async Task DeleteItem([FromBody] TKey key) => await service.DeleteItem(key);
 
     /// <summary>
     /// Удалить элементы
     /// </summary>
-    [HttpDelete, AppApiEvent("Удаление элементов")]
+    [HttpPost, AppApiEvent("Удаление элементов")]
     public async Task DeleteItems([FromBody] IEnumerable<TKey> keys) => await service.DeleteItems(keys);
+    
+    /// <summary>
+    /// Добавить или обновить элемент
+    /// </summary>
+    [HttpPost, AppApiEvent("Добавление или обновление элемента")]
+    public async Task<int> AddOrUpdateItem([FromBody] TSource item) => await service.AddOrUpdateItem(item);
 }

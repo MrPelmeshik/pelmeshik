@@ -9,9 +9,12 @@ export const useApi = <T>(endpoint: string, area: AreaEnum, requestType: Request
     const [error, setError] = useState<string | null>(null);
     const [loaded, setLoaded] = useState<boolean>(false);
     const controllerRef = useRef(new AbortController());
+    const [update, setUpdate] = useState<boolean>(false);
     const cancel = () => {
         controllerRef.current.abort();
     };
+
+    const doUpdate = () => setUpdate(!update);
 
     useEffect(() => {
         (async () => {
@@ -24,7 +27,7 @@ export const useApi = <T>(endpoint: string, area: AreaEnum, requestType: Request
                 setLoaded(true);
             }
         })();
-    }, []);
+    }, [undefined, update]);
 
-    return { cancel, data, error, loaded };
+    return { cancel, data, error, loaded, doUpdate };
 };

@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Finance.Models.TransactionFrequency;
+namespace Finance.Models;
 
 [Table("transaction_frequency", Schema = "finance")]
-public class TransactionFrequencyModel: TransactionFrequencyKey
+public class TransactionFrequency: SimpleKeyIntId
 {
     [Column("name")]
     public string Name { get; set; }

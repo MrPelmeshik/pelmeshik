@@ -38,30 +38,37 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     }
 
     const saveItem = () => {
-        try {
-            sendApiRequest(`${props.catalogType}/updateItem`, RequestTypeEnum.PATCH, item, props.area);
-            props.close();
-        } catch (error) {
-            console.log(error)
-        } finally {
-            console.log('close')
-        }
+        (async () => {
+            try {
+                props.id === 'new'
+                    ? await sendApiRequest(`${props.catalogType}/addItem`, RequestTypeEnum.POST, item, props.area)
+                    : await sendApiRequest(`${props.catalogType}/updateItem`, RequestTypeEnum.POST, item, props.area);
+            } catch (error) {
+                console.log(error)
+            } finally {
+                props.close();
+                console.log('close')
+            }
+        })();
     }
 
     const deleteItem = () => {
-        try {
-            sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.DELETE, {id: props.id}, props.area);
-            props.close();
-        } catch (error) {
-            console.log(error)
-        } finally {
-            console.log('close')
-        }
+        (async () => {
+            try {
+                await sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.POST, {id: props.id}, props.area);
+            } catch (error) {
+                console.log(error)
+            } finally {
+                props.close();
+                console.log('close')
+            }
+        })();
     }
 
     useEffect(() => {
         if (props.id === 'new') {
             const lItem = {} as T;
+            props.colDefs.forEach(colDef => lItem[colDef.tableColumn.accessor as keyof T] = colDef.defaultValue ?? null);
             setData(lItem);
             setBaseItem(lItem)
             setUpdate(!update);

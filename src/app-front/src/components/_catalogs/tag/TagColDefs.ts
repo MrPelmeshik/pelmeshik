@@ -16,7 +16,7 @@ export const TagColDefs: TableColDef<ITag>[] = [
             renderCell: (props) => RenderDefaultCell(props.row.id),
         },
         detailsRenderer: RenderNumberDetails,
-        isReadOnly: true
+        isReadOnly: true,
     },
     {
         tableColumn: {
@@ -37,5 +37,6 @@ export const TagColDefs: TableColDef<ITag>[] = [
             renderCell: (props) => RenderColorCell(props.row.color),
         },
         detailsRenderer: RenderColorDetails,
+        defaultValue: '#000000',
     },
 ];

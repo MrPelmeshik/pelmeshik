@@ -22,7 +22,7 @@ export const AgentColDefs: TableColDef<IAgent>[] = [
                 message: 'Поле ID не должно быть пустым',
             })
         ],
-        isReadOnly: true
+        isReadOnly: true,
     },
     {
         tableColumn: {
@@ -38,7 +38,7 @@ export const AgentColDefs: TableColDef<IAgent>[] = [
                 isValid: props.currentRow.name !== null,
                 message: 'Поле Название не должно быть пустым',
             })
-        ]
+        ],
     },
     {
         tableColumn: {
@@ -54,6 +54,6 @@ export const AgentColDefs: TableColDef<IAgent>[] = [
                 isValid: props.currentRow.isPerson !== null,
                 message: 'Поле Физ. лицо не должно быть пустым',
             })
-        ]
+        ],
     },
 ];

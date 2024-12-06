@@ -1,5 +1,4 @@
 using Finance.Models;
-using Finance.Models.Agent;
 using Microsoft.AspNetCore.Mvc;
 using Utility.Providers;
 using Utility.Services;
@@ -12,5 +11,5 @@ namespace AppApi.Controllers.Finance;
     Route("[area]/[controller]/[action]")
 ]
 public class AgentController(
-    BaseService<AgentModel, AgentKey> service
-    ) : BaseController<AgentModel, AgentKey>(service);
+    BaseService<Agent, SimpleKeyIntId> service
+    ) : BaseController<Agent, SimpleKeyIntId>(service);

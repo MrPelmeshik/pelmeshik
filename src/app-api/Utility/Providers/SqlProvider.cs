@@ -84,8 +84,8 @@ public static class SqlProvider
                    set {string.Join(", ", nonReadOnlyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                    where {string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                    """;
-        var parameters = nonReadOnlyProperties.ToDictionary(p => p.Name, p => p.GetValue(item));
-        
+        var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(item));
+    
         return new Query(sql, parameters);
     }
     
@@ -97,13 +97,13 @@ public static class SqlProvider
         var properties = typeof(TSource).GetProperties();
         var keyProperties = properties.GetKeyProperties();
         var nonReadOnlyProperties = properties.GetNonReadOnlyProperties();
-        var insertQuery = GetInsertQuery(item);
         var sql = $"""
-                   {insertQuery.Sql}
+                   insert into {typeof(TSource).GetFullTableName()} ({string.Join(", ", properties.GetColumnNames())})
+                   values ({string.Join(", ", properties.Select(p => $":{p.Name}"))})
                    on conflict ({string.Join(", ", keyProperties.GetColumnNames())})
                    do update set {string.Join(", ", nonReadOnlyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                    """;
-        var parameters = insertQuery.Parameters;
+        var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(item));
         
         return new Query(sql, parameters);
     }

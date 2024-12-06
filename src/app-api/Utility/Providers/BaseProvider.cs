@@ -9,7 +9,7 @@ namespace Utility.Providers;
 /// <summary>
 /// Базовый провайдер
 /// </summary>
-public class BaseProvider<TSource, TKey> where TKey : IItemKey where TSource : TKey
+public class BaseProvider<TSource, TKey>(ILogger<BaseProvider<TSource, TKey>> logger) where TKey : IItemKey where TSource : TKey
 {
     /// <summary>
     /// Получить элемент по идентификатору
@@ -51,7 +51,7 @@ public class BaseProvider<TSource, TKey> where TKey : IItemKey where TSource : T
     /// </summary>
     public async Task UpdateItem(IDbConnection conn, TSource item)
     {
-        var query = SqlProvider.GetUpdateQuery<TSource>(item);
+        var query = SqlProvider.GetUpdateQuery(item);
         await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 
@@ -78,5 +78,14 @@ public class BaseProvider<TSource, TKey> where TKey : IItemKey where TSource : T
     public async Task DeleteItems(IDbConnection conn, IEnumerable<TKey> keys)
     {
         throw new NotImplementedException();
+    }
+    
+    /// <summary>
+    /// Добавить или обновить элемент
+    /// </summary>
+    public async Task<int> AddOrUpdateItem(IDbConnection conn, TSource item)
+    {
+        var query = SqlProvider.GetInsertOrUpdateQuery(item);
+        return await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 }
