@@ -87,7 +87,11 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                 try {
                     const response = await sendApiRequest(`${props.catalogType}/getItem`, RequestTypeEnum.GET, {id: props.selectItem.id}, props.area);
                     if (props.selectItem.type === SelectItemTypeEnum.COPY) {
-                        response.data.id = undefined;
+                        props.colDefs.forEach(colDef => {
+                            if (colDef.isReadOnly) {
+                                delete response.data[colDef.tableColumn.accessor as keyof T];
+                            }
+                        })
                     }
                     setData(response.data);
                 } catch (error) {

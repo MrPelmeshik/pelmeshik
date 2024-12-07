@@ -6,6 +6,8 @@ import {TableColDef} from "../../_table/TableColDef";
 import {RenderDefaultDetails} from "../../_table/_detailsRenderer/RenderDefaultDetails";
 import {RenderBooleanDetails} from "../../_table/_detailsRenderer/RenderBooleanDetails";
 import {RenderNumberDetails} from "../../_table/_detailsRenderer/RenderNumberDetails";
+import {RenderDateTimeDetails} from "../../_table/_detailsRenderer/RenderDateTimeDetails";
+import {RenderDateTimeCell} from "../../_table/_cellRenderer/RenderDateTimeCell";
 
 export const AgentColDefs: TableColDef<IAgent>[] = [
     {
@@ -56,4 +58,25 @@ export const AgentColDefs: TableColDef<IAgent>[] = [
             })
         ],
     },
+    {
+        tableColumn: {
+            title: 'Дата обновления',
+            accessor: 'updateDate',
+            width: '1fr',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderDateTimeCell(props.row.updateDate),
+        },
+        detailsRenderer: RenderDateTimeDetails,
+        isReadOnly: true,
+    },
+    {
+        tableColumn: {
+            title: 'Признак активности',
+            accessor: 'isActive',
+            width: '1fr',
+            renderHeaderCell: RenderDefaultHeader,
+            renderCell: (props) => RenderBooleanCell(props.row.isActive)
+        },
+        detailsRenderer: RenderBooleanDetails
+    }
 ];

@@ -1,3 +1,5 @@
+drop schema finance cascade;
+
 create schema finance;
 
 
@@ -16,7 +18,9 @@ values  ('Обычная', 'Обычная'),
 create table finance.transaction_frequency (
     id serial primary key,
     name text not null,
-    full_name text not null
+    full_name text not null,
+    update_date timestamptz not null default now(), 
+    is_active boolean not null default true
 );
 comment on table finance.transaction_frequency is 'Частота транзакций';
 insert into finance.transaction_frequency (name, full_name)
@@ -32,7 +36,9 @@ create table finance.card
     id   serial primary key,
     short_name text not null,
     name text not null,
-    full_name text not null
+    full_name text not null,
+    update_date timestamptz not null default now(),
+    is_active boolean not null default true
 );
 comment on table finance.card is 'Карты';
 insert into finance.card (short_name, name, full_name)
@@ -43,7 +49,9 @@ values  ('Т-7173', 'ТБанк ...7173', 'ТБанк ...7173 MasterCard'),
 create table finance.agent (
     id serial primary key,
     name text not null,
-    is_person boolean not null
+    is_person boolean not null,
+    update_date timestamptz not null default now(),
+    is_active boolean not null default true
 );
 comment on table finance.agent is 'Контрагенты';
 insert into finance.agent (name, is_person)
@@ -53,7 +61,9 @@ values  ('Я', true);
 create table finance.category (
     id serial primary key,
     name text not null,
-    color text not null default '#000000'
+    color text not null default '#000000',
+    update_date timestamptz not null default now(),
+    is_active boolean not null default true
 );
 comment on table finance.category is 'Категории';
 
@@ -61,7 +71,9 @@ comment on table finance.category is 'Категории';
 create table finance.tag (
     id serial primary key,
     name text not null,
-    color text not null default '#000000'
+    color text not null default '#000000',
+    update_date timestamptz not null default now(),
+    is_active boolean not null default true
 );
 comment on table finance.tag is 'Теги';
 insert into finance.tag (name)
@@ -107,7 +119,9 @@ create table finance.transaction (
     transaction_frequency_id int not null references finance.transaction_frequency(id),
     card_id int not null references finance.card(id),
     agent_id int not null references finance.agent(id),
-    category_id int not null references finance.category(id)
+    category_id int not null references finance.category(id),
+    update_date timestamptz not null default now(),
+    is_active boolean not null default true
 );
 comment on table finance.transaction is 'Транзакции';
 
@@ -115,6 +129,8 @@ comment on table finance.transaction is 'Транзакции';
 create table finance.transaction_2_tag (
     transaction_id int not null references finance.transaction(id),
     tag_id int not null references finance.tag(id),
-    constraint transaction_2_tag_unq unique (transaction_id, tag_id)
+    constraint transaction_2_tag_unq unique (transaction_id, tag_id),
+    update_date timestamptz not null default now(),
+    is_active boolean not null default true
 );
 comment on table finance.transaction_2_tag is 'Теги транзакций';

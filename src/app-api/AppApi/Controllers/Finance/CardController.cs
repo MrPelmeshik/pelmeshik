@@ -1,5 +1,6 @@
 using Finance.Models;
 using Microsoft.AspNetCore.Mvc;
+using Utility.Models;
 using Utility.Providers;
 using Utility.Services;
 
@@ -9,5 +10,5 @@ namespace AppApi.Controllers.Finance;
 [Area("Finance")]
 [Route("[area]/[controller]/[action]")]
 public class CardController(
-    BaseService<Card, SimpleKeyIntId> service
-    ) : BaseController<Card, SimpleKeyIntId>(service);
+    BaseService<Card> service
+    ) : BaseController<Card>(service);

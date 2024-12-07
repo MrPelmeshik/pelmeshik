@@ -9,14 +9,14 @@ namespace Utility.Providers;
 /// <summary>
 /// Базовый провайдер
 /// </summary>
-public class BaseProvider<TSource, TKey>(ILogger<BaseProvider<TSource, TKey>> logger) where TKey : IItemKey where TSource : TKey
+public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where TSource : IItemKey
 {
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    public async Task<TSource?> GetItem(IDbConnection conn, TKey key)
+    public async Task<TSource?> GetItem(IDbConnection conn, TSource key)
     {
-        var query = SqlProvider.GetSelectByKeyQuery<TSource, TKey>(key);
+        var query = SqlProvider.GetSelectByKeyQuery(key);
         return await conn.QueryFirstOrDefaultAsync<TSource>(query.Sql, query.Parameters);
     }
 
@@ -34,7 +34,7 @@ public class BaseProvider<TSource, TKey>(ILogger<BaseProvider<TSource, TKey>> lo
     /// </summary>
     public async Task<int> AddItem(IDbConnection conn, TSource item)
     {
-        var query = SqlProvider.GetInsertQuery<TSource>(item);
+        var query = SqlProvider.GetInsertQuery(item);
         return await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 
@@ -66,16 +66,16 @@ public class BaseProvider<TSource, TKey>(ILogger<BaseProvider<TSource, TKey>> lo
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    public async Task DeleteItem(IDbConnection conn, TKey key)
+    public async Task DeleteItem(IDbConnection conn, TSource key)
     {
-        var query = SqlProvider.GetDeleteQuery<TSource, TKey>(key);
+        var query = SqlProvider.GetDeleteQuery<TSource>(key);
         await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
 
     /// <summary>
     /// Удалить элементы
     /// </summary>
-    public async Task DeleteItems(IDbConnection conn, IEnumerable<TKey> keys)
+    public async Task DeleteItems(IDbConnection conn, IEnumerable<TSource> keys)
     {
         throw new NotImplementedException();
     }

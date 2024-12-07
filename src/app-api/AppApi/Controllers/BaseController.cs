@@ -9,15 +9,15 @@ namespace AppApi.Controllers;
 /// <summary>
 /// Базовый провайдер
 /// </summary>
-public abstract class BaseController<TSource, TKey>(
-    BaseService<TSource, TKey> service
-    ) where TKey : IItemKey where TSource : TKey
+public abstract class BaseController<TSource>(
+    BaseService<TSource> service
+    ) where TSource : IItemKey
 {
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
     [HttpGet, AppApiEvent("Получение элемента по идентификатору")]
-    public async Task<TSource?> GetItem([FromQuery] TKey key) => await service.GetItem(key);
+    public async Task<TSource?> GetItem([FromQuery] TSource key) => await service.GetItem(key);
 
     /// <summary>
     /// Получить элементы
@@ -53,13 +53,13 @@ public abstract class BaseController<TSource, TKey>(
     /// Удалить элемент
     /// </summary>
     [HttpPost, AppApiEvent("Удаление элемента")]
-    public async Task DeleteItem([FromBody] TKey key) => await service.DeleteItem(key);
+    public async Task DeleteItem([FromBody] TSource key) => await service.DeleteItem(key);
 
     /// <summary>
     /// Удалить элементы
     /// </summary>
     [HttpPost, AppApiEvent("Удаление элементов")]
-    public async Task DeleteItems([FromBody] IEnumerable<TKey> keys) => await service.DeleteItems(keys);
+    public async Task DeleteItems([FromBody] IEnumerable<TSource> keys) => await service.DeleteItems(keys);
     
     /// <summary>
     /// Добавить или обновить элемент

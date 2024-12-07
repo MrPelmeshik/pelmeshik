@@ -1,4 +1,6 @@
+using System.Reflection;
 using Utility.Extensions;
+using Utility.Interfaces;
 using Utility.Models;
 
 namespace Utility.Providers;
@@ -33,19 +35,6 @@ public static class SqlProvider
     /// <summary>
     /// Построить запрос на чтение
     /// </summary>
-    public static Query GetSelectByKeyQuery<TSource, TKey>(TKey key)
-    {
-        var keyProperties = typeof(TKey).GetProperties();
-        var filterCondition = string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"));
-        var sql = $"{GetSelectQuery<TSource>().Sql} where {filterCondition}";
-        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
-        
-        return new Query(sql, parameters);
-    }
-    
-    /// <summary>
-    /// Построить запрос на чтение
-    /// </summary>
     public static Query GetSelectByKeyQuery<TSource>(TSource key)
     {
         var keyProperties = typeof(TSource).GetProperties().GetKeyProperties();
@@ -61,12 +50,14 @@ public static class SqlProvider
     /// </summary>
     public static Query GetInsertQuery<TSource>(TSource item)
     {
-        var nonReadOnlyProperties = typeof(TSource).GetProperties().GetNonReadOnlyProperties();
+        var properties = typeof(TSource)
+            .GetProperties()
+            .GetNonReadOnlyProperties();
         var sql = $"""
-                   insert into {typeof(TSource).GetFullTableName()} ({string.Join(", ", nonReadOnlyProperties.GetColumnNames())})
-                   values ({string.Join(", ", nonReadOnlyProperties.Select(p => $":{p.Name}"))})
+                   insert into {typeof(TSource).GetFullTableName()} ({string.Join(", ", properties.GetColumnNames())})
+                   values ({string.Join(", ", properties.Select(p => $":{p.Name}"))})
                    """;
-        var parameters = nonReadOnlyProperties.ToDictionary(p => p.Name, p => p.GetValue(item));
+        var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(item));
         
         return new Query(sql, parameters);
     }
@@ -104,21 +95,6 @@ public static class SqlProvider
                    do update set {string.Join(", ", nonReadOnlyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                    """;
         var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(item));
-        
-        return new Query(sql, parameters);
-    }
-    
-    /// <summary>
-    /// Построить запрос на удаление
-    /// </summary>
-    public static Query GetDeleteQuery<TSource, TKey>(TKey key)
-    {
-        var keyProperties = typeof(TKey).GetProperties();
-        var sql = $"""
-                   delete from {typeof(TSource).GetFullTableName()}
-                   where {string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
-                   """;
-        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
         
         return new Query(sql, parameters);
     }

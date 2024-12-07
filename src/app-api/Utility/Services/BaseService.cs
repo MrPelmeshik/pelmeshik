@@ -5,16 +5,16 @@ using Utility.Providers;
 
 namespace Utility.Services;
 
-public class BaseService<TSource, TKey> (
-    ILogger<BaseService<TSource, TKey>> logger,
-    BaseProvider<TSource, TKey> provider,
+public class BaseService<TSource> (
+    ILogger<BaseService<TSource>> logger,
+    BaseProvider<TSource> provider,
     ConnectionProvider connectionProvider
-    ) where TKey : IItemKey where TSource : TKey
+    ) where TSource : IItemKey
 {
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    public async Task<TSource?> GetItem(TKey key)
+    public async Task<TSource?> GetItem(TSource key)
     {
         using var conn = connectionProvider.GetDefaultConnection();
         return await provider.GetItem(conn, key);
@@ -66,7 +66,7 @@ public class BaseService<TSource, TKey> (
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    public async Task DeleteItem(TKey key)
+    public async Task DeleteItem(TSource key)
     {
         using var conn = connectionProvider.GetDefaultConnection();
         await provider.DeleteItem(conn, key);
@@ -75,7 +75,7 @@ public class BaseService<TSource, TKey> (
     /// <summary>
     /// Удалить элементы
     /// </summary>
-    public async Task DeleteItems(IEnumerable<TKey> keys)
+    public async Task DeleteItems(IEnumerable<TSource> keys)
     {
         throw new NotImplementedException();
     }

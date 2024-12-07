@@ -1,6 +1,7 @@
 using Finance.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Utility.Interfaces;
+using Utility.Models;
 using Utility.Providers;
 using Utility.Services;
 
@@ -10,19 +11,19 @@ public static class FinanceModule
 {
     public static void Init(IServiceCollection collection)
     {
-        collection.RegisterBaseCase<Agent, SimpleKeyIntId>();
-        collection.RegisterBaseCase<Card, SimpleKeyIntId>();
-        collection.RegisterBaseCase<Category, SimpleKeyIntId>();
-        collection.RegisterBaseCase<Tag, SimpleKeyIntId>();
-        collection.RegisterBaseCase<Transaction, SimpleKeyIntId>();
-        collection.RegisterBaseCase<TransactionFrequency, SimpleKeyIntId>();
+        collection.RegisterBaseCase<Agent>();
+        collection.RegisterBaseCase<Card>();
+        collection.RegisterBaseCase<Category>();
+        collection.RegisterBaseCase<Tag>();
+        collection.RegisterBaseCase<Transaction>();
+        collection.RegisterBaseCase<TransactionFrequency>();
     }
 
-    private static void RegisterBaseCase<TSource, TKey>(
+    private static void RegisterBaseCase<TSource>(
         this IServiceCollection collection
-        ) where TKey : IItemKey where TSource : TKey
+        ) where TSource : IItemKey
     {
-        collection.AddTransient<BaseProvider<TSource, TKey>>();
-        collection.AddTransient<BaseService<TSource, TKey>>();
+        collection.AddTransient<BaseProvider<TSource>>();
+        collection.AddTransient<BaseService<TSource>>();
     }
 }
