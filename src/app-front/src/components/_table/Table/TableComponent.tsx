@@ -10,6 +10,8 @@ import {AreaEnum} from "../../../types/AreaEnum";
 import {DetailComponent} from "../Details/DetailComponent";
 import {TableSettingsComponent} from "../TableSettings/TableSettingsComponent";
 import {ErrorComponent} from "../../Error/ErrorComponent";
+import {ISelectItem} from "./ISelectItem";
+import {SelectItemTypeEnum} from "../SelectItemTypeEnum";
 
 
 export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
@@ -20,30 +22,40 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
         {}
     );
     const [tableOverflowWidow, setTableTableOverflowWidow] = useState<JSX.Element | null>(null);
-    const [activeItem, setActiveItem] = useState<TableType<T> | null>(null);
+    const [selectItem, setSelectItem] = useState<ISelectItem | null>(null);
     const [detail, setDetail] = useState<JSX.Element | null>(null);
 
-    const closeDetail = () => {
+    const closeDetail = (copyId?: number | string) => {
         setDetail(null);
-        setActiveItem(null);
+        setSelectItem(null);
         apiResponse.doUpdate();
+
+        if (copyId) {
+            setSelectItem({
+                id: copyId,
+                type: SelectItemTypeEnum.COPY
+            });
+        }
     };
 
     const addItem = () => {
-        setActiveItem({id: 'new'} as TableType<T>);
+        setSelectItem({
+            id: undefined,
+            type: SelectItemTypeEnum.NEW
+        });
     };
 
     useEffect(() => {
-        setDetail(activeItem !== null
+        setDetail(selectItem !== null
             ? <DetailComponent title={props.title}
+                               selectItem={selectItem}
                                close={closeDetail}
-                               id={activeItem.id}
                                area={AreaEnum.FINANCE} // todo: Надо будет добавить опредеение в зависимости от типа каталога
                                catalogType={props.catalogType}
                                colDefs={props.colDefs}
             />
             : null);
-    }, [activeItem]);
+    }, [selectItem]);
 
     useEffect(() => {
         let body: JSX.Element | null = null;
@@ -81,7 +93,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
                        }}
                        stickyHeader
                        zebraStriped
-                       onRowClick={(item) => setActiveItem(item)}
+                       onRowClick={(item) => setSelectItem({id: item.id, type: SelectItemTypeEnum.SELECT})}
                 />
             </div>
         </div>

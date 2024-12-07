@@ -30,6 +30,7 @@ export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.El
                     iconLeft={IconAdd}
                     onlyIcon
                     onClick={props.addItem}
+                    label={'Добавить'}
             />
         </div>
     </div>

@@ -12,6 +12,8 @@ import {Loader} from "@consta/uikit/Loader";
 import {ErrorComponent} from "../../Error/ErrorComponent";
 import {IconRestart} from "@consta/icons/IconRestart";
 import {sendApiRequest} from "../../../services/sendApiRequest";
+import { Tag } from "@consta/uikit/Tag";
+import {SelectItemTypeEnum} from "../SelectItemTypeEnum";
 
 export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const [data, setData] = useState<T | null>(null);
@@ -21,7 +23,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const [baseItem, setBaseItem] = useState<T | null>(null);
     const [body, setBody] = useState<JSX.Element | JSX.Element[] | null>(null);
     const [update, setUpdate] = useState<boolean>(false);
-    const [hasChanged, setHasChanged] = useState<boolean>(false);
+    const [hasChanged, setHasChanged] = useState<boolean>(props.selectItem.type === SelectItemTypeEnum.COPY);
 
     const updateValue = (accessor: keyof T, value: any) => {
         const lItem = {...item} as T;
@@ -40,14 +42,13 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const saveItem = () => {
         (async () => {
             try {
-                props.id === 'new'
+                props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY
                     ? await sendApiRequest(`${props.catalogType}/addItem`, RequestTypeEnum.POST, item, props.area)
                     : await sendApiRequest(`${props.catalogType}/updateItem`, RequestTypeEnum.POST, item, props.area);
             } catch (error) {
                 console.log(error)
             } finally {
                 props.close();
-                console.log('close')
             }
         })();
     }
@@ -55,18 +56,27 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const deleteItem = () => {
         (async () => {
             try {
-                await sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.POST, {id: props.id}, props.area);
+                await sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.POST, {id: props.selectItem.id}, props.area);
             } catch (error) {
                 console.log(error)
             } finally {
                 props.close();
-                console.log('close')
             }
         })();
     }
 
+    const copyItem = () => {
+        if (props.selectItem.id && props.selectItem.type !== SelectItemTypeEnum.NEW && props.selectItem.type !== SelectItemTypeEnum.COPY) {
+            props.close(props.selectItem.id);
+        }
+    }
+
+    const close = () => {
+        props.close();
+    }
+
     useEffect(() => {
-        if (props.id === 'new') {
+        if (props.selectItem.type === SelectItemTypeEnum.NEW) {
             const lItem = {} as T;
             props.colDefs.forEach(colDef => lItem[colDef.tableColumn.accessor as keyof T] = colDef.defaultValue ?? null);
             setData(lItem);
@@ -75,7 +85,10 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
         } else {
             (async () => {
                 try {
-                    const response = await sendApiRequest(`${props.catalogType}/getItem`, RequestTypeEnum.GET, {id: props.id}, props.area);
+                    const response = await sendApiRequest(`${props.catalogType}/getItem`, RequestTypeEnum.GET, {id: props.selectItem.id}, props.area);
+                    if (props.selectItem.type === SelectItemTypeEnum.COPY) {
+                        response.data.id = undefined;
+                    }
                     setData(response.data);
                 } catch (error) {
                     setError((error as Error).message);
@@ -87,7 +100,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        let lHasChanged = false;
+        let lHasChanged = props.selectItem.type === SelectItemTypeEnum.COPY;
         const lBody = props.colDefs
             .map(col => {
                 const valueChanged = item?.[col.tableColumn.accessor as keyof T] !== baseItem?.[col.tableColumn.accessor as keyof T];
@@ -107,7 +120,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                             {col.tableColumn.title}
                         </Text>
                         {
-                            !col.isReadOnly && props.id !== 'new'
+                            !col.isReadOnly && props.selectItem.type === SelectItemTypeEnum.NEW
                                 ? <Button size={'xs'}
                                           view={'clear'}
                                           iconLeft={IconRestart}
@@ -137,7 +150,10 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
         if (error) {
             setBody(<ErrorComponent message={error}/>);
         } else if (data) {
-            const lItem = data;
+            const lItem = props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY
+                ? {...data, id: null}
+                : data;
+
             setItem(lItem);
             setBaseItem(lItem);
             setUpdate(!update);
@@ -159,6 +175,19 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                         >
                             {props.title}
                         </Text>
+                        {
+                            props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY
+                                ? <Tag size={'xs'}
+                                       mode={'info'}
+                                       label={'Добавление'}
+                                       style={{marginRight: '.4rem'}}
+                                />
+                                : <Tag size={'xs'}
+                                       mode={'info'}
+                                       label={'Редактирование'}
+                                       style={{marginRight: '.4rem'}}
+                                />
+                        }
                     </div>
                     <div className={css.rightSide}>
                         <Button size={'s'}
@@ -166,12 +195,15 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                                 view={'ghost'}
                                 iconLeft={IconTrash}
                                 onlyIcon
+                                label={'Удалить'}
                         />
                         <Button size={'s'}
-                                onClick={() => {}}
+                                onClick={copyItem}
                                 view={'ghost'}
                                 iconLeft={IconCopy}
                                 onlyIcon
+                                disabled={!props.selectItem.id || props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY}
+                                label={'Скопировать'}
                         />
                         <Button size={'s'}
                                 onClick={saveItem}
@@ -179,12 +211,14 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                                 iconLeft={IconSave}
                                 onlyIcon
                                 disabled={!hasChanged}
+                                label={'Сохранить'}
                         />
                         <Button size={'s'}
-                                onClick={props.close}
+                                onClick={close}
                                 view={'ghost'}
                                 iconLeft={IconClose}
                                 onlyIcon
+                                label={'Закрыть'}
                         />
                     </div>
                 </div>
