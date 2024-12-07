@@ -76,10 +76,11 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             <div className={css.tableMain}>
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
                        columns={props.colDefs.map(colDef => colDef.tableColumn)}
+                       style={{
+                           maxHeight: 'calc(85vh - 2rem)' // todo: Надо будет как-то иначе ограничивать размер таблицы (для того чтобы скролл работал)
+                       }}
                        stickyHeader
                        zebraStriped
-                       resizable={'inside'}
-                       virtualScroll={!!apiResponse.data && apiResponse.data.length > 0}
                        onRowClick={(item) => setActiveItem(item)}
                 />
             </div>
