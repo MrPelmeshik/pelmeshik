@@ -39,14 +39,6 @@ public class BaseService<TSource> (
     }
 
     /// <summary>
-    /// Добавить элементы
-    /// </summary>
-    public async Task<IEnumerable<int>> AddItems(IEnumerable<TSource> items)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// Обновить элемент
     /// </summary>
     public async Task UpdateItem(TSource item)
@@ -56,28 +48,12 @@ public class BaseService<TSource> (
     }
 
     /// <summary>
-    /// Обновить элементы
-    /// </summary>
-    public async Task UpdateItems(IEnumerable<TSource> items)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// Удалить элемент
     /// </summary>
     public async Task DeleteItem(TSource key)
     {
         using var conn = connectionProvider.GetDefaultConnection();
         await provider.DeleteItem(conn, key);
-    }
-
-    /// <summary>
-    /// Удалить элементы
-    /// </summary>
-    public async Task DeleteItems(IEnumerable<TSource> keys)
-    {
-        throw new NotImplementedException();
     }
     
     /// <summary>

@@ -32,34 +32,16 @@ public abstract class BaseController<TSource>(
     public async Task<int> AddItem([FromBody] TSource item) => await service.AddItem(item);
 
     /// <summary>
-    /// Добавить элементы
-    /// </summary>
-    [HttpPost, AppApiEvent("Добавление элементов")]
-    public async Task<IEnumerable<int>> AddItems([FromBody] IEnumerable<TSource> items) => await service.AddItems(items);
-
-    /// <summary>
     /// Обновить элемент
     /// </summary>
     [HttpPost, AppApiEvent("Обновление элемента")]
     public async Task UpdateItem([FromBody] TSource item) => await service.UpdateItem(item);
 
     /// <summary>
-    /// Обновить элементы
-    /// </summary>
-    [HttpPost, AppApiEvent("Обновление элементов")]
-    public async Task UpdateItems([FromBody] IEnumerable<TSource> items) => await service.UpdateItems(items);
-
-    /// <summary>
     /// Удалить элемент
     /// </summary>
     [HttpPost, AppApiEvent("Удаление элемента")]
     public async Task DeleteItem([FromBody] TSource key) => await service.DeleteItem(key);
-
-    /// <summary>
-    /// Удалить элементы
-    /// </summary>
-    [HttpPost, AppApiEvent("Удаление элементов")]
-    public async Task DeleteItems([FromBody] IEnumerable<TSource> keys) => await service.DeleteItems(keys);
     
     /// <summary>
     /// Добавить или обновить элемент

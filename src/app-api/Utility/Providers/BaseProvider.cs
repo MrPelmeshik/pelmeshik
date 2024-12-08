@@ -39,14 +39,6 @@ public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where 
     }
 
     /// <summary>
-    /// Добавить элементы
-    /// </summary>
-    public async Task<IEnumerable<int>> AddItems(IDbConnection conn, IEnumerable<TSource> items)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// Обновить элемент
     /// </summary>
     public async Task UpdateItem(IDbConnection conn, TSource item)
@@ -56,28 +48,12 @@ public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where 
     }
 
     /// <summary>
-    /// Обновить элементы
-    /// </summary>
-    public async Task UpdateItems(IDbConnection conn, IEnumerable<TSource> items)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// Удалить элемент
     /// </summary>
     public async Task DeleteItem(IDbConnection conn, TSource key)
     {
         var query = SqlProvider.GetDeleteQuery<TSource>(key);
         await conn.ExecuteAsync(query.Sql, query.Parameters);
-    }
-
-    /// <summary>
-    /// Удалить элементы
-    /// </summary>
-    public async Task DeleteItems(IDbConnection conn, IEnumerable<TSource> keys)
-    {
-        throw new NotImplementedException();
     }
     
     /// <summary>
