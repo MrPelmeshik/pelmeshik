@@ -50,9 +50,31 @@ public class TransactionService(
             });
     }
 
-    public Task<int> AddItem(TransactionModel item)
+    public async Task<int> AddItem(TransactionModel item)
     {
-        throw new NotImplementedException();
+        using var conn = connectionProvider.GetDefaultConnection();
+        conn.Open();
+        var tr = conn.BeginTransaction();
+        try
+        {
+            var id = await provider.AddItem(conn, item, tr);
+            if (id > 0)
+            {
+                await transaction2TagProvider.UpdateItemByTransactionId(
+                    conn,
+                    id,
+                    item.TagIds ?? new List<int>(),
+                    tr);
+            }
+
+            tr.Commit();
+            return id;
+        }
+        catch
+        {
+            tr.Rollback();
+            throw;
+        }
     }
 
     public async Task UpdateItem(TransactionModel item)

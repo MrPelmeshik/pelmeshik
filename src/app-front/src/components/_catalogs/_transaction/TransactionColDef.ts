@@ -68,6 +68,16 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
     },
     {
         tableColumn: {
+            title: 'Агент',
+            accessor: 'agentId',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.agentId),
+        },
+        detailsRenderer: DefaultDetailsComponent
+    },
+    {
+        tableColumn: {
             title: 'Карта',
             accessor: 'cardId',
             width: '1fr',
