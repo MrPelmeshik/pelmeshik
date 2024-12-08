@@ -124,7 +124,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                             {col.tableColumn.title}
                         </Text>
                         {
-                            !col.isReadOnly && props.selectItem.type === SelectItemTypeEnum.NEW
+                            !col.isReadOnly && props.selectItem.type !== SelectItemTypeEnum.NEW
                                 ? <Button size={'xs'}
                                           view={'clear'}
                                           iconLeft={IconRestart}
