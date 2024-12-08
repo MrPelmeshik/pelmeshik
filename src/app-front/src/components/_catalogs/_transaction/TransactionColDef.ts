@@ -14,6 +14,7 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
         tableColumn: {
             title: 'ID',
             accessor: 'id',
+            width: '1fr',
             renderHeaderCell: DefaultHeaderComponent,
             renderCell: (props) => DefaultCellComponent(props.row.id),
         },
@@ -40,7 +41,7 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
         tableColumn: {
             title: 'Краткое описание',
             accessor: 'shortDescription',
-            width: '1fr',
+            width: '2fr',
             renderHeaderCell: DefaultHeaderComponent,
             renderCell: (props) => DefaultCellComponent(props.row.shortDescription),
         },
@@ -50,7 +51,7 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
         tableColumn: {
             title: 'Описание',
             accessor: 'description',
-            width: '1fr',
+            width: '2fr',
             renderHeaderCell: DefaultHeaderComponent,
             renderCell: (props) => DefaultCellComponent(props.row.description),
         },

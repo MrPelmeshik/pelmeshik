@@ -1,13 +1,16 @@
 import {DataCell} from "@consta/table/DataCell";
-import {DatePicker} from "@consta/uikit/DatePicker";
+import {Text} from "@consta/uikit/Text";
 
 export const DateTimeCellComponent = (value: Date | null | undefined): JSX.Element => {
+    const date = value && new Date(value);
     return <DataCell size={'s'}>
-        <DatePicker size={'s'}
-                    view={'clear'}
-                    type={'date-time'}
-                    value={value && new Date(value)}
-                    placeholder={''}
-        />
+        <Text size={'s'}>
+            {date && date.toLocaleDateString('ru-RU')}
+        </Text>
+        <Text size={'xs'}
+              view={'ghost'}
+        >
+            {date && date.toLocaleTimeString('ru-RU')}
+        </Text>
     </DataCell>
 }
