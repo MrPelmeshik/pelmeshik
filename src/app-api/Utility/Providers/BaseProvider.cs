@@ -54,7 +54,7 @@ public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where 
     /// </summary>
     public async Task DeleteItem(IDbConnection conn, TSource key)
     {
-        var query = SqlProvider.GetDeleteQuery<TSource>(key);
+        var query = SqlProvider.GetDeleteQuery(key);
         await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
     

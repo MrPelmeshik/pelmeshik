@@ -34,13 +34,13 @@ public static class SqlProvider
     /// <summary>
     /// Построить запрос на чтение
     /// </summary>
-    public static Query GetSelectByKeyQuery<TSource>(TSource key)
+    public static Query GetSelectByKeyQuery<TSource>(TSource item)
     {
         var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
         var keyProperties = properties.GetKeyProperties();
         var filterCondition = string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"));
         var sql = $"{GetSelectQuery<TSource>().Sql} where {filterCondition}";
-        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(item));
         
         return new Query(sql, parameters);
     }
@@ -103,14 +103,14 @@ public static class SqlProvider
     /// <summary>
     /// Построить запрос на удаление
     /// </summary>
-    public static Query GetDeleteQuery<TSource>(TSource key)
+    public static Query GetDeleteQuery<TSource>(TSource item)
     {
-        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
+        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties().GetKeyProperties();
         var sql = $"""
                    delete from {typeof(TSource).GetFullTableName()}
                    where {string.Join(" and ", properties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                    """;
-        var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(item));
         
         return new Query(sql, parameters);
     }

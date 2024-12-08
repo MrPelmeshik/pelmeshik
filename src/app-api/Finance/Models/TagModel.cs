@@ -11,7 +11,7 @@ public class TagModel :  IItemKeyIntId, IItemUpdateDate, IItemIsActiveSign
     [Key, ReadOnly(true), Column("id")]
     public int? Id { get; set; }
     
-    [Column("update_date"), DefaultValue("now()")]
+    [Column("update_date")]
     public DateTime? UpdateDate { get; set; }
     
     [Column("is_active")]
