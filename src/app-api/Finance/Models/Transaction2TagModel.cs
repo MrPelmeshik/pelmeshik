@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Finance.Models.Transaction2Tag;
+namespace Finance.Models;
 
 [Table("transaction_2_tag", Schema = "finance")]
 public class Transaction2TagModel

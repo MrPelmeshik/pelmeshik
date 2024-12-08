@@ -12,12 +12,13 @@ public static class FinanceModule
 {
     public static void Init(IServiceCollection collection)
     {
-        collection.RegisterBaseCase<Transaction>();
+        collection.AddTransient<Transaction2TagProvider>();
         
         collection.RegisterBaseCase<AgentModel>();
         collection.RegisterBaseCase<CardModel>();
         collection.RegisterBaseCase<CategoryModel>();
         collection.RegisterBaseCase<TagModel>();
+        collection.RegisterBaseCase<TransactionModel, TransactionService>();
         collection.RegisterBaseCase<TransactionFrequencyModel>();
     }
 
