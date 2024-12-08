@@ -1,6 +1,6 @@
 namespace Utility.Models;
 
-public interface IItemUpdatedDate
+public interface IItemUpdateDate
 {
     /// <summary>
     /// Дата последнего обновления

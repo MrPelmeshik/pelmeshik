@@ -34,6 +34,7 @@ public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where 
     /// </summary>
     public async Task<int> AddItem(IDbConnection conn, TSource item)
     {
+        TrySetUpdateDate(item);
         var query = SqlProvider.GetInsertQuery(item);
         return await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
@@ -43,6 +44,7 @@ public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where 
     /// </summary>
     public async Task UpdateItem(IDbConnection conn, TSource item)
     {
+        TrySetUpdateDate(item);
         var query = SqlProvider.GetUpdateQuery(item);
         await conn.ExecuteAsync(query.Sql, query.Parameters);
     }
@@ -61,7 +63,16 @@ public class BaseProvider<TSource>(ILogger<BaseProvider<TSource>> logger) where 
     /// </summary>
     public async Task<int> AddOrUpdateItem(IDbConnection conn, TSource item)
     {
+        TrySetUpdateDate(item);
         var query = SqlProvider.GetInsertOrUpdateQuery(item);
         return await conn.ExecuteAsync(query.Sql, query.Parameters);
+    }
+
+    private void TrySetUpdateDate(TSource item)
+    {
+        if (item is IItemUpdateDate date)
+        {
+            date.UpdateDate = DateTime.UtcNow;
+        }
     }
 }

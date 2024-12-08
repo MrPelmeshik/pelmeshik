@@ -6,7 +6,7 @@ using Utility.Models;
 namespace Finance.Models;
 
 [Table("transaction_frequency", Schema = "finance")]
-public class TransactionFrequencyModel :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
+public class TransactionFrequencyModel :  IItemKeyIntId, IItemUpdateDate, IItemIsActiveSign
 {
     [Key, ReadOnly(true), Column("id")]
     public int? Id { get; set; }
