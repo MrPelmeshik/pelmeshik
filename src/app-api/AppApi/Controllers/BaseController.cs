@@ -10,7 +10,7 @@ namespace AppApi.Controllers;
 /// Базовый провайдер
 /// </summary>
 public abstract class BaseController<TSource>(
-    BaseService<TSource> service
+    IService<TSource> service
     ) where TSource : IItemKey
 {
     /// <summary>

@@ -1,6 +1,4 @@
-using System.Reflection;
 using Utility.Extensions;
-using Utility.Interfaces;
 using Utility.Models;
 
 namespace Utility.Providers;
@@ -26,8 +24,9 @@ public static class SqlProvider
     /// </summary>
     public static Query GetSelectQuery<TSource>()
     {
+        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
         return new Query($"""
-                          select {string.Join(", ", typeof(TSource).GetProperties().Select(p => $"{p.GetColumnName()} as {p.Name}"))}
+                          select {string.Join(", ", properties.Select(p => $"{p.GetColumnName()} as {p.Name}"))}
                           from {typeof(TSource).GetFullTableName()}
                           """);
     }
@@ -37,7 +36,8 @@ public static class SqlProvider
     /// </summary>
     public static Query GetSelectByKeyQuery<TSource>(TSource key)
     {
-        var keyProperties = typeof(TSource).GetProperties().GetKeyProperties();
+        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
+        var keyProperties = properties.GetKeyProperties();
         var filterCondition = string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"));
         var sql = $"{GetSelectQuery<TSource>().Sql} where {filterCondition}";
         var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
@@ -52,6 +52,7 @@ public static class SqlProvider
     {
         var properties = typeof(TSource)
             .GetProperties()
+            .GetSqlHandledProperties()
             .GetNonReadOnlyProperties();
         var sql = $"""
                    insert into {typeof(TSource).GetFullTableName()} ({string.Join(", ", properties.GetColumnNames())})
@@ -67,7 +68,7 @@ public static class SqlProvider
     /// </summary>
     public static Query GetUpdateQuery<TSource>(TSource item)
     {
-        var properties = typeof(TSource).GetProperties();
+        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
         var nonReadOnlyProperties = properties.GetNonReadOnlyProperties();
         var keyProperties = properties.GetKeyProperties();
         var sql = $"""
@@ -85,7 +86,7 @@ public static class SqlProvider
     /// </summary>
     public static Query GetInsertOrUpdateQuery<TSource>(TSource item)
     {
-        var properties = typeof(TSource).GetProperties();
+        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
         var keyProperties = properties.GetKeyProperties();
         var nonReadOnlyProperties = properties.GetNonReadOnlyProperties();
         var sql = $"""
@@ -104,12 +105,12 @@ public static class SqlProvider
     /// </summary>
     public static Query GetDeleteQuery<TSource>(TSource key)
     {
-        var keyProperties = typeof(TSource).GetProperties().GetKeyProperties();
+        var properties = typeof(TSource).GetProperties().GetSqlHandledProperties();
         var sql = $"""
                    delete from {typeof(TSource).GetFullTableName()}
-                   where {string.Join(" and ", keyProperties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
+                   where {string.Join(" and ", properties.Select(p => $"{p.GetColumnName()} = :{p.Name}"))}
                    """;
-        var parameters = keyProperties.ToDictionary(p => p.Name, p => p.GetValue(key));
+        var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(key));
         
         return new Query(sql, parameters);
     }

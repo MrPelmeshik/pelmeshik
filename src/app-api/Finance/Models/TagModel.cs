@@ -6,7 +6,7 @@ using Utility.Models;
 namespace Finance.Models;
 
 [Table("tag", Schema = "finance")]
-public class Tag :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
+public class TagModel :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
 {
     [Key, ReadOnly(true), Column("id")]
     public int? Id { get; set; }

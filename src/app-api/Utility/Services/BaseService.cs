@@ -9,7 +9,7 @@ public class BaseService<TSource> (
     ILogger<BaseService<TSource>> logger,
     BaseProvider<TSource> provider,
     ConnectionProvider connectionProvider
-    ) where TSource : IItemKey
+    ) : IService<TSource> where TSource : IItemKey
 {
     /// <summary>
     /// Получить элемент по идентификатору

@@ -6,17 +6,22 @@ using System.Reflection;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using Npgsql;
+using Utility.Attributes;
 
 namespace Utility.Extensions;
 
 public static class PropertyExtensions
 {
+    public static IList<PropertyInfo> GetSqlHandledProperties(this IList<PropertyInfo> properties) => properties
+        .Where(HasNotAttribute<SqlIgnoredAttribute>)
+        .ToArray();
+    
     public static IList<PropertyInfo> GetKeyProperties(this IList<PropertyInfo> properties) => properties
-        .Where(property => property.GetCustomAttribute<KeyAttribute>() != null)
+        .Where(HasAttribute<KeyAttribute>)
         .ToArray();
 
     public static IList<PropertyInfo> GetNonKeyProperties(this IList<PropertyInfo> properties) => properties
-        .Where(property => property.GetCustomAttribute<KeyAttribute>() == null)
+        .Where(HasNotAttribute<KeyAttribute>)
         .ToArray();
     
     public static IList<PropertyInfo> GetReadOnlyProperties(this IList<PropertyInfo> properties) => properties
@@ -46,6 +51,12 @@ public static class PropertyExtensions
     public static object? GetDefaultValue(this PropertyInfo property) => property
         .GetCustomAttribute<DefaultValueAttribute>()?
         .Value;
+    
+    private static bool HasAttribute<T>(PropertyInfo property) where T : Attribute => property
+        .GetCustomAttribute<T>() != null;
+    
+    private static bool HasNotAttribute<T>(PropertyInfo property) where T : Attribute => property
+        .GetCustomAttribute<T>() == null;
 
     public static string GetColumnName(this PropertyInfo property)
     {

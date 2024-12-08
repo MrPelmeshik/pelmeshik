@@ -1,12 +1,13 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Utility.Attributes;
 using Utility.Models;
 
 namespace Finance.Models;
 
 [Table("transaction", Schema = "finance")]
-public class Transaction :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
+public class TransactionModel :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
 {
     [Key, ReadOnly(true), Column("id")]
     public int? Id { get; set; }
@@ -41,6 +42,6 @@ public class Transaction :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
     [Column("category_id")]
     public int? CategoryId { get; set; }
     
-    [Column("tag_id")]
-    public int? TagId { get; set; }
+    [SqlIgnored]
+    public IEnumerable<int>? TagIds { get; set; }
 }

@@ -5,8 +5,8 @@ using Utility.Models;
 
 namespace Finance.Models;
 
-[Table("card", Schema = "finance")]
-public class Card :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
+[Table("category", Schema = "finance")]
+public class CategoryModel :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
 {
     [Key, ReadOnly(true), Column("id")]
     public int? Id { get; set; }
@@ -16,13 +16,10 @@ public class Card :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
     
     [Column("is_active")]
     public bool? IsActive { get; set; }
-    
-    [Column("short_name")]
-    public string? ShortName { get; set; }
 
     [Column("name")]
     public string? Name { get; set; }
     
-    [Column("full_name")]
-    public string? FullName { get; set; }
+    [Column("color")]
+    public string? Color { get; set; }
 }
