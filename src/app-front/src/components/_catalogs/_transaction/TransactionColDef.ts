@@ -2,15 +2,12 @@ import {BooleanCellComponent} from "../../_table/_cellRenderer/_simple/BooleanCe
 import {DefaultHeaderComponent} from "../../_table/_headerRenderer/_simple/DefaultHeaderComponent";
 import {DefaultCellComponent} from "../../_table/_cellRenderer/_simple/DefaultCellComponent";
 import {TableColDef} from "../../_table/TableColDef";
-import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
 import {BooleanDetailsComponent} from "../../_table/_detailsRenderer/_simple/BooleanDetailsComponent";
 import {NumberDetailsComponent} from "../../_table/_detailsRenderer/_simple/NumberDetailsComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
 import {ITransaction} from "./ITransaction";
-import {TagComponent} from "../_tag/TagComponent";
-import {ComponentCellComponent} from "../../_table/_cellRenderer/ComponentCell/ComponentCellComponent";
-import {TagProps} from "../_tag/TagProps";
+import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
 
 export const TransactionColDefs: TableColDef<ITransaction>[] = [
     {
@@ -31,14 +28,83 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
     },
     {
         tableColumn: {
+            title: 'Дата',
+            accessor: 'date',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DateTimeCellComponent(props.row.date),
+        },
+        detailsRenderer: DateTimeDetailsComponent
+    },
+    {
+        tableColumn: {
+            title: 'Краткое описание',
+            accessor: 'shortDescription',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.shortDescription),
+        },
+        detailsRenderer: DefaultDetailsComponent
+    },
+    {
+        tableColumn: {
+            title: 'Описание',
+            accessor: 'description',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.description),
+        },
+        detailsRenderer: DefaultDetailsComponent
+    },
+    {
+        tableColumn: {
+            title: 'Сумма',
+            accessor: 'value',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.value),
+        },
+        detailsRenderer: NumberDetailsComponent
+    },
+    {
+        tableColumn: {
+            title: 'Карта',
+            accessor: 'cardId',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.cardId),
+        },
+        detailsRenderer: DefaultDetailsComponent
+    },
+    {
+        tableColumn: {
+            title: 'Периодичность транзакции',
+            accessor: 'transactionFrequencyId',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.transactionFrequencyId),
+        },
+        detailsRenderer: DefaultDetailsComponent,
+    },
+    {
+        tableColumn: {
+            title: 'Категория',
+            accessor: 'categoryId',
+            width: '1fr',
+            renderHeaderCell: DefaultHeaderComponent,
+            renderCell: (props) => DefaultCellComponent(props.row.categoryId),
+        },
+        detailsRenderer: DefaultDetailsComponent,
+    },
+    {
+        tableColumn: {
             title: 'Тэг',
             accessor: 'tagIds',
             width: '1fr',
             renderHeaderCell: DefaultHeaderComponent,
             renderCell: (props) => DefaultCellComponent(props.row.tagIds),
         },
-        detailsRenderer: DateTimeDetailsComponent,
-        isReadOnly: true,
+        detailsRenderer: DefaultDetailsComponent
     },
     {
         tableColumn: {
