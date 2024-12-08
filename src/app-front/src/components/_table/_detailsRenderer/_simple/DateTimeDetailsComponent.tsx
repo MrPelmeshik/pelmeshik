@@ -12,6 +12,9 @@ export const DateTimeDetailsComponent = <T,>(props: DetailsRenderProps<T>): JSX.
                     onChange={(item) => props.updateValue?.(props.accessor, item)}
                     disabled={props.isReadOnly}
                     placeholder={''}
+                    style={{
+                        zIndex: 14 // todo: Надо будет как-то поправить. Пока у модалки zIndex = 13
+                    }}
         />
     </div>;
 }
