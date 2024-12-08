@@ -40,4 +40,7 @@ public class Transaction :  IItemKeyIntId, IItemUpdatedDate, IItemIsActiveSign
     
     [Column("category_id")]
     public int? CategoryId { get; set; }
+    
+    [Column("tag_id")]
+    public int? TagId { get; set; }
 }

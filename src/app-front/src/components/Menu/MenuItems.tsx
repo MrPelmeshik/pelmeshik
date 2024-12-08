@@ -6,6 +6,7 @@ import {AgentColDefs} from "../_catalogs/_agent/AgentColDefs";
 import {CategoryColDefs} from "../_catalogs/_category/CategoryColDefs";
 import {TagColDefs} from "../_catalogs/_tag/TagColDefs";
 import {TransactionFrequencyColDefs} from "../_catalogs/_transactionFrequency/TransactionFrequencyColDefs";
+import {TransactionColDefs} from "../_catalogs/_transaction/TransactionColDef";
 
 export const MenuItems: IMenuItem[] = [
     {
@@ -62,8 +63,11 @@ export const MenuItems: IMenuItem[] = [
         label: 'Транзакции',
         id: 6,
         groupId: 2,
-        element: <></>,
-        disabled: true,
+        element: <TableComponent key={CatalogTypeEnum.TRANSACTION}
+                                 title={'Транзакции'}
+                                 catalogType={CatalogTypeEnum.TRANSACTION}
+                                 colDefs={TransactionColDefs}
+        />,
     },
     {
         label: 'Дашборд по расходам',
