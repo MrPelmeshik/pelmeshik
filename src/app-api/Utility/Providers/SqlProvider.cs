@@ -62,6 +62,19 @@ public static class SqlProvider
         
         return new Query(sql, parameters);
     }
+    
+    /// <summary>
+    /// Построить запрос на вставку
+    /// </summary>
+    public static Query GetInsertQuery<TSource>(Dictionary<string, object> item)
+    {
+        var sql = $"""
+                   insert into {typeof(TSource).GetFullTableName()} ({string.Join(", ", item.Keys)})
+                   values ({string.Join(", ", item.Keys.Select(k => $":{k}"))})
+                   """;
+        
+        return new Query(sql, item);
+    }
 
     /// <summary>
     /// Построить запрос на обновление
@@ -113,5 +126,18 @@ public static class SqlProvider
         var parameters = properties.ToDictionary(p => p.Name, p => p.GetValue(item));
         
         return new Query(sql, parameters);
+    }
+    
+    /// <summary>
+    /// Построить запрос на удаление
+    /// </summary>
+    public static Query GetDeleteQuery<TSource>(Dictionary<string, object> item)
+    {
+        var sql = $"""
+                   delete from {typeof(TSource).GetFullTableName()}
+                   where {string.Join(" and ", item.Select(p => $"{p.Key} = :{p.Key}"))}
+                   """;
+        
+        return new Query(sql, item);
     }
 }

@@ -1,8 +1,6 @@
-using Dapper;
 using Finance.Models;
 using Finance.Providers;
 using Microsoft.Extensions.Logging;
-using Npgsql;
 using Utility.Interfaces;
 using Utility.Providers;
 
@@ -15,14 +13,14 @@ public class TransactionService(
     ConnectionProvider connectionProvider) 
     : IService<TransactionModel>
 {
-    public async Task<TransactionModel?> GetItem(TransactionModel key)
+    public async Task<TransactionModel?> GetItem(TransactionModel item)
     {
         using var conn = connectionProvider.GetDefaultConnection();
         
-        var transaction = await provider.GetItem(conn, key);
-        if (transaction != null && key.Id != null)
+        var transaction = await provider.GetItem(conn, item);
+        if (transaction != null && item.Id != null)
         {
-            transaction.TagIds = (await transaction2TagProvider.GetByTransactionId(conn, (int)key.Id))
+            transaction.TagIds = (await transaction2TagProvider.GetByTransactionId(conn, (int)item.Id))
                 .Select(transaction2Tag => transaction2Tag.TagId);
         }
         
@@ -57,14 +55,37 @@ public class TransactionService(
         throw new NotImplementedException();
     }
 
-    public Task UpdateItem(TransactionModel item)
+    public async Task UpdateItem(TransactionModel item)
     {
-        throw new NotImplementedException();
+        using var conn = connectionProvider.GetDefaultConnection();
+        conn.Open();
+        var tr = conn.BeginTransaction();
+        try
+        {
+            if (item is { Id: not null, TagIds: not null })
+            {
+                await transaction2TagProvider.UpdateItemByTransactionId(
+                    conn,
+                    (int)item.Id,
+                    item.TagIds ?? new List<int>(),
+                    tr);
+            }
+
+            await provider.UpdateItem(conn, item, tr);
+
+            tr.Commit();
+        }
+        catch
+        {
+            tr.Rollback();
+            throw;
+        }
     }
 
-    public Task DeleteItem(TransactionModel key)
+    public async Task DeleteItem(TransactionModel item)
     {
-        throw new NotImplementedException();
+        using var conn = connectionProvider.GetDefaultConnection();
+        await provider.DeleteItem(conn, item);
     }
 
     public Task<int> AddOrUpdateItem(TransactionModel item)

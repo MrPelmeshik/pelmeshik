@@ -14,10 +14,10 @@ public class BaseService<TSource> (
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    public async Task<TSource?> GetItem(TSource key)
+    public async Task<TSource?> GetItem(TSource item)
     {
         using var conn = connectionProvider.GetDefaultConnection();
-        return await provider.GetItem(conn, key);
+        return await provider.GetItem(conn, item);
     }
 
     /// <summary>
@@ -50,10 +50,10 @@ public class BaseService<TSource> (
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    public async Task DeleteItem(TSource key)
+    public async Task DeleteItem(TSource item)
     {
         using var conn = connectionProvider.GetDefaultConnection();
-        await provider.DeleteItem(conn, key);
+        await provider.DeleteItem(conn, item);
     }
     
     /// <summary>

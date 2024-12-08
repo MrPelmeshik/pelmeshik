@@ -5,7 +5,7 @@ public interface IService<TSource> where TSource : IItemKey
     /// <summary>
     /// Получить элемент по идентификатору
     /// </summary>
-    Task<TSource?> GetItem(TSource key);
+    Task<TSource?> GetItem(TSource item);
 
     /// <summary>
     /// Получить элементы
@@ -35,7 +35,7 @@ public interface IService<TSource> where TSource : IItemKey
     /// <summary>
     /// Удалить элемент
     /// </summary>
-    Task DeleteItem(TSource key);
+    Task DeleteItem(TSource item);
 
     /// <summary>
     /// Удалить элементы
