@@ -60,7 +60,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
     useEffect(() => {
         let body: JSX.Element | null = null;
         if (apiResponse.error) {
-            body = <ErrorComponent message={apiResponse.error} />;
+            body = <ErrorComponent message={apiResponse.error}/>;
         } else if (!apiResponse.loaded) {
             body = <Loader/>;
         }
@@ -87,7 +87,12 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             </div>
             <div className={css.tableMain}>
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
-                       columns={props.colDefs.map(colDef => colDef.tableColumn)}
+                       columns={
+                           props
+                               .colDefs
+                               .filter(colDef => !colDef.hidden)
+                               .map(colDef => colDef.tableColumn)
+                       }
                        style={{
                            maxHeight: 'calc(85vh - 2rem)' // todo: Надо будет как-то иначе ограничивать размер таблицы (для того чтобы скролл работал)
                        }}

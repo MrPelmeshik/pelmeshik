@@ -26,6 +26,7 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
             })
         ],
         isReadOnly: true,
+        hidden: true
     },
     {
         tableColumn: {
@@ -127,6 +128,7 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
         },
         detailsRenderer: DateTimeDetailsComponent,
         isReadOnly: true,
+        hidden: true
     },
     {
         tableColumn: {

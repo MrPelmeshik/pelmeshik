@@ -9,4 +9,5 @@ export interface TableColDef<T> {
     validators?: ValueValidator<T>[];
     isReadOnly?: boolean;
     defaultValue?: any;
+    hidden?: boolean;
 }
