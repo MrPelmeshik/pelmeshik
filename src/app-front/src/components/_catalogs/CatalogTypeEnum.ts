@@ -5,4 +5,5 @@ export enum CatalogTypeEnum {
     TAG = 'tag',
     TRANSACTION_FREQUENCY = 'transactionFrequency',
     ERROR_ENDPOINT = 'errorEndpoint', // todo: Удалить потом. Нужно для тестов
+    TRANSACTION = 'transaction'
 }

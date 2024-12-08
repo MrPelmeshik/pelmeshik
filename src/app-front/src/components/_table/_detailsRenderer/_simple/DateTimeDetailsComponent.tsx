@@ -1,7 +1,7 @@
-import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
+import {DetailsRenderProps} from "../../../../types/DetailsRenderProps";
 import {DatePicker} from "@consta/uikit/DatePicker";
 
-export const RenderDateTimeDetails = <T,>(props: DetailsRenderProps<T>): JSX.Element => {
+export const DateTimeDetailsComponent = <T,>(props: DetailsRenderProps<T>): JSX.Element => {
     const value = props.currentRow[props.accessor] as Date | null | undefined;
 
     return <div style={{width: '100%'}}>

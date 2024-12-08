@@ -2,7 +2,7 @@ import {HeaderDataCell} from '@consta/table/HeaderDataCell';
 import {HeaderDataCellProps} from '@consta/table/HeaderDataCell';
 import {TableColumn} from '@consta/table/Table';
 
-export const RenderDefaultHeader = (
+export const DefaultHeaderComponent = (
     item?: TableColumn<any>,
     props?: HeaderDataCellProps
 ): JSX.Element => {

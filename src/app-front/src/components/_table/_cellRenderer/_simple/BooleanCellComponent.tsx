@@ -1,8 +1,8 @@
 import {DataCell} from "@consta/table/DataCell";
-import {RenderDefaultCell} from "./RenderDefaultCell";
+import {DefaultCellComponent} from "./DefaultCellComponent";
 
-export const RenderBooleanCell = (value: boolean | null | undefined): JSX.Element => {
-    const cell = RenderDefaultCell(value === true
+export const BooleanCellComponent = (value: boolean | null | undefined): JSX.Element => {
+    const cell = DefaultCellComponent(value === true
         ? 'Да'
         : value === false
             ? 'Нет'

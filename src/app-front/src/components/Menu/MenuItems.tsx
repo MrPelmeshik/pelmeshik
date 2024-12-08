@@ -1,11 +1,11 @@
 import {IMenuItem} from "./IMenuItem";
 import {TableComponent} from "../_table/Table/TableComponent";
 import {CatalogTypeEnum} from "../_catalogs/CatalogTypeEnum";
-import {CardColDefs} from "../_catalogs/card/CardColDefs";
-import {AgentColDefs} from "../_catalogs/agent/AgentColDefs";
-import {CategoryColDefs} from "../_catalogs/category/CategoryColDefs";
-import {TagColDefs} from "../_catalogs/tag/TagColDefs";
-import {TransactionFrequencyColDefs} from "../_catalogs/transactionFrequency/TransactionFrequencyColDefs";
+import {CardColDefs} from "../_catalogs/_card/CardColDefs";
+import {AgentColDefs} from "../_catalogs/_agent/AgentColDefs";
+import {CategoryColDefs} from "../_catalogs/_category/CategoryColDefs";
+import {TagColDefs} from "../_catalogs/_tag/TagColDefs";
+import {TransactionFrequencyColDefs} from "../_catalogs/_transactionFrequency/TransactionFrequencyColDefs";
 
 export const MenuItems: IMenuItem[] = [
     {

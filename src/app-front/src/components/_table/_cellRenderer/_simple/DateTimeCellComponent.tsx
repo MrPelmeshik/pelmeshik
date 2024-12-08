@@ -1,7 +1,7 @@
 import {DataCell} from "@consta/table/DataCell";
 import {DatePicker} from "@consta/uikit/DatePicker";
 
-export const RenderDateTimeCell = (value: Date | null | undefined): JSX.Element => {
+export const DateTimeCellComponent = (value: Date | null | undefined): JSX.Element => {
     return <DataCell size={'s'}>
         <DatePicker size={'s'}
                     view={'clear'}

@@ -5,7 +5,7 @@ import {IconUnsort} from "@consta/icons/IconUnsort";
 import {IconFunnel} from "@consta/icons/IconFunnel";
 import {IconKebab} from "@consta/icons/IconKebab";
 
-export const RenderEditableHeader = (
+export const EditableHeaderComponent = (
     item?: TableColumn<any>,
     props?: HeaderDataCellProps
 ): JSX.Element => {

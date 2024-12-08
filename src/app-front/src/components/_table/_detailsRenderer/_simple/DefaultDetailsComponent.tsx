@@ -1,7 +1,7 @@
-import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
+import {DetailsRenderProps} from "../../../../types/DetailsRenderProps";
 import {TextField} from "@consta/uikit/TextField";
 
-export const RenderNumberDetails = <T,>(props: DetailsRenderProps<T>): JSX.Element => {
+export const DefaultDetailsComponent = <T,>(props: DetailsRenderProps<T>): JSX.Element => {
     const style = !props.isReadOnly
         ? {borderBottom: ' var(--control-border-width) solid var(--color-control-bg-border-default)'}
         : {};
@@ -12,7 +12,7 @@ export const RenderNumberDetails = <T,>(props: DetailsRenderProps<T>): JSX.Eleme
                       size={'s'}
                       disabled={!!props.isReadOnly}
                       view={'clear'}
-                      type={'number'}
+                      type={'text'}
                       style={style}
     />;
 }

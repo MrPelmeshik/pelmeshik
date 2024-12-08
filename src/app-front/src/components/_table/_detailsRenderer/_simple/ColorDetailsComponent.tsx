@@ -1,12 +1,12 @@
-import {DetailsRenderProps} from "../../../types/DetailsRenderProps";
+import {DetailsRenderProps} from "../../../../types/DetailsRenderProps";
 import {Text} from "@consta/uikit/Text";
 import {useRef, useState} from "react";
 import {HexColorPicker} from "react-colorful";
 import {Tag} from "@consta/uikit/Tag";
-import {getInvertColorHex} from "../../../utility/getInvertColorHex";
+import {getInvertColorHex} from "../../../../utility/getInvertColorHex";
 import {Tooltip} from "@consta/uikit/Tooltip";
 
-export const RenderColorDetails = <T, >(props: DetailsRenderProps<T>): JSX.Element => {
+export const ColorDetailsComponent = <T, >(props: DetailsRenderProps<T>): JSX.Element => {
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
