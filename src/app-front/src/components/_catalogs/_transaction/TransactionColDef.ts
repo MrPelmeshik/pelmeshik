@@ -32,10 +32,10 @@ export const TransactionColDefs: TableColDef<ITransaction>[] = [
     {
         tableColumn: {
             title: 'Тэг',
-            accessor: 'tagId',
+            accessor: 'tagIds',
             width: '1fr',
             renderHeaderCell: DefaultHeaderComponent,
-            renderCell: (props) => DefaultCellComponent(props.row.tagId),
+            renderCell: (props) => DefaultCellComponent(props.row.tagIds),
         },
         detailsRenderer: DateTimeDetailsComponent,
         isReadOnly: true,

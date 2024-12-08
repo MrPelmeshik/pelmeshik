@@ -30,19 +30,15 @@ public class TransactionService(
 
     public async Task<IEnumerable<TransactionModel>> GetItems()
     {
-        using var conn = connectionProvider.GetDefaultConnection();
-
-        var transactionTask = provider.GetItems(conn);
-        var transactionsTags = transaction2TagProvider
-            .GetItems(conn)
-            .Result
+        var (transactions, transactions2Tags) = await GetTransactions();
+        
+        var transactionsTags = transactions2Tags
             .GroupBy(transaction2Tag => transaction2Tag.TransactionId)
             .ToDictionary(
                 grouping => grouping.Key, 
                 grouping => grouping
-                    .Select(x => x.TagId)
+                    .Select(transaction2Tag => transaction2Tag.TagId)
                     .ToList());
-        var transactions = await transactionTask;
         
         return transactions
             .Select(transaction =>
@@ -73,5 +69,20 @@ public class TransactionService(
     public Task<int> AddOrUpdateItem(TransactionModel item)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task<(IEnumerable<TransactionModel>, IEnumerable<Transaction2TagModel>)> GetTransactions()
+    {
+        using var conn = connectionProvider.GetDefaultConnection();
+        
+        conn.Open();
+        
+        var transactions2TagsTask = transaction2TagProvider.GetItems(conn);
+        var transactionsTask = provider.GetItems(conn);
+        
+        var transactions = await transactionsTask;
+        var transactions2Tags = await transactions2TagsTask;
+        
+        return (transactions, transactions2Tags);
     }
 }

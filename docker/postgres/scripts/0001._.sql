@@ -66,6 +66,9 @@ create table finance.category (
     is_active boolean not null default true
 );
 comment on table finance.category is 'Категории';
+insert into finance.category (name)
+values  ('Тест');
+
 
 
 create table finance.tag (
@@ -124,6 +127,9 @@ create table finance.transaction (
     is_active boolean not null default true
 );
 comment on table finance.transaction is 'Транзакции';
+insert into finance.transaction (short_description, description, value, transaction_frequency_id, card_id, agent_id, category_id)
+values  ('Тест', 'Тестовая запись', 1000, 1, 1, 1, 1);
+
 
 
 create table finance.transaction_2_tag (
@@ -134,3 +140,8 @@ create table finance.transaction_2_tag (
     is_active boolean not null default true
 );
 comment on table finance.transaction_2_tag is 'Теги транзакций';
+insert into finance.transaction_2_tag (transaction_id, tag_id)
+values  (1, 1),
+        (1, 2),
+        (1, 3);
+

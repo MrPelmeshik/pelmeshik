@@ -10,5 +10,5 @@ export interface ITransaction {
     cardId: number;
     agentId: number;
     categoryId: number;
-    tagId: number;
+    tagIds: number[];
 }
