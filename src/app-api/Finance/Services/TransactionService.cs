@@ -2,6 +2,7 @@ using Dapper;
 using Finance.Models;
 using Finance.Providers;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using Utility.Interfaces;
 using Utility.Providers;
 
@@ -30,9 +31,9 @@ public class TransactionService(
 
     public async Task<IEnumerable<TransactionModel>> GetItems()
     {
-        var (transactions, transactions2Tags) = await GetTransactions();
+        using var conn = connectionProvider.GetDefaultConnection();
         
-        var transactionsTags = transactions2Tags
+        var transactionsTags = (await transaction2TagProvider.GetItems(conn))
             .GroupBy(transaction2Tag => transaction2Tag.TransactionId)
             .ToDictionary(
                 grouping => grouping.Key, 
@@ -40,7 +41,7 @@ public class TransactionService(
                     .Select(transaction2Tag => transaction2Tag.TagId)
                     .ToList());
         
-        return transactions
+        return (await provider.GetItems(conn))
             .Select(transaction =>
             {
                 transaction.TagIds = transactionsTags
@@ -69,20 +70,5 @@ public class TransactionService(
     public Task<int> AddOrUpdateItem(TransactionModel item)
     {
         throw new NotImplementedException();
-    }
-
-    private async Task<(IEnumerable<TransactionModel>, IEnumerable<Transaction2TagModel>)> GetTransactions()
-    {
-        using var conn = connectionProvider.GetDefaultConnection();
-        
-        conn.Open();
-        
-        var transactions2TagsTask = transaction2TagProvider.GetItems(conn);
-        var transactionsTask = provider.GetItems(conn);
-        
-        var transactions = await transactionsTask;
-        var transactions2Tags = await transactions2TagsTask;
-        
-        return (transactions, transactions2Tags);
     }
 }
