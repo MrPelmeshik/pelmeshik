@@ -1,10 +1,9 @@
 import {useEffect, useRef, useState} from "react";
 import {ApiResponse} from "../types/ApiResponse";
-import {RequestTypeEnum} from "../types/RequestTypeEnum";
 import {sendApiRequest} from "./sendApiRequest";
-import {AreaEnum} from "../types/AreaEnum";
+import {ApiProps} from "./ApiProps";
 
-export const useApi = <T>(endpoint: string, area: AreaEnum, requestType: RequestTypeEnum, params: any): ApiResponse<T> => {
+export const useApi = <T>(props: ApiProps): ApiResponse<T> => {
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -19,7 +18,7 @@ export const useApi = <T>(endpoint: string, area: AreaEnum, requestType: Request
     useEffect(() => {
         (async () => {
             try {
-                const response = await sendApiRequest(endpoint, requestType, params, area, controllerRef);
+                const response = await sendApiRequest({apiProps: props, controllerRef});
                 setData(response.data);
             } catch (error) {
                 setError((error as Error).message);

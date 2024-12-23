@@ -1,9 +1,8 @@
-import {CatalogTypeEnum} from "../../_catalogs/CatalogTypeEnum";
 import {TableColDef} from "../TableColDef";
-import {TableType} from "../TableType";
+import {TableSrcCfg} from "../TableSrcCfg";
 
 export interface TableProps<T> {
     title: string;
-    catalogType: CatalogTypeEnum;
+    tableSrcCfg: TableSrcCfg;
     colDefs: TableColDef<T>[];
 }

@@ -43,8 +43,22 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
         (async () => {
             try {
                 props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY
-                    ? await sendApiRequest(`${props.catalogType}/addItem`, RequestTypeEnum.POST, item, props.area)
-                    : await sendApiRequest(`${props.catalogType}/updateItem`, RequestTypeEnum.POST, item, props.area);
+                    ? await sendApiRequest({
+                        apiProps: {
+                            url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.addItem}`,
+                            requestType: RequestTypeEnum.POST,
+                            params: item,
+                            area: props.tableSrcCfg.area
+                        }
+                    })
+                    : await sendApiRequest({
+                        apiProps: {
+                            url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.updateItem}`,
+                            requestType: RequestTypeEnum.POST,
+                            params: item,
+                            area: props.tableSrcCfg.area
+                        }
+                    });
             } catch (error) {
                 console.log(error)
             } finally {
@@ -56,7 +70,14 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
     const deleteItem = () => {
         (async () => {
             try {
-                await sendApiRequest(`${props.catalogType}/deleteItem`, RequestTypeEnum.POST, {id: props.selectItem.id}, props.area);
+                await sendApiRequest({
+                    apiProps: {
+                        url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.deleteItem}`,
+                        requestType: RequestTypeEnum.POST,
+                        params: {id: props.selectItem.id},
+                        area: props.tableSrcCfg.area
+                    }
+                });
             } catch (error) {
                 console.log(error)
             } finally {
@@ -85,7 +106,14 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
         } else {
             (async () => {
                 try {
-                    const response = await sendApiRequest(`${props.catalogType}/getItem`, RequestTypeEnum.GET, {id: props.selectItem.id}, props.area);
+                    const response = await sendApiRequest({
+                        apiProps: {
+                            url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.getItem}`,
+                            requestType: RequestTypeEnum.GET,
+                            params: {id: props.selectItem.id},
+                            area: props.tableSrcCfg.area
+                        }
+                    });
                     if (props.selectItem.type === SelectItemTypeEnum.COPY) {
                         props.colDefs.forEach(colDef => {
                             if (colDef.isReadOnly) {
@@ -166,7 +194,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
         } else {
             setBody(null);
         }
-    }, [loaded, error, data, props.catalogType]);
+    }, [loaded, error, data, props.tableSrcCfg.catalogType]);
 
     return <div className={css.body}>
         <div className={css.whiteBlock}>

@@ -15,12 +15,12 @@ import {SelectItemTypeEnum} from "../SelectItemTypeEnum";
 
 
 export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
-    const apiResponse = useApi<T[]>(
-        `${props.catalogType}/getItems`,
-        AreaEnum.FINANCE, // todo: Надо будет добавить опредеение в зависимости от типа каталога
-        RequestTypeEnum.GET,
-        {}
-    );
+    const apiResponse = useApi<T[]>({
+        url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.getItems}`,
+        area: props.tableSrcCfg.area,
+        requestType: RequestTypeEnum.GET,
+        params: {}
+    });
     const [tableOverflowWidow, setTableTableOverflowWidow] = useState<JSX.Element | null>(null);
     const [selectItem, setSelectItem] = useState<ISelectItem | null>(null);
     const [detail, setDetail] = useState<JSX.Element | null>(null);
@@ -50,8 +50,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             ? <DetailComponent title={props.title}
                                selectItem={selectItem}
                                close={closeDetail}
-                               area={AreaEnum.FINANCE} // todo: Надо будет добавить опредеение в зависимости от типа каталога
-                               catalogType={props.catalogType}
+                               tableSrcCfg={props.tableSrcCfg}
                                colDefs={props.colDefs}
             />
             : null);
@@ -74,7 +73,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             setTableTableOverflowWidow(null);
         }
 
-    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.catalogType]);
+    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.tableSrcCfg.catalogType]);
 
     return <div className={css.body}>
         {detail}

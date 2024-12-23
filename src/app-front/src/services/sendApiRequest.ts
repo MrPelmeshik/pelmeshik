@@ -2,22 +2,19 @@ import axios from "axios";
 import {MutableRefObject} from "react";
 import {RequestTypeEnum} from "../types/RequestTypeEnum";
 import {AreaEnum} from "../types/AreaEnum";
+import {ApiRequestProps} from "./ApiRequestProps";
 
 
 const serverUrl = 'http://localhost:5000';
 
-export const sendApiRequest = async (endpoint: string,
-                                     requestType: RequestTypeEnum,
-                                     params: any,
-                                     area: AreaEnum = AreaEnum.EMPTY,
-                                     controllerRef: MutableRefObject<AbortController> | null = null) => {
-    const areaStr = area === AreaEnum.EMPTY
+export const sendApiRequest = async (props: ApiRequestProps) => {
+    const areaStr = !props.apiProps.area
         ? ''
-        : `/${area}`;
+        : `/${props.apiProps.area}`;
 
-    const props = requestType === RequestTypeEnum.GET
-        ? {params}
-        : {data: params};
+    const params = props.apiProps.requestType === RequestTypeEnum.GET
+        ? {params: props.apiProps.params}
+        : {data: props.apiProps.params}
 
     return await axios.request({
         headers: {
@@ -26,9 +23,9 @@ export const sendApiRequest = async (endpoint: string,
             'Content-Type': 'application/json; charset=utf-8',
             'Referrer-Policy': 'origin-when-cross-origin',
         },
-        signal: controllerRef?.current.signal,
-        ...props,
-        method: requestType,
-        url: `${serverUrl}${areaStr}/${endpoint}`,
+        signal: props.controllerRef?.current.signal,
+        ...params,
+        method: props.apiProps.requestType,
+        url: `${serverUrl}${areaStr}/${props.apiProps.url}`,
     });
 }
