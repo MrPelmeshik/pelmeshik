@@ -199,6 +199,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                                 view={'ghost'}
                                 iconLeft={IconTrash}
                                 onlyIcon
+                                disabled={!props.selectItem.id || props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY}
                                 label={'Удалить'}
                         />
                         <Button size={'s'}
