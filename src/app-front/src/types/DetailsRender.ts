@@ -1,3 +1,3 @@
-import {DetailsRenderProps} from "./DetailsRenderProps";
+import {IDetailsRenderProps} from "./IDetailsRenderProps";
 
-export type DetailsRender<T> = (props: DetailsRenderProps<T>) => React.ReactElement | null;
+export type DetailsRender<T> = (props: IDetailsRenderProps<T>) => React.ReactElement | null;

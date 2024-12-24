@@ -1,8 +1,6 @@
-import {TableColDef} from "../TableColDef";
-import {TableSrcCfg} from "../TableSrcCfg";
+import {ICatalogCfg} from "../../_catalogs/ICatalogCfg";
 
 export interface TableProps<T> {
     title: string;
-    tableSrcCfg: TableSrcCfg;
-    colDefs: TableColDef<T>[];
+    configuration: ICatalogCfg<T>;
 }

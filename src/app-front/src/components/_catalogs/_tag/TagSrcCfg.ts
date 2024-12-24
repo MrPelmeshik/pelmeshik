@@ -1,15 +1,8 @@
-import {TableSrcCfg} from "../../_table/TableSrcCfg";
-import {CatalogTypeEnum} from "../CatalogTypeEnum";
+import {ISrcCfg} from "../../../types/ISrcCfg";
+import {CatalogTypeEnum} from "../../../types/CatalogTypeEnum";
 import {AreaEnum} from "../../../types/AreaEnum";
 
-export const TagSrcCfg: TableSrcCfg = {
+export const TagSrcCfg: ISrcCfg = {
     catalogType: CatalogTypeEnum.TAG,
     area: AreaEnum.FINANCE,
-    urls: {
-        getItems: 'getItems',
-        getItem: 'getItem',
-        addItem: 'addItem',
-        updateItem: 'updateItem',
-        deleteItem: 'deleteItem'
-    }
 }

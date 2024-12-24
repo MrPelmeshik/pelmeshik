@@ -2,7 +2,6 @@ import {ICategory} from "./ICategory";
 import {ColorCellComponent} from "../../_table/_cellRenderer/_simple/ColorCellComponent";
 import {DefaultHeaderComponent} from "../../_table/_headerRenderer/_simple/DefaultHeaderComponent";
 import {DefaultCellComponent} from "../../_table/_cellRenderer/_simple/DefaultCellComponent";
-import {TableColDef} from "../../_table/TableColDef";
 import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
 import {NumberDetailsComponent} from "../../_table/_detailsRenderer/_simple/NumberDetailsComponent";
 import {ColorDetailsComponent} from "../../_table/_detailsRenderer/_simple/ColorDetailsComponent";
@@ -10,8 +9,9 @@ import { BooleanCellComponent } from "../../_table/_cellRenderer/_simple/Boolean
 import { BooleanDetailsComponent } from "../../_table/_detailsRenderer/_simple/BooleanDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
+import {ITableColDef} from "../../_table/ITableColDef";
 
-export const CategoryColDefs: TableColDef<ICategory>[] = [
+export const CategoryColDefs: ITableColDef<ICategory>[] = [
     {
         tableColumn: {
             title: 'ID',

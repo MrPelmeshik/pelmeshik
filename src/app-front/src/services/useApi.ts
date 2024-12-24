@@ -1,9 +1,9 @@
 import {useEffect, useRef, useState} from "react";
-import {ApiResponse} from "../types/ApiResponse";
+import {IApiResponse} from "../types/IApiResponse";
 import {sendApiRequest} from "./sendApiRequest";
 import {ApiProps} from "./ApiProps";
 
-export const useApi = <T>(props: ApiProps): ApiResponse<T> => {
+export const useApi = <T>(props: ApiProps): IApiResponse<T> => {
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loaded, setLoaded] = useState<boolean>(false);

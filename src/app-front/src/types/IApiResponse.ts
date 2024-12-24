@@ -1,4 +1,4 @@
-export interface ApiResponse<T> {
+export interface IApiResponse<T> {
     cancel: () => void;
     data: T | null;
     error: string | null;

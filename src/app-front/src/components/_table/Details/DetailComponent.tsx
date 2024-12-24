@@ -45,7 +45,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                 props.selectItem.type === SelectItemTypeEnum.NEW || props.selectItem.type === SelectItemTypeEnum.COPY
                     ? await sendApiRequest({
                         apiProps: {
-                            url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.addItem}`,
+                            url: `${props.tableSrcCfg.catalogType}/addItem`,
                             requestType: RequestTypeEnum.POST,
                             params: item,
                             area: props.tableSrcCfg.area
@@ -53,7 +53,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                     })
                     : await sendApiRequest({
                         apiProps: {
-                            url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.updateItem}`,
+                            url: `${props.tableSrcCfg.catalogType}/updateItem`,
                             requestType: RequestTypeEnum.POST,
                             params: item,
                             area: props.tableSrcCfg.area
@@ -72,7 +72,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
             try {
                 await sendApiRequest({
                     apiProps: {
-                        url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.deleteItem}`,
+                        url: `${props.tableSrcCfg.catalogType}/deleteItem`,
                         requestType: RequestTypeEnum.POST,
                         params: {id: props.selectItem.id},
                         area: props.tableSrcCfg.area
@@ -108,7 +108,7 @@ export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
                 try {
                     const response = await sendApiRequest({
                         apiProps: {
-                            url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.getItem}`,
+                            url: `${props.tableSrcCfg.catalogType}/getItem`,
                             requestType: RequestTypeEnum.GET,
                             params: {id: props.selectItem.id},
                             area: props.tableSrcCfg.area

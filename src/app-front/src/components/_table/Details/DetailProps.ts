@@ -1,13 +1,11 @@
-import {CatalogTypeEnum} from "../../_catalogs/CatalogTypeEnum";
-import {AreaEnum} from "../../../types/AreaEnum";
-import {TableColDef} from "../TableColDef";
+import {ISrcCfg} from "../../../types/ISrcCfg";
 import {ISelectItem} from "../Table/ISelectItem";
-import {TableSrcCfg} from "../TableSrcCfg";
+import {ITableColDef} from "../ITableColDef";
 
 export interface DetailProps<T> {
     title: string;
     close: (copyId?: number | string) => void;
     selectItem: ISelectItem;
-    tableSrcCfg: TableSrcCfg;
-    colDefs: TableColDef<T>[];
+    tableSrcCfg: ISrcCfg;
+    colDefs: ITableColDef<T>[];
 }

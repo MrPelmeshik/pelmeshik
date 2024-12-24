@@ -1,6 +1,6 @@
 import {IMenuItem} from "./IMenuItem";
 import {TableComponent} from "../_table/Table/TableComponent";
-import {CatalogTypeEnum} from "../_catalogs/CatalogTypeEnum";
+import {CatalogTypeEnum} from "../../types/CatalogTypeEnum";
 import {CardColDefs} from "../_catalogs/_card/CardColDefs";
 import {AgentColDefs} from "../_catalogs/_agent/AgentColDefs";
 import {CategoryColDefs} from "../_catalogs/_category/CategoryColDefs";
@@ -13,6 +13,12 @@ import {TagSrcCfg} from "../_catalogs/_tag/TagSrcCfg";
 import {CategorySrcCfg} from "../_catalogs/_category/CategorySrcCfg";
 import {AgentSrcCfg} from "../_catalogs/_agent/AgentSrcCfg";
 import {CardSrcCfg} from "../_catalogs/_card/CardSrcCfg";
+import {CardCfg} from "../_catalogs/_card/CardCfg";
+import {AgentCfg} from "../_catalogs/_agent/AgentCfg";
+import {CategoryCfg} from "../_catalogs/_category/CategoryCfg";
+import {TagCfg} from "../_catalogs/_tag/TagCfg";
+import {TransactionCfg} from "../_catalogs/_transaction/TransactionCfg";
+import {TransactionFrequencyCfg} from "../_catalogs/_transactionFrequency/TransactionFrequencyCfg";
 
 export const MenuItems: IMenuItem[] = [
     {
@@ -21,8 +27,7 @@ export const MenuItems: IMenuItem[] = [
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.CARD}
                                  title={'Карты'}
-                                 tableSrcCfg={CardSrcCfg}
-                                 colDefs={CardColDefs}
+                                 configuration={CardCfg}
         />,
     },
     {
@@ -31,8 +36,7 @@ export const MenuItems: IMenuItem[] = [
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.AGENT}
                                  title={'Агенты'}
-                                 tableSrcCfg={AgentSrcCfg}
-                                 colDefs={AgentColDefs}
+                                 configuration={AgentCfg}
         />,
     },
     {
@@ -41,8 +45,7 @@ export const MenuItems: IMenuItem[] = [
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.CATEGORY}
                                  title={'Категории'}
-                                 tableSrcCfg={CategorySrcCfg}
-                                 colDefs={CategoryColDefs}
+                                 configuration={CategoryCfg}
         />,
     },
     {
@@ -51,8 +54,7 @@ export const MenuItems: IMenuItem[] = [
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.TAG}
                                  title={'Теги'}
-                                 tableSrcCfg={TagSrcCfg}
-                                 colDefs={TagColDefs}
+                                 configuration={TagCfg}
         />,
     },
     {
@@ -61,8 +63,7 @@ export const MenuItems: IMenuItem[] = [
         groupId: 1,
         element: <TableComponent key={CatalogTypeEnum.TRANSACTION_FREQUENCY}
                                  title={'Периодичность транзакций'}
-                                 tableSrcCfg={TransactionFrequencySrcCfg}
-                                 colDefs={TransactionFrequencyColDefs}
+                                 configuration={TransactionFrequencyCfg}
         />,
     },
     {
@@ -71,8 +72,7 @@ export const MenuItems: IMenuItem[] = [
         groupId: 2,
         element: <TableComponent key={CatalogTypeEnum.TRANSACTION}
                                  title={'Транзакции'}
-                                 tableSrcCfg={TransactionSrcCfg}
-                                 colDefs={TransactionColDefs}
+                                 configuration={TransactionCfg}
         />,
     },
     {

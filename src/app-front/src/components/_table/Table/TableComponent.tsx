@@ -6,7 +6,6 @@ import {Loader} from '@consta/uikit/Loader';
 import {Table} from "@consta/table/Table";
 import {useApi} from "../../../services/useApi";
 import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
-import {AreaEnum} from "../../../types/AreaEnum";
 import {DetailComponent} from "../Details/DetailComponent";
 import {TableSettingsComponent} from "../TableSettings/TableSettingsComponent";
 import {ErrorComponent} from "../../Error/ErrorComponent";
@@ -16,8 +15,8 @@ import {SelectItemTypeEnum} from "../SelectItemTypeEnum";
 
 export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
     const apiResponse = useApi<T[]>({
-        url: `${props.tableSrcCfg.catalogType}/${props.tableSrcCfg.urls.getItems}`,
-        area: props.tableSrcCfg.area,
+        url: `${props.configuration.srcCfg.catalogType}/getItems`,
+        area: props.configuration.srcCfg.area,
         requestType: RequestTypeEnum.GET,
         params: {}
     });
@@ -50,8 +49,8 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             ? <DetailComponent title={props.title}
                                selectItem={selectItem}
                                close={closeDetail}
-                               tableSrcCfg={props.tableSrcCfg}
-                               colDefs={props.colDefs}
+                               tableSrcCfg={props.configuration.srcCfg}
+                               colDefs={props.configuration.colDefs}
             />
             : null);
     }, [selectItem]);
@@ -73,7 +72,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             setTableTableOverflowWidow(null);
         }
 
-    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.tableSrcCfg.catalogType]);
+    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.configuration.srcCfg.catalogType]);
 
     return <div className={css.body}>
         {detail}
@@ -88,6 +87,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
                        columns={
                            props
+                               .configuration
                                .colDefs
                                .filter(colDef => !colDef.hidden)
                                .map(colDef => colDef.tableColumn)

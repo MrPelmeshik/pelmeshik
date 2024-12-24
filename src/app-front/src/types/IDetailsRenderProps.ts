@@ -1,4 +1,4 @@
-export interface DetailsRenderProps<T> {
+export interface IDetailsRenderProps<T> {
     accessor: keyof T,
     currentRow: T,
     isReadOnly?: boolean,

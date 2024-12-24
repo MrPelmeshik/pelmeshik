@@ -1,15 +1,15 @@
 import {ICard} from "./ICard";
 import {DefaultHeaderComponent} from "../../_table/_headerRenderer/_simple/DefaultHeaderComponent";
 import {DefaultCellComponent} from "../../_table/_cellRenderer/_simple/DefaultCellComponent";
-import {TableColDef} from "../../_table/TableColDef";
 import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
 import {NumberDetailsComponent} from "../../_table/_detailsRenderer/_simple/NumberDetailsComponent";
 import { BooleanCellComponent } from "../../_table/_cellRenderer/_simple/BooleanCellComponent";
 import { BooleanDetailsComponent } from "../../_table/_detailsRenderer/_simple/BooleanDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
+import {ITableColDef} from "../../_table/ITableColDef";
 
-export const CardColDefs: TableColDef<ICard>[] = [
+export const CardColDefs: ITableColDef<ICard>[] = [
     {
         tableColumn: {
             title: 'ID',

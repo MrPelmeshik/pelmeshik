@@ -3,7 +3,7 @@ import {TableType} from "./TableType";
 import {DetailsRender} from "../../types/DetailsRender";
 import {ValueValidator} from "../../types/ValueValidator";
 
-export interface TableColDef<T> {
+export interface ITableColDef<T> {
     tableColumn: TableColumn<TableType<T>>;
     detailsRenderer: DetailsRender<T>;
     validators?: ValueValidator<T>[];

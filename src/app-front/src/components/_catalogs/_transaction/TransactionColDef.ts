@@ -1,15 +1,15 @@
 import {BooleanCellComponent} from "../../_table/_cellRenderer/_simple/BooleanCellComponent";
 import {DefaultHeaderComponent} from "../../_table/_headerRenderer/_simple/DefaultHeaderComponent";
 import {DefaultCellComponent} from "../../_table/_cellRenderer/_simple/DefaultCellComponent";
-import {TableColDef} from "../../_table/TableColDef";
 import {BooleanDetailsComponent} from "../../_table/_detailsRenderer/_simple/BooleanDetailsComponent";
 import {NumberDetailsComponent} from "../../_table/_detailsRenderer/_simple/NumberDetailsComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
 import {ITransaction} from "./ITransaction";
 import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
+import {ITableColDef} from "../../_table/ITableColDef";
 
-export const TransactionColDefs: TableColDef<ITransaction>[] = [
+export const TransactionColDefs: ITableColDef<ITransaction>[] = [
     {
         tableColumn: {
             title: 'ID',

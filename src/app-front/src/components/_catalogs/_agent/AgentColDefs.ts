@@ -2,14 +2,14 @@ import {IAgent} from "./IAgent";
 import {BooleanCellComponent} from "../../_table/_cellRenderer/_simple/BooleanCellComponent";
 import {DefaultHeaderComponent} from "../../_table/_headerRenderer/_simple/DefaultHeaderComponent";
 import {DefaultCellComponent} from "../../_table/_cellRenderer/_simple/DefaultCellComponent";
-import {TableColDef} from "../../_table/TableColDef";
 import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
 import {BooleanDetailsComponent} from "../../_table/_detailsRenderer/_simple/BooleanDetailsComponent";
 import {NumberDetailsComponent} from "../../_table/_detailsRenderer/_simple/NumberDetailsComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
+import {ITableColDef} from "../../_table/ITableColDef";
 
-export const AgentColDefs: TableColDef<IAgent>[] = [
+export const AgentColDefs: ITableColDef<IAgent>[] = [
     {
         tableColumn: {
             title: 'ID',
