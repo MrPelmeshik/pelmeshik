@@ -14,8 +14,9 @@ import {IconRestart} from "@consta/icons/IconRestart";
 import {sendApiRequest} from "../../../services/sendApiRequest";
 import { Tag } from "@consta/uikit/Tag";
 import {SelectItemTypeEnum} from "../SelectItemTypeEnum";
+import {IFieldId} from "../../../types/_baseModel/IFieldId";
 
-export const DetailComponent = <T, >(props: DetailProps<T>): JSX.Element => {
+export const DetailComponent = <T extends IFieldId, >(props: DetailProps<T>): JSX.Element => {
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loaded, setLoaded] = useState<boolean>(false);

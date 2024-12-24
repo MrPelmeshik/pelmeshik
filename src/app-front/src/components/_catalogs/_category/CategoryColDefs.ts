@@ -9,9 +9,9 @@ import { BooleanCellComponent } from "../../_table/_cellRenderer/_simple/Boolean
 import { BooleanDetailsComponent } from "../../_table/_detailsRenderer/_simple/BooleanDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
-import {ITableColDef} from "../../_table/ITableColDef";
+import {IColDef} from "../../_table/IColDef";
 
-export const CategoryColDefs: ITableColDef<ICategory>[] = [
+export const CategoryColDefs: IColDef<ICategory>[] = [
     {
         tableColumn: {
             title: 'ID',

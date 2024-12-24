@@ -7,9 +7,9 @@ import {BooleanDetailsComponent} from "../../_table/_detailsRenderer/_simple/Boo
 import {NumberDetailsComponent} from "../../_table/_detailsRenderer/_simple/NumberDetailsComponent";
 import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/DateTimeDetailsComponent";
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
-import {ITableColDef} from "../../_table/ITableColDef";
+import {IColDef} from "../../_table/IColDef";
 
-export const AgentColDefs: ITableColDef<IAgent>[] = [
+export const AgentColDefs: IColDef<IAgent>[] = [
     {
         tableColumn: {
             title: 'ID',

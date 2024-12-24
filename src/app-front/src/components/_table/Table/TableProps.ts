@@ -1,6 +1,7 @@
-import {ICatalogCfg} from "../../_catalogs/ICatalogCfg";
+import {ITableCfg} from "../ITableCfg";
+import {IFieldId} from "../../../types/_baseModel/IFieldId";
 
-export interface TableProps<T> {
+export interface TableProps<T extends IFieldId> {
     title: string;
-    configuration: ICatalogCfg<T>;
+    tableCfg: ITableCfg<T>;
 }

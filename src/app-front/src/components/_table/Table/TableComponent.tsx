@@ -11,12 +11,13 @@ import {TableSettingsComponent} from "../TableSettings/TableSettingsComponent";
 import {ErrorComponent} from "../../Error/ErrorComponent";
 import {ISelectItem} from "./ISelectItem";
 import {SelectItemTypeEnum} from "../SelectItemTypeEnum";
+import {IFieldId} from "../../../types/_baseModel/IFieldId";
 
 
-export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
+export const TableComponent = <T extends IFieldId, >(props: TableProps<T>): JSX.Element => {
     const apiResponse = useApi<T[]>({
-        url: `${props.configuration.srcCfg.catalogType}/getItems`,
-        area: props.configuration.srcCfg.area,
+        url: `${props.tableCfg.srcCfg.catalogType}/getItems`,
+        area: props.tableCfg.srcCfg.area,
         requestType: RequestTypeEnum.GET,
         params: {}
     });
@@ -49,8 +50,8 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             ? <DetailComponent title={props.title}
                                selectItem={selectItem}
                                close={closeDetail}
-                               tableSrcCfg={props.configuration.srcCfg}
-                               colDefs={props.configuration.colDefs}
+                               tableSrcCfg={props.tableCfg.srcCfg}
+                               colDefs={props.tableCfg.colDefs}
             />
             : null);
     }, [selectItem]);
@@ -72,7 +73,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
             setTableTableOverflowWidow(null);
         }
 
-    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.configuration.srcCfg.catalogType]);
+    }, [apiResponse.loaded, apiResponse.error, apiResponse.data, props.tableCfg.srcCfg.catalogType]);
 
     return <div className={css.body}>
         {detail}
@@ -87,7 +88,7 @@ export const TableComponent = <T, >(props: TableProps<T>): JSX.Element => {
                 <Table rows={((apiResponse.data) as TableType<T>[]) ?? []}
                        columns={
                            props
-                               .configuration
+                               .tableCfg
                                .colDefs
                                .filter(colDef => !colDef.hidden)
                                .map(colDef => colDef.tableColumn)

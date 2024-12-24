@@ -7,9 +7,9 @@ import {DateTimeDetailsComponent} from "../../_table/_detailsRenderer/_simple/Da
 import {DateTimeCellComponent} from "../../_table/_cellRenderer/_simple/DateTimeCellComponent";
 import {ITransaction} from "./ITransaction";
 import {DefaultDetailsComponent} from "../../_table/_detailsRenderer/_simple/DefaultDetailsComponent";
-import {ITableColDef} from "../../_table/ITableColDef";
+import {IColDef} from "../../_table/IColDef";
 
-export const TransactionColDefs: ITableColDef<ITransaction>[] = [
+export const TransactionColDefs: IColDef<ITransaction>[] = [
     {
         tableColumn: {
             title: 'ID',
