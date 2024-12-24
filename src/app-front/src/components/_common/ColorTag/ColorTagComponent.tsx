@@ -1,12 +1,12 @@
 import {ColorTagProps} from "./ColorTagProps";
-import {getInvertColorHex} from "../../../utility/getInvertColorHex";
 import {getColorRgbaCss} from "../../../utility/getColorRgbaCss";
 import {Text} from "@consta/uikit/Text";
 import css from './ColorTag.module.css';
+import {getContrastColorHex} from "../../../utility/getContrastColorHex";
 
 export const ColorTagComponent = (props: ColorTagProps): JSX.Element => {
-    const color = getColorRgbaCss(props.color, .25);
-    const invertColor = getColorRgbaCss(getInvertColorHex(props.color), 1);
+    const color = getColorRgbaCss(props.color, 1);
+    const invertColor = getColorRgbaCss(getContrastColorHex(props.color), 1);
 
     return <div className={css.body}>
         <div className={css.text}
