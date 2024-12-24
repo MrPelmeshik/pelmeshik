@@ -1,18 +1,10 @@
-import {getInvertColorHex} from "../../../../utility/getInvertColorHex";
 import {DataCell} from "@consta/table/DataCell";
-import {Tag} from "@consta/uikit/Tag";
+import {ColorTagComponent} from "../../../_common/ColorTag/ColorTagComponent";
 
 export const ColorCellComponent = (value: string): JSX.Element => {
-    const invertColor = getInvertColorHex(value);
-
     return <DataCell size={'s'}>
-        <Tag size={'s'}
-             style={{
-                 backgroundColor: value,
-                 color: invertColor,
-             }}
-             mode={'info'}
-             label={value}
+        <ColorTagComponent color={value}
+                           value={value}
         />
     </DataCell>
 }

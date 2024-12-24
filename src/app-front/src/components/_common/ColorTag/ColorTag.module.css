@@ -1,0 +1,14 @@
+.body {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: .4rem;
+}
+
+.text {
+    display: flex;
+    padding: .2rem .6rem;
+    border-radius: .4rem;
+    /*border: var(--control-border-width) solid var(--color-control-bg-border-default);*/
+}

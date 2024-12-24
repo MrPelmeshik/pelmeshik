@@ -1,27 +1,22 @@
-import {DetailsRenderProps} from "../../../../types/DetailsRenderProps";
 import {Text} from "@consta/uikit/Text";
 import {useRef, useState} from "react";
 import {HexColorPicker} from "react-colorful";
-import {Tag} from "@consta/uikit/Tag";
-import {getInvertColorHex} from "../../../../utility/getInvertColorHex";
 import {Tooltip} from "@consta/uikit/Tooltip";
+import {IFieldColor} from "../../../../types/_baseModel/IFieldColor";
 import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
+import {ColorTagComponent} from "../../../_common/ColorTag/ColorTagComponent";
 
-export const ColorDetailsComponent = <T, >(props: DetailsRenderProps<T>): JSX.Element => {
-    const anchorRef = useRef<HTMLButtonElement>(null);
 export const ColorDetailsComponent = <T extends IFieldColor, >(props: IDetailsRenderProps<T>): JSX.Element => {
+    const anchorRef = useRef<HTMLDivElement>(null);
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+    const color = props.currentRow[props.accessor] as string ?? '#000000';
 
-    return <div style={{width: '100%'}}>
-        <div onClick={() => setIsTooltipVisible(!isTooltipVisible)}>
-            <Tag size={'s'}
-                 style={{
-                     backgroundColor: props.currentRow[props.accessor] as string ?? '#000000',
-                     color: getInvertColorHex(props.currentRow[props.accessor] as string ?? '#000000'),
-                 }}
-                 mode={'info'}
-                 label={props.currentRow[props.accessor] as string ?? '#000000'}
-                 ref={anchorRef}
+    return <div>
+        <div onClick={() => setIsTooltipVisible(true)}
+             ref={anchorRef} // todo: Надо бы как-то пофиксить и пренести якорь на другой элемент, чтобы не "дергался" при изменении цвета
+        >
+            <ColorTagComponent value={color}
+                               color={color}
             />
         </div>
         <Tooltip isOpen={isTooltipVisible}
@@ -30,8 +25,10 @@ export const ColorDetailsComponent = <T extends IFieldColor, >(props: IDetailsRe
                  }}
                  placeholder={<>oops...</>}
                  onPointerLeaveCapture={() => {
+                     console.log('onPointerLeaveCapture');
                  }}
                  onPointerEnterCapture={() => {
+                     console.log('onPointerEnterCapture');
                  }}
                  anchorRef={anchorRef}
         >
@@ -43,7 +40,7 @@ export const ColorDetailsComponent = <T extends IFieldColor, >(props: IDetailsRe
             >
                 Настройка цвета
             </Text>
-            <HexColorPicker color={props.currentRow[props.accessor] as string ?? '#000000'}
+            <HexColorPicker color={color}
                             onChange={(value) => props.updateValue?.(props.accessor, value)}
                             onMouseLeave={() => setIsTooltipVisible(false)}
             />
