@@ -5,9 +5,11 @@ import {HexColorPicker} from "react-colorful";
 import {Tag} from "@consta/uikit/Tag";
 import {getInvertColorHex} from "../../../../utility/getInvertColorHex";
 import {Tooltip} from "@consta/uikit/Tooltip";
+import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
 
 export const ColorDetailsComponent = <T, >(props: DetailsRenderProps<T>): JSX.Element => {
     const anchorRef = useRef<HTMLButtonElement>(null);
+export const ColorDetailsComponent = <T extends IFieldColor, >(props: IDetailsRenderProps<T>): JSX.Element => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
     return <div style={{width: '100%'}}>

@@ -1,7 +1,7 @@
-import {DetailsRenderProps} from "../../../../types/DetailsRenderProps";
 import {TextField} from "@consta/uikit/TextField";
+import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
 
-export const DefaultDetailsComponent = <T,>(props: DetailsRenderProps<T>): JSX.Element => {
+export const DefaultDetailsComponent = <T,>(props: IDetailsRenderProps<T>): JSX.Element => {
     const style = !props.isReadOnly
         ? {borderBottom: ' var(--control-border-width) solid var(--color-control-bg-border-default)'}
         : {};

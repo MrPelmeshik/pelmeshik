@@ -1,7 +1,7 @@
-import {DetailsRenderProps} from "../../../../types/DetailsRenderProps";
 import {DatePicker} from "@consta/uikit/DatePicker";
+import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
 
-export const DateTimeDetailsComponent = <T, >(props: DetailsRenderProps<T>): JSX.Element => {
+export const DateTimeDetailsComponent = <T, >(props: IDetailsRenderProps<T>): JSX.Element => {
     const value = props.currentRow[props.accessor] as Date | null | undefined;
     const style = !props.isReadOnly
         ? {

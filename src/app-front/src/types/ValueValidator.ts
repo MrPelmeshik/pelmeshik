@@ -1,6 +1,6 @@
-import {ValueValidatorProps} from "./ValueValidatorProps";
+import {IValueValidatorProps} from "./IValueValidatorProps";
 
-export type ValueValidator<T> = (props: ValueValidatorProps<T>) => {
+export type ValueValidator<T> = (props: IValueValidatorProps<T>) => {
     isValid: boolean;
     message: string;
 }
