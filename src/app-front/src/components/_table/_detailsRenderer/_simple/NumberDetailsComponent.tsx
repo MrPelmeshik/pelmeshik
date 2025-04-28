@@ -1,5 +1,6 @@
 import {TextField} from "@consta/uikit/TextField";
 import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
+import {JSX} from "react";
 
 export const NumberDetailsComponent = <T,>(props: IDetailsRenderProps<T>): JSX.Element => {
     const style = !props.isReadOnly

@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {JSX, useState} from "react";
 import { TextField } from '@consta/uikit/TextField';
 import {DataCell} from "@consta/table/DataCell";
+import {DataCellProps} from "@consta/table/__internal__/src/components/DataCell/DataCell";
 
 export const TextCellComponent = (value: string): JSX.Element => {
     const [newValue, setNewValue] = useState<string | null>(value);
-
-    return <DataCell size={'s'}
+    const props: DataCellProps = {
+        size: 's'
+    };
+    return <DataCell {...props}
                      style={{
                          display: 'flex',
                          flex: '1',

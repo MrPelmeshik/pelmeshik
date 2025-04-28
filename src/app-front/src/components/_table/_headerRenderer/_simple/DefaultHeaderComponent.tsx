@@ -1,6 +1,7 @@
 import {HeaderDataCell} from '@consta/table/HeaderDataCell';
 import {HeaderDataCellProps} from '@consta/table/HeaderDataCell';
 import {TableColumn} from '@consta/table/Table';
+import {JSX} from "react";
 
 export const DefaultHeaderComponent = (
     item?: TableColumn<any>,

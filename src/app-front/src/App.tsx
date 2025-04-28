@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {JSX, useState} from 'react';
 import css from './App.module.css';
 import {MenuComponent} from "./components/Menu/MenuComponent";
 import {Grid, GridItem} from "@consta/uikit/Grid";

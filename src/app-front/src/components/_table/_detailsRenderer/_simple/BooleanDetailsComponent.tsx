@@ -1,5 +1,6 @@
 import {Checkbox} from "@consta/uikit/Checkbox";
 import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
+import {JSX} from "react";
 
 export const BooleanDetailsComponent = <T,>(props: IDetailsRenderProps<T>): JSX.Element => {
     return <div style={{width: '100%'}}>

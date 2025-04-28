@@ -1,3 +1,5 @@
+import {JSX} from "react";
+
 export const TestBlockComponent = (props: any | null): JSX.Element => {
     return <div style={{
         display: 'flex',

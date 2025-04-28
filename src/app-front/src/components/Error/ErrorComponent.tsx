@@ -1,5 +1,5 @@
 import {Text} from "@consta/uikit/Text";
-import React from "react";
+import React, {JSX} from "react";
 import {ErrorProps} from "./ErrorProps";
 
 export const ErrorComponent = (props: ErrorProps): JSX.Element => {

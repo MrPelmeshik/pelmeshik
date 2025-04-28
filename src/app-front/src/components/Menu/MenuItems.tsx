@@ -1,24 +1,13 @@
 import {IMenuItem} from "./IMenuItem";
 import {TableComponent} from "../_table/Table/TableComponent";
 import {CatalogTypeEnum} from "../../types/CatalogTypeEnum";
-import {CardColDefs} from "../_catalogs/_card/CardColDefs";
-import {AgentColDefs} from "../_catalogs/_agent/AgentColDefs";
-import {CategoryColDefs} from "../_catalogs/_category/CategoryColDefs";
-import {TagColDefs} from "../_catalogs/_tag/TagColDefs";
-import {TransactionFrequencyColDefs} from "../_catalogs/_transactionFrequency/TransactionFrequencyColDefs";
-import {TransactionColDefs} from "../_catalogs/_transaction/TransactionColDef";
-import {TransactionSrcCfg} from "../_catalogs/_transaction/TransactionSrcCfg";
-import {TransactionFrequencySrcCfg} from "../_catalogs/_transactionFrequency/TransactionFrequencySrcCfg";
-import {TagSrcCfg} from "../_catalogs/_tag/TagSrcCfg";
-import {CategorySrcCfg} from "../_catalogs/_category/CategorySrcCfg";
-import {AgentSrcCfg} from "../_catalogs/_agent/AgentSrcCfg";
-import {CardSrcCfg} from "../_catalogs/_card/CardSrcCfg";
 import {CardTableCfg} from "../_catalogs/_card/CardTableCfg";
 import {AgentTableCfg} from "../_catalogs/_agent/AgentTableCfg";
 import {CategoryTableCfg} from "../_catalogs/_category/CategoryTableCfg";
 import {TagTableCfg} from "../_catalogs/_tag/TagTableCfg";
 import {TransactionTableCfg} from "../_catalogs/_transaction/TransactionTableCfg";
 import {TransactionFrequencyTableCfg} from "../_catalogs/_transactionFrequency/TransactionFrequencyTableCfg";
+import {ToDoComponent} from "../ToDo/ToDoComponent";
 
 export const MenuItems: IMenuItem[] = [
     {
@@ -98,4 +87,10 @@ export const MenuItems: IMenuItem[] = [
                                  colDefs={[]}
         />,
     },*/
+    {
+        label: 'Тест',
+        id: 9,
+        groupId: 4,
+        element: <ToDoComponent />,
+    },
 ];

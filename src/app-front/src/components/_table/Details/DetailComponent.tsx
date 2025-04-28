@@ -7,7 +7,7 @@ import {IconSave} from "@consta/icons/IconSave";
 import {IconTrash} from "@consta/icons/IconTrash";
 import {IconCopy} from "@consta/icons/IconCopy";
 import {RequestTypeEnum} from "../../../types/RequestTypeEnum";
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {Loader} from "@consta/uikit/Loader";
 import {ErrorComponent} from "../../Error/ErrorComponent";
 import {IconRestart} from "@consta/icons/IconRestart";

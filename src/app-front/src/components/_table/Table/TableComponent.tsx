@@ -1,5 +1,5 @@
 import {TableProps} from "./TableProps";
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import css from './Table.module.css';
 import {TableType} from "../TableType";
 import {Loader} from '@consta/uikit/Loader';

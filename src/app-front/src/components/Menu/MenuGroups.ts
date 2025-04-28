@@ -13,4 +13,8 @@ export const MenuGroups: IMenuGroup[] = [
         id: 3,
         label: 'Визуализация',
     },
+    {
+        id: 4,
+        label: 'ToDo',
+    },
 ];

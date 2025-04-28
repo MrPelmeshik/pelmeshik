@@ -4,6 +4,7 @@ import {List, ListBox} from "@consta/uikit/ListCanary";
 import {useVirtualScroll} from '@consta/uikit/useVirtualScroll';
 import {MenuGroups} from "./MenuGroups";
 import {MenuItems} from "./MenuItems";
+import {JSX} from "react";
 
 export const MenuComponent = (props: MenuProps): JSX.Element => {
     const {listRefs, scrollElementRef, slice, spaceTop} = useVirtualScroll({
@@ -25,8 +26,8 @@ export const MenuComponent = (props: MenuProps): JSX.Element => {
               groups={MenuGroups}
               size={'s'}
               onItemClick={(item) => props.setMainBlock(item.element)}
-              itemSpase={{p: 'xs'}}
-              groupLabelSpase={{mH: 'xs', pT: 's', pB: 'xs'}}
+              itemSpace={{p: 'xs'}}
+              groupLabelSpace={{mH: 'xs', pT: 's', pB: 'xs'}}
         />
     </ListBox>;
 }

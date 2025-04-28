@@ -4,6 +4,7 @@ import {Button} from "@consta/uikit/Button";
 import {IconUnsort} from "@consta/icons/IconUnsort";
 import {IconFunnel} from "@consta/icons/IconFunnel";
 import {IconKebab} from "@consta/icons/IconKebab";
+import {JSX} from "react";
 
 export const EditableHeaderComponent = (
     item?: TableColumn<any>,

@@ -1,5 +1,6 @@
 import {DatePicker} from "@consta/uikit/DatePicker";
 import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
+import {JSX} from "react";
 
 export const DateTimeDetailsComponent = <T, >(props: IDetailsRenderProps<T>): JSX.Element => {
     const value = props.currentRow[props.accessor] as Date | null | undefined;

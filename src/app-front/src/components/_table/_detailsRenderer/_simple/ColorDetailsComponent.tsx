@@ -1,7 +1,7 @@
 import {Text} from "@consta/uikit/Text";
-import {useRef, useState} from "react";
+import {JSX, useRef, useState} from "react";
 import {HexColorPicker} from "react-colorful";
-import {Tooltip} from "@consta/uikit/Tooltip";
+import {Tooltip, TooltipProps} from "@consta/uikit/Tooltip";
 import {IFieldColor} from "../../../../types/_baseModel/IFieldColor";
 import {IDetailsRenderProps} from "../../../../types/IDetailsRenderProps";
 import {ColorTagComponent} from "../../../_common/ColorTag/ColorTagComponent";
@@ -19,7 +19,9 @@ export const ColorDetailsComponent = <T extends IFieldColor, >(props: IDetailsRe
                                color={color}
             />
         </div>
-        <Tooltip isOpen={isTooltipVisible}
+        // todo: Надо будет зафиксть использование Tooltip. После обновления библиотек у этого компонента появилось множество обязательных свойств в пропсах
+        {/*<Tooltip
+                 isOpen={isTooltipVisible}
                  style={{
                      zIndex: 100,
                  }}
@@ -44,6 +46,6 @@ export const ColorDetailsComponent = <T extends IFieldColor, >(props: IDetailsRe
                             onChange={(value) => props.updateValue?.(props.accessor, value)}
                             onMouseLeave={() => setIsTooltipVisible(false)}
             />
-        </Tooltip>
+        </Tooltip>*/}
     </div>;
 }

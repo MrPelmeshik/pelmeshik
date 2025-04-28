@@ -3,6 +3,7 @@ import css from './TableSettings.module.css';
 import {Text} from "@consta/uikit/Text";
 import {Button} from "@consta/uikit/Button";
 import {IconAdd} from "@consta/icons/IconAdd";
+import {JSX} from "react";
 
 export const TableSettingsComponent = <T,>(props: TableSettingsProps<T>): JSX.Element => {
     return <div className={css.body}>
