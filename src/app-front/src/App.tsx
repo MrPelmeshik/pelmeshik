@@ -1,10 +1,10 @@
 import React, {JSX, useState} from 'react';
 import css from './App.module.css';
-import {MenuComponent} from "./components/Menu/MenuComponent";
+import {MenuComponent} from "./components/_base/Menu/MenuComponent";
 import {Grid, GridItem} from "@consta/uikit/Grid";
 import {Theme, presetGpnDefault} from "@consta/uikit/Theme";
-import {Footer} from "./components/Footer/FooterComponent";
-import {HeaderComponent} from "./components/Header/HeaderComponent";
+import {Footer} from "./components/_base/Footer/FooterComponent";
+import {HeaderComponent} from "./components/_base/Header/HeaderComponent";
 
 export const App = () => {
     const [mainBlock, setMainBlock] = useState<JSX.Element>(<></>);
