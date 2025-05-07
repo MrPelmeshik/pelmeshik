@@ -5,7 +5,7 @@ import {Grid, GridItem} from "@consta/uikit/Grid";
 import {HeaderComponent} from "./components/_base/Header/HeaderComponent";
 import {Footer} from "./components/_base/Footer/FooterComponent";
 import {BrowserRouter} from "react-router-dom";
-import {RoutesComponent} from "./components/_common/Routes/RoutesComponent";
+import {RoutesComponent} from "./components/_base/Routes/RoutesComponent";
 
 export const App = () => {
 

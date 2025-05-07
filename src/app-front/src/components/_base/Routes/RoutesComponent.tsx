@@ -4,7 +4,7 @@ import {ToDoComponent} from "../../_todo/ToDo/ToDoComponent";
 import {RoutesProps} from "./RoutesProps";
 import {GridItem} from "@consta/uikit/Grid";
 import css from "../../../App.module.css";
-import {MenuComponent} from "../../_base/Menu/MenuComponent";
+import {MenuComponent} from "../Menu/MenuComponent";
 
 export const RoutesComponent = (props: RoutesProps) : JSX.Element => {
     const [mainBlock, setMainBlock] = useState<JSX.Element>(<></>);
