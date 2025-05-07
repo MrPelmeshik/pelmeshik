@@ -2,15 +2,15 @@ import {HeaderProps} from "./HeaderProps";
 import css from './Header.module.css';
 import {useNavigate} from "react-router-dom";
 import {Tabs} from "@consta/uikit/Tabs";
-import {PageLinkItem} from "./PageLinkItem";
+import {IPageLink} from "./IPageLink";
 import {useEffect, useState} from "react";
 import {homePageLinkItem, pageLinkItems} from "./PageLinks";
 
-const getItemLabel = (item: PageLinkItem) => item.title;
+const getItemLabel = (item: IPageLink) => item.title;
 
 export const HeaderComponent = (props: HeaderProps) => {
     const navigate = useNavigate();
-    const [value, setValue] = useState<PageLinkItem>(homePageLinkItem)
+    const [value, setValue] = useState<IPageLink>(homePageLinkItem)
 
     useEffect(() => {
         navigate(value.path);

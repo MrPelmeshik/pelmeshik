@@ -1,11 +1,11 @@
-import {PageLinkItem} from "./PageLinkItem";
+import {IPageLink} from "./IPageLink";
 
-export const homePageLinkItem: PageLinkItem = {
+export const homePageLinkItem: IPageLink = {
     path: '/',
     title: 'Домой'
 }
 
-export const pageLinkItems: PageLinkItem[] = [
+export const pageLinkItems: IPageLink[] = [
     {
         path: '/finance',
         title: 'Финансы',

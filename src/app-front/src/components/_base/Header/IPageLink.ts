@@ -1,4 +1,4 @@
-export interface PageLinkItem {
+export interface IPageLink {
     path: string;
     title: string;
 }
