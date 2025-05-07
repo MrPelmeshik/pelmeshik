@@ -1,16 +1,16 @@
 import React, {JSX, useState} from 'react';
 import css from './App.module.css';
-import {MenuComponent} from "./components/_base/Menu/MenuComponent";
+import {presetGpnDefault, Theme} from "@consta/uikit/Theme";
 import {Grid, GridItem} from "@consta/uikit/Grid";
-import {Theme, presetGpnDefault} from "@consta/uikit/Theme";
-import {Footer} from "./components/_base/Footer/FooterComponent";
 import {HeaderComponent} from "./components/_base/Header/HeaderComponent";
+import {MenuComponent} from "./components/_base/Menu/MenuComponent";
+import {Footer} from "./components/_base/Footer/FooterComponent";
 
 export const App = () => {
-    const [mainBlock, setMainBlock] = useState<JSX.Element>(<></>);
+  const [mainBlock, setMainBlock] = useState<JSX.Element>(<></>);
 
-    return <Theme preset={presetGpnDefault}>
-        <Grid cols={10}
+  return <Theme preset={presetGpnDefault}>
+    <Grid cols={10}
               className={css.body}
         >
             <GridItem className={css.header}
@@ -34,5 +34,5 @@ export const App = () => {
                 <Footer />
             </GridItem>
         </Grid>
-    </Theme>
+  </Theme>
 }
