@@ -10,3 +10,7 @@
     border: var(--control-border-width) solid var(--color-control-bg-border-default);
     background-color: var(--color-bg-default);
 }
+
+.tbl {
+    width: 100%;
+}
