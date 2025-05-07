@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {JSX, useState} from 'react';
 import css from './App.module.css';
 import {presetGpnDefault, Theme} from "@consta/uikit/Theme";
 import {Grid, GridItem} from "@consta/uikit/Grid";
 import {HeaderComponent} from "./components/_base/Header/HeaderComponent";
+import {MenuComponent} from "./components/_base/Menu/MenuComponent";
 import {Footer} from "./components/_base/Footer/FooterComponent";
 import {BrowserRouter} from "react-router-dom";
 import {RoutesComponent} from "./components/_common/Routes/RoutesComponent";

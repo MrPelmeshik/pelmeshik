@@ -87,10 +87,4 @@ export const MenuItems: IMenuItem[] = [
                                  colDefs={[]}
         />,
     },*/
-    {
-        label: 'Задачи',
-        id: 9,
-        groupId: 4,
-        element: <ToDoComponent />,
-    },
 ];
