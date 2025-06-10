@@ -103,10 +103,10 @@ export const ToDoComponent = (props: ToDoProps) : JSX.Element => {
                      stickyHeader
                      rowHoverEffect={true}
                      resizable={'outside'}
-                     style={{
+                     /*style={{
                          maxHeight: 'calc(90vh - 2rem)', // todo: Надо будет как-то иначе ограничивать размер таблицы (для того чтобы скролл работал)
                          maxWidth: 'calc(85vw)',
-                     }}
+                     }}*/
                 />}
         </div>
     </div>
