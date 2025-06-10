@@ -1,14 +1,16 @@
 import {JSX} from "react";
 import {Route, Routes} from "react-router-dom";
-import {ToDoComponent} from "../../_todo/ToDo/ToDoComponent";
 import {RoutesProps} from "./RoutesProps";
-import { FinanceComponent } from "../../_finance/Finance/FinanceComponent";
+import { pageLinkItems } from "../Header/PageLinks";
 
 export const RoutesComponent = (props: RoutesProps) : JSX.Element => {
-
     return <Routes>
-        <Route path="/" element={<></>}/>
-        <Route path="/finance" element={<FinanceComponent/>} />
-        <Route path="/todo" element={<ToDoComponent/>}/>
+        {pageLinkItems.map((item) => (
+            <Route 
+                key={item.path}
+                path={item.path}
+                element={item.element ? <item.element /> : <></>}
+            />
+        ))}
     </Routes>
 }

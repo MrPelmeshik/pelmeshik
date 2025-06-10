@@ -17,14 +17,15 @@ export const HeaderComponent = (props: HeaderProps) => {
     }, [navigate, value]);
 
     return <div className={css.body}>
-        <div onClick={() => {setValue(homePageLinkItem);}}>
+        <div onClick={() => {
+            setValue(homePageLinkItem);
+        }}>
             Pelmesh
         </div>
-        <Tabs
-            value={value}
-            onChange={setValue}
-            items={pageLinkItems}
-            getItemLabel={getItemLabel}
+        <Tabs value={value}
+              onChange={setValue}
+              items={pageLinkItems}
+              getItemLabel={getItemLabel}
         />
     </div>
 }
